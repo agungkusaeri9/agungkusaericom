@@ -1,7 +1,7 @@
 <div>
     <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; {{ \Carbon\Carbon::now()->format('Y') }}
+        <div class="text-center">
+            &copy; Copyright  {{ $setting->created_at->translatedFormat('Y') . ' By ' . $setting->author }}
         </div>
         <div class="footer-right">
 

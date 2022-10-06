@@ -2,7 +2,9 @@
 
 namespace App\View\Components\Admin;
 
+use App\Models\Setting;
 use Illuminate\View\Component;
+use Illuminate\Support\Str;
 
 class Sidebar extends Component
 {
@@ -23,6 +25,14 @@ class Sidebar extends Component
      */
     public function render()
     {
-        return view('components.admin.sidebar');
+        $setting = Setting::first();
+        $split = Str::ucsplit($setting->site_name);
+        $alias2 = [];
+        foreach($split as $sp)
+        {
+            array_push($alias2,Str::substr($sp, 0, 1));
+        }
+        $alias = implode('',$alias2);
+        return view('components.admin.sidebar',compact('setting','alias'));
     }
 }

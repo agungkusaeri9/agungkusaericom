@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -17,23 +18,50 @@ class UserController extends Controller
      */
     public function index()
     {
-        $items = User::orderBy('name','ASC')->get();
         return view('admin.pages.user.index',[
-            'title' => 'Data User',
-            'items' => $items
+            'title' => 'Data User'
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function data()
     {
-        return view('admin.pages.user.create',[
-            'title' => 'Tambah User'
-        ]);
+        if(request()->ajax())
+        {
+            $data = User::query();
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->editColumn('avatar', function($model){
+                        $img = '<img src='.$model->avatar().' class="img-fluid rounded-circle" style="max-height:60px">';
+                        return $img;
+                    })
+                    ->addColumn('role', function($model){
+                        return $model->getRoleNames()->first() ?? '-';
+                    })
+                    ->editColumn('status', function($model){
+
+                        if($model->status == 1)
+                        {
+                            $tog = '<div class="custom-control custom-switch">
+                                <input type="checkbox" value='.$model->status.' class="custom-control-input btnStatus" checked id='.$model->id.' data-id="'.$model->id.'">
+                                <label class="custom-control-label" for='.$model->id.'></label>
+                            </div>';
+                        }else{
+                            $tog = '<div class="custom-control custom-switch">
+                                    <input type="checkbox"  value='.$model->status.' class="custom-control-input btnStatus" id='.$model->id.' data-id="'.$model->id.'">
+                                    <label class="custom-control-label" for='.$model->id.'></label>
+                                </div>';
+                        }
+
+                      return $tog;
+                    })
+                    ->addColumn('action',function($model){
+                        $role = $model->getRoleNames()->first();
+                        $action = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'  data-role='$role' data-username='$model->username' data-email='$model->email' data-status='$model->status'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+                        return $action;
+                    })
+                    ->rawColumns(['action','status','avatar'])
+                    ->make(true);
+        }
     }
 
     /**
@@ -51,6 +79,7 @@ class UserController extends Controller
             'password' => ['required','min:6','confirmed'],
             'password_confirmation' => ['required'],
             'status' => ['required','in:1,0'],
+            'role' => ['required'],
             'avatar' => ['image','mimes:jpg,jpeg,png']
         ]);
 
@@ -62,8 +91,9 @@ class UserController extends Controller
             $data['avatar'] = NULL;
         }
         $data['password'] = bcrypt(request('password'));
-        User::create($data);
-        return redirect()->route('admin.users.index')->with('success','User berhasil ditambahkan.');
+        $user = User::create($data);
+        $user->assignRole(request('role'));
+        return response()->json(['status'=>'success','message' => 'User berhasil ditambahkan.']);
     }
 
     /**
@@ -109,6 +139,7 @@ class UserController extends Controller
             'username' => ['required',Rule::unique('users')->ignore($item->id),'alpha_num'],
             'email' => ['required','email',Rule::unique('users')->ignore($item->id)],
             'status' => ['required','in:1,0'],
+            'role' => ['required'],
             'avatar' => ['image','mimes:jpg,jpeg,png']
         ]);
         if(request('password'))
@@ -133,9 +164,9 @@ class UserController extends Controller
             $data['avatar'] = $item->avatar;
         }
         $item->update($data);
-        return redirect()->route('admin.users.index')->with('success','User berhasil disimpan.');
+        $item->syncRoles(request('role'));
+        return response()->json(['status'=>'success','message' => 'User berhasil diedit.']);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -150,6 +181,21 @@ class UserController extends Controller
             Storage::disk('public')->delete($item->avatar);
         }
         $item->delete();
-        return redirect()->route('admin.users.index')->with('success','User berhasil dihapus.');
+        return response()->json(['status'=>'success','message' => 'User berhasil dihapus.']);
+    }
+
+    public function changeStatus()
+    {
+        $status = request('status');
+        $item = User::findOrFail(request('id'));
+        if($status == 1)
+        {
+            $item->status = 0;
+        }elseif($status == 0){
+            $item->status = 1;
+        }
+        $item->save();
+
+        return response()->json(['status'=>'success','message' => 'Status User berhasil diubah.']);
     }
 }

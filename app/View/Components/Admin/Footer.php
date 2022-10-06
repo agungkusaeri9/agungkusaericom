@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Admin;
 
+use App\Models\Setting;
 use Illuminate\View\Component;
 
 class Footer extends Component
@@ -23,6 +24,7 @@ class Footer extends Component
      */
     public function render()
     {
-        return view('components.admin.footer');
+        $setting = Setting::first();
+        return view('components.admin.footer',compact('setting'));
     }
 }
