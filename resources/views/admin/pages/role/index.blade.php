@@ -194,13 +194,15 @@
                         $('#myModal').modal('hide');
                     },
                     error: function(response) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            text: response.responseJSON.errors.name,
-                            showConfirmButton: true,
-                            timer: 1500
-                        })
+                        let errors = response.responseJSON?.errors
+                        $(form).find('.text-danger.text-small').remove()
+                        if (errors) {
+                            for (const [key, value] of Object.entries(errors)) {
+                                $(`[name='${key}']`).parent().append(
+                                    `<sp class="text-danger text-small">${value}</sp>`)
+                                $(`[name='${key}']`).addClass('is-invalid')
+                            }
+                        }
                     }
                 })
             })
@@ -412,6 +414,8 @@
 
             $('#myModal').on('hidden.bs.modal', function(){
                 let form = $('#myModal #myForm');
+                $(form).find('.text-danger.text-small').remove();
+                $(form).find('.form-control').removeClass('is-invalid');
                 form.trigger('reset');
                 $('#modalPermission .list-permissions').empty();
             })

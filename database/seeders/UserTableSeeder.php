@@ -15,6 +15,13 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        $superadmin = User::create([
+            'name' => 'Superadmin',
+            'username' => 'superadmin',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('superadmin'),
+            'status' => 1
+        ]);
         $admin1 = User::create([
             'name' => 'admin',
             'username' => 'admin',
@@ -27,6 +34,7 @@ class UserTableSeeder extends Seeder
             'email' => 'agungkusaeri@gmail.com',
             'password' => bcrypt('content writer')
         ]);
+        $superadmin->assignRole('Super Admin');
         $admin1->assignRole('admin');
         $cw->assignRole('content writer');
     }

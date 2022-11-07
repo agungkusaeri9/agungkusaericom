@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Socmed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
@@ -58,9 +59,20 @@ class SocmedController extends Controller
 
         if(request()->file('icon'))
         {
+            if(request('id'))
+            {
+                $item = Socmed::find(request('id'));
+                Storage::disk('public')->delete($item->icon);
+            }
             $icon = request()->file('icon')->store('socmed','public');
         }else{
-            $icon = NULL;
+            if(request('id'))
+            {
+                $item = Socmed::find(request('id'));
+                $icon = $item->icon;
+            }else{
+                $icon = NULL;
+            }
         }
 
         Socmed::updateOrCreate([
@@ -88,7 +100,9 @@ class SocmedController extends Controller
      */
     public function destroy($id)
     {
-        Socmed::find($id)->delete();
+        $item =  Socmed::find($id);
+        Storage::disk('public')->delete($item->icon);
+       $item->delete();
         return response()->json(['status'=>'succcess','message' => 'Data Sosial Media berhasil dihapus.']);
     }
 }

@@ -228,21 +228,25 @@
             $('#myModal #myForm').on('submit', function(e) {
                 e.preventDefault();
                 let id = $('#myForm #id').val();
+               
                 let route,type;
-                if(id)
-                {
-                    routeAjax = '{{ url('admin/users/') }}' + '/' + id;
-                    typeAjax = 'PATCH';
-                }else{
-                    routeAjax = '{{ route('admin.users.store') }}';
-                    typeAjax = 'POST';
-                }
-                let form = $('#myModal #myForm');
+                // if(id)
+                // {
+                //     routeAjax = '{{ url('admin/users/') }}' + '/' + id;
+                //     typeAjax = 'PATCH';
+                // }else{
+                //     routeAjax = '{{ route('admin.users.store') }}';
+                //     typeAjax = 'POST';
+                // }
+                let form = new FormData(this);
                 $.ajax({
-                    url: routeAjax,
-                    type: typeAjax,
+                    url: '{{ route('admin.users.store') }}',
+                    type: 'POST',
                     dataType: 'JSON',
-                    data: form.serialize(),
+                    data: form,
+                    processData:false,
+                    contentType:false,
+                    cache:false,
                     success: function(response) {
                         Swal.fire({
                             position: 'center',
@@ -255,17 +259,15 @@
                         $('#myModal').modal('hide');
                     },
                     error: function(response) {
-                        let errors = [];
-                        $.each(response.responseJSON.errors, function(key, value) {
-                            errors += `${value}<br>`;
-                        });
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            html: errors,
-                            showConfirmButton: true,
-                            timer: 1500
-                        })
+                        let errors = response.responseJSON?.errors
+                        $(form).find('.text-danger.text-small').remove()
+                        if (errors) {
+                            for (const [key, value] of Object.entries(errors)) {
+                                $(`[name='${key}']`).parent().append(
+                                    `<sp class="text-danger text-small">${value}</sp>`)
+                                $(`[name='${key}']`).addClass('is-invalid')
+                            }
+                        }
                     }
                 })
             })
@@ -398,6 +400,8 @@
 
             $('#myModal').on('hidden.bs.modal', function() {
                 let form = $('#myModal #myForm');
+                $(form).find('.text-danger.text-small').remove();
+                $(form).find('.form-control').removeClass('is-invalid');
                 form.trigger('reset');
             })
         })

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             PostCategoryTableSeeder::class,
             PostTagTableSeeder::class,
-            PostTableSeeder::class,
+            // PostTableSeeder::class,
             SocmedTableSeeder::class,
             SettingTableSeeder::class,
             PermissionTableSeeder::class

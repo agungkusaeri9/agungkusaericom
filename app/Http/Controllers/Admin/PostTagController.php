@@ -43,7 +43,7 @@ class PostTagController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'name' => ['required',Rule::unique('post_categories')->ignore(request('id'))]
+            'name' => ['required',Rule::unique('post_tags')->ignore(request('id'))]
         ]);
 
         PostTag::updateOrCreate([
