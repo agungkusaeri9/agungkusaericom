@@ -2,13 +2,22 @@
 
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\InboxController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PostTagController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ProjectCategoryController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ProjectGallery;
+use App\Http\Controllers\Admin\ProjectGalleryController;
+use App\Http\Controllers\Admin\ProjectTagController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ServiceTypeController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\SocmedController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -65,3 +74,42 @@ Route::resource('socmeds',SocmedController::class)->except('create','show','edit
 Route::get('setting',[SettingController::class,'index'])->name('settings.index');
 
 Route::post('setting',[SettingController::class,'update'])->name('settings.update');
+
+
+// project category
+Route::get('project-categories/data',[ProjectCategoryController::class,'data'])->name('project-categories.data');
+Route::resource('project-categories',ProjectCategoryController::class)->except('create','show','edit','update');
+
+
+// project tag
+Route::get('project-tags/data',[ProjectTagController::class,'data'])->name('project-tags.data');
+Route::resource('project-tags',ProjectTagController::class)->except('create','show','edit','update');
+
+
+// project
+Route::get('projects/data',[ProjectController::class,'data'])->name('projects.data');
+Route::resource('projects',ProjectController::class);
+
+// project galleries
+Route::get('/projects/{id}/gallery',[ProjectGalleryController::class,'index'])->name('projects.galleries.index');
+Route::post('/projects/{id}/gallery',[ProjectGalleryController::class,'store'])->name('projects.galleries.store');
+Route::delete('/projects/{id}/gallery/delete',[ProjectGalleryController::class,'destroy'])->name('projects.galleries.destroy');
+
+
+// inbox
+Route::get('inboxes/data',[InboxController::class,'data'])->name('inboxes.data');
+Route::resource('inboxes',InboxController::class)->only('index','destroy');
+
+
+
+// service types
+Route::get('service-types/data',[ServiceTypeController::class,'data'])->name('service-types.data');
+Route::resource('service-types',ServiceTypeController::class)->except('create','show','edit','update');
+
+// payment
+Route::get('payments/data',[PaymentController::class,'data'])->name('payments.data');
+Route::resource('payments',PaymentController::class)->except('create','show','edit','update');
+
+// skills
+Route::get('skills/data',[SkillController::class,'data'])->name('skills.data');
+Route::resource('skills',SkillController::class)->except('create','show','edit','update');

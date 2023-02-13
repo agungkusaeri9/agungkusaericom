@@ -34,7 +34,16 @@ class RoleController extends Controller
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action',function($model){
-                        $action = "<button class='btn btn-sm btn-warning btnPermission mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-eye'></i> Hak Akses</button><button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+
+                        $btnPermission = "<button class='btn btn-sm btn-warning btnPermission mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-eye'></i> Hak Akses</button>";
+                        $btnedit = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-edit'></i> Edit</button>";
+                        $btnDelete = "<button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+                        if($model->name !== 'Super Admin')
+                        {
+                            $action = $btnPermission . $btnedit . $btnDelete;
+                        }else{
+                            $action = "<button class='btn btn-sm btn-warning disabled mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-eye'></i> Hak Akses</button>" . $btnedit . $btnDelete;
+                        }
                         return $action;
                     })
                     ->rawColumns(['action'])

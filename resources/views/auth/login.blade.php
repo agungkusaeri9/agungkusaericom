@@ -8,7 +8,7 @@
             <img src="../assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
           </div>
 
-          <div class="card card-primary">
+          <div class="card card-info">
             <div class="card-header"><h4>Login</h4></div>
 
             <div class="card-body">
@@ -44,12 +44,15 @@
                 </div>
 
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                  <button type="submit" class="btn btn-info btn-lg btn-block" tabindex="4">
                     Login
                   </button>
                 </div>
               </form>
-
+              <div class="text-center">
+                <p>or</p>
+              <a href="{{ route('google.login') }}" class="btn btn-block btn-lg btn-primary"><i class="fab text-white fa-google mr-3"></i> Login With Google</a>
+              </div>
             </div>
           </div>
         </div>

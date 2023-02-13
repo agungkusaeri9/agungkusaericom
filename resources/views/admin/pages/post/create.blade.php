@@ -111,7 +111,7 @@
                                         <div class="form-group">
                                             <label for="description">Deskripsi</label>
                                             <textarea name="description" id="description"
-                                                class="form-control @error('description') is-invalid @enderror" cols="30" rows="5"></textarea>
+                                                class="form-control @error('description') is-invalid @enderror" cols="30" rows="5">{{ old('description') }}</textarea>
                                             @error('description')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

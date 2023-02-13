@@ -16,7 +16,7 @@
                             <a href="javascript:void(0)" class="btn btn-sm btn-primary mb-3 btnAdd"><i
                                     class="fas fa-plus"></i> Tambah Data</a>
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="dTable">
+                                <table class="table nowrap table-striped table-hover" id="dTable">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -63,29 +63,35 @@
         </div>
     </div>
 @endsection
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}">
-    <link rel="stylesheet" href="{{ asset('assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-@endpush
+<x-Admin.Datatable />
+<x-Admin.Ajaxpost />
+<x-Admin.Sweetalert />
 @push('scripts')
-    <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        </script>
     <script>
         $(function() {
+            function swal(response) {
+                if (response.status === 'error') {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        text: response.message,
+                        showConfirmButton: true,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        text: response.message,
+                        showConfirmButton: true,
+                        timer: 1500
+                    })
+                }
+            }
             let otable = $('#dTable').DataTable({
                 processing: true,
                 serverSide: true,
+                responsive:true,
                 ajax: '{{ route('admin.post-categories.data') }}',
                 columns: [{
                         data: 'DT_RowIndex',
@@ -122,13 +128,7 @@
                     dataType: 'JSON',
                     data: form.serialize(),
                     success: function(response) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            text: response.message,
-                            showConfirmButton: true,
-                            timer: 1500
-                        })
+                        swal(response);
                         otable.ajax.reload();
                         $('#myModal').modal('hide');
                     },
@@ -173,13 +173,7 @@
                             type: 'DELETE',
                             dataType: 'JSON',
                             success: function(response) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    text: response.message,
-                                    showConfirmButton: true,
-                                    timer: 1500
-                                })
+                                swal(response);
                                 otable.ajax.reload();
                                 $('#myModal').modal('hide');
 

@@ -173,11 +173,4 @@
         </div>
     </section>
 @endsection
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}">
-    <link rel="stylesheet" href="{{ asset('assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-@endpush
-@push('scripts')
-    <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
-    @include('admin.layouts.partials.sweetalert')
-@endpush
+<x-Admin.Sweetalert />

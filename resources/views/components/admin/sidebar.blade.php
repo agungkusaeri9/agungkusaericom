@@ -8,68 +8,82 @@
         </div>
         <ul class="sidebar-menu">
             @can('Dashboard')
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
-                </li>
-            @endcan
-            <li class="menu-header">Artikel</li>
-            @can('Kategori View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.post-categories.index') }}"><i class="fas fa-list-alt"></i>
-                        <span>Kategori</span></a>
-                </li>
-            @endcan
-            @can('Tag View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.post-tags.index') }}"><i class="fas fa-tags"></i>
-                        <span>Tag</span></a>
                 </li>
             @endcan
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
-                    <span>Artikel</span></a>
+                    <span>Blog</span></a>
                 <ul class="dropdown-menu">
                     @can('Artikel Create')
-                        <li><a href="{{ route('admin.posts.create') }}">Tambah Data</a></li>
+                        <li><a href="{{ route('admin.post-categories.index') }}">Kategori</a></li>
+                    @endcan
+                    @can('Artikel Create')
+                        <li><a href="{{ route('admin.post-tags.index') }}">Tag</a></li>
                     @endcan
                     @can('Artikel View')
-                        <li><a href="{{ route('admin.posts.index') }}">Lihat Data</a></li>
+                        <li><a href="{{ route('admin.posts.index') }}">Artikel</a></li>
                     @endcan
                 </ul>
             </li>
-            <li class="menu-header">MASTER</li>
-            @can('User View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i>
-                        <span>User</span></a>
-                </li>
-            @endcan
-            @can('Sosial Media View')
-                <li><a class="nav-link" href="{{ route('admin.socmeds.index') }}"><i class="fas fa-sitemap"></i>
-                        <span>Sosial Media</span></a>
-                </li>
-            @endcan
-            @can('Filemanager View')
-                <li>
-                    <a class="nav-link" target="_blank" href="{{ url('admin/filemanager') }}"><i class="fas fa-folder"></i>
-                        <span>File Manager</span></a>
-                </li>
-            @endcan
-            @can('Role View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.roles.index') }}"><i class="fas fa-folder"></i>
-                        <span>Role</span></a>
-                </li>
-            @endcan
-            @can('Permission View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.permissions.index') }}"><i class="fas fa-folder"></i>
-                        <span>Hak Akses</span></a>
-                </li>
-            @endcan
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
+                    <span>Project</span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ route('admin.project-categories.index') }}">Kategori</a></li>
+                    <li><a href="{{ route('admin.project-tags.index') }}">Tag</a></li>
+                    <li><a href="{{ route('admin.projects.index') }}">Project</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
+                    <span>Service</span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ route('admin.service-types.index') }}">Jenis</a></li>
+                    <li><a href="">Layanan</a></li>
+                    <li><a href="{{ route('admin.payments.index') }}">Pembayaran</a></li>
+                    <li><a href="">Transaksi</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users-cog"></i>
+                    <span>Management User</span></a>
+                <ul class="dropdown-menu">
+                    @can('User View')
+                        <li><a href="{{ route('admin.users.index') }}">Users</a></li>
+                    @endcan
+                    @can('Role View')
+                        <li>
+                            <a href="{{ route('admin.roles.index') }}">
+                                <span>Role</span></a>
+                        </li>
+                    @endcan
+                    @can('Permission View')
+                        <li>
+                            <a href="{{ route('admin.permissions.index') }}">
+                                <span>Permission</span></a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-database"></i>
+                    <span>Master</span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ route('admin.skills.index') }}">Skill</a></li>
+                    <li><a href="{{ route('admin.inboxes.index') }}">Pesan Masuk</a></li>
+                    @can('Sosial Media View')
+                        <li><a href="{{ route('admin.socmeds.index') }}">Sosial Media</a></li>
+                    @endcan
+                    @can('Filemanager View')
+                        <li><a href="{{ url('admin/filemanager') }}" target="_blank">File Manager</a></li>
+                    @endcan
+                </ul>
+            </li>
             @can('Setting View')
                 <li>
-                    <a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
+                    <a class="nav-link"  href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
                         <span>Pengaturan Web</span></a>
                 </li>
             @endcan

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,5 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['register' => false]);
+Route::redirect('/', '/login', 301);
 
-Route::get('/', [HomeController::class,'index'])->name('home');
+Route::middleware('guest')->group(function () {
+    Route::get('auth/google', [GoogleController::class, 'redirect_to_google'])->name('google.login');
+    Route::get('auth/google/callback', [GoogleController::class, 'google_callback'])->name('google.callback');
+});

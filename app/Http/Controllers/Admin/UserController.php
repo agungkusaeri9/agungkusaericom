@@ -38,23 +38,34 @@ class UserController extends Controller
                 })
                 ->editColumn('status', function ($model) {
 
-                    if ($model->status == 1) {
-                        $tog = '<div class="custom-control custom-switch">
+                    if ($model->getRoleNames()->first() === 'Super Admin' || auth()->user()->id == $model->id) {
+                        $tog = '<i>Tidak Diizinkan</i>';
+                    } else {
+                        if ($model->status == 1) {
+                            $tog = '<div class="custom-control custom-switch">
                                 <input type="checkbox" value=' . $model->status . ' class="custom-control-input btnStatus" checked id=' . $model->id . ' data-id="' . $model->id . '">
                                 <label class="custom-control-label" for=' . $model->id . '></label>
                             </div>';
-                    } else {
-                        $tog = '<div class="custom-control custom-switch">
+                        } else {
+                            $tog = '<div class="custom-control custom-switch">
                                     <input type="checkbox"  value=' . $model->status . ' class="custom-control-input btnStatus" id=' . $model->id . ' data-id="' . $model->id . '">
                                     <label class="custom-control-label" for=' . $model->id . '></label>
                                 </div>';
+                        }
                     }
 
                     return $tog;
                 })
                 ->addColumn('action', function ($model) {
                     $role = $model->getRoleNames()->first();
-                    $action = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'  data-role='$role' data-username='$model->username' data-email='$model->email' data-status='$model->status'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+                    if ($model->getRoleNames()->first() === 'Super Admin' || auth()->user()->id == $model->id) {
+                        if ($model->getRoleNames()->first() === 'Super Admin' || auth()->user()->id == $model->id) {
+                            $action = '<i>Tidak Diizinkan</i>';
+                        }
+                    } else {
+                        $action = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'  data-role='$role' data-username='$model->username' data-email='$model->email' data-status='$model->status'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+                    }
+
                     return $action;
                 })
                 ->rawColumns(['action', 'status', 'avatar'])
@@ -87,7 +98,7 @@ class UserController extends Controller
                     'password_confirmation' => ['required'],
                 ]);
                 $password = bcrypt(request('password'));
-            }else{
+            } else {
                 $password = $item->password;
             }
             if (request()->file('avatar')) {
@@ -117,7 +128,7 @@ class UserController extends Controller
             'status' => request('status'),
         ]);
         request('id') !== NULL ?  $user->syncRoles(request('role')) :  $user->assignRole(request('role'));
-      
+
         return response()->json(['status' => 'success', 'message' => 'User berhasil disimpan.']);
     }
 

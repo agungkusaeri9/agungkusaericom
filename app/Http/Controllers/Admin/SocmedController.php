@@ -19,27 +19,26 @@ class SocmedController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.socmed.index',[
+        return view('admin.pages.socmed.index', [
             'title' => 'Data Sosial Media'
         ]);
     }
 
     public function data()
     {
-        if(request()->ajax())
-        {
+        if (request()->ajax()) {
             $data = Socmed::query();
             return DataTables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action',function($model){
-                        $action = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'  data-link='$model->link'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
-                        return $action;
-                    })
-                    ->editColumn('icon', function($model){
-                        return '<img src="'.$model->icon().'" class="img-fluid" style="max-height:50px">';
-                    })
-                    ->rawColumns(['action','icon'])
-                    ->make(true);
+                ->addIndexColumn()
+                ->addColumn('action', function ($model) {
+                    $action = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'  data-link='$model->link'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+                    return $action;
+                })
+                ->editColumn('icon', function ($model) {
+                    return '<img src="' . $model->icon() . '" class="img-fluid" style="max-height:50px">';
+                })
+                ->rawColumns(['action', 'icon'])
+                ->make(true);
         }
     }
 
@@ -52,44 +51,44 @@ class SocmedController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'name' => ['required',Rule::unique('socmeds')->ignore(request('id'))],
-            'icon' => ['image','mimes:jpg,jpeg,png','max:2048'],
+            'name' => ['required', Rule::unique('socmeds')->ignore(request('id'))],
+            'icon' => ['image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'link' => ['required']
         ]);
 
-        if(request()->file('icon'))
-        {
-            if(request('id'))
-            {
+        if (request()->file('icon')) {
+            if (request('id')) {
                 $item = Socmed::find(request('id'));
                 Storage::disk('public')->delete($item->icon);
             }
-            $icon = request()->file('icon')->store('socmed','public');
-        }else{
-            if(request('id'))
-            {
+            $icon = request()->file('icon')->store('socmed', 'public');
+        } else {
+            if (request('id')) {
                 $item = Socmed::find(request('id'));
                 $icon = $item->icon;
-            }else{
+            } else {
                 $icon = NULL;
             }
         }
 
-        Socmed::updateOrCreate([
-            'id'  => request('id')
-        ],[
-            'name' => request('name'),
-            'icon' => $icon,
-            'link' => request('link')
-        ]);
+        try {
+            Socmed::updateOrCreate([
+                'id'  => request('id')
+            ], [
+                'name' => request('name'),
+                'icon' => $icon,
+                'link' => request('link')
+            ]);
 
-        if(request('id'))
-        {
-            $message = 'Data Sosial Media berhasil disimpan.';
-        }else{
-            $message = 'Data Sosial Media berhasil ditambahakan.';
+            if (request('id')) {
+                $message = 'Data Sosial Media berhasil disimpan.';
+            } else {
+                $message = 'Data Sosial Media berhasil ditambahakan.';
+            }
+            return response()->json(['status' => 'succcess', 'message' => $message]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'error', 'message' => 'Ada kesalahan sistem.']);
         }
-        return response()->json(['status'=>'succcess','message' => $message]);
     }
 
     /**
@@ -100,9 +99,15 @@ class SocmedController extends Controller
      */
     public function destroy($id)
     {
+       try {
         $item =  Socmed::find($id);
-        Storage::disk('public')->delete($item->icon);
-       $item->delete();
-        return response()->json(['status'=>'succcess','message' => 'Data Sosial Media berhasil dihapus.']);
+        if ($item->icon) {
+            Storage::disk('public')->delete($item->icon);
+        }
+        $item->delete();
+        return response()->json(['status' => 'succcess', 'message' => 'Data Sosial Media berhasil dihapus.']);
+       } catch (\Throwable $th) {
+        return response()->json(['status' => 'error', 'message' => 'Data Sosial Media gagal dihapus.']);
+       }
     }
 }
