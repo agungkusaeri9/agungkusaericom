@@ -46,7 +46,7 @@ class SkillController extends Controller
     {
         request()->validate([
             'name' => ['required', Rule::unique('skills')->ignore(request('id'))],
-            'image' => ['required','image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'image' => ['required','image', 'mimes:jpg,jpeg,png,svg', 'max:2048'],
             'type' => ['required'],
             'description' => ['required']
         ]);

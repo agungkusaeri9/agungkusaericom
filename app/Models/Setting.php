@@ -30,4 +30,18 @@ class Setting extends Model
             return asset('assets/img/stisla.svg');
         }
     }
+
+    public function author_image()
+    {
+        if($this->author_image)
+        {
+            return asset('storage/' . $this->author_image);
+        }else{
+            return asset('assets/img/stisla.svg');
+        }
+    }
+    public function getAuthorImageAttribute($val)
+    {
+        return asset('storage/') . '/' . $val;
+    }
 }

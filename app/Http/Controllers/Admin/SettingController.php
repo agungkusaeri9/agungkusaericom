@@ -24,7 +24,8 @@ class SettingController extends Controller
             'email' => ['email'],
             'meta_description' => ['max:140'],
             'author' => ['required'],
-            'favicon' => ['image','mimes:png,jpg,jpeg,ico']
+            'favicon' => ['image','mimes:png,jpg,jpeg,ico'],
+            'author_image' => ['image']
         ]);
 
         $setting = Setting::first();
@@ -50,6 +51,17 @@ class SettingController extends Controller
             $data['image'] = request()->file('image')->store('settings','public');
         }else{
             $data['image'] = $setting->image;
+        }
+
+        if(request()->file('author_image'))
+        {
+            if($setting->author_image)
+            {
+                Storage::disk('public')->delete($setting->author_image);
+            }
+            $data['author_image'] = request()->file('author_image')->store('settings','public');
+        }else{
+            $data['author_image'] = $setting->author_image;
         }
 
         $setting->update($data);

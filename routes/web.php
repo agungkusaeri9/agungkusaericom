@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +19,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['register' => false]);
-Route::redirect('/', '/login', 301);
 
 Route::middleware('guest')->group(function () {
     Route::get('auth/google', [GoogleController::class, 'redirect_to_google'])->name('google.login');
     Route::get('auth/google/callback', [GoogleController::class, 'google_callback'])->name('google.callback');
 });
+
+
+// home
+Route::get('/', HomeController::class)->name('home');
+// contact
+Route::get('/contact',[ContactController::class,'index'])->name('contact.index');
+Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
+
+// blog
+Route::get('/blog',[PostController::class,'index'])->name('posts.index');
+Route::get('/blog/{slug}',[PostController::class,'show'])->name('posts.show');

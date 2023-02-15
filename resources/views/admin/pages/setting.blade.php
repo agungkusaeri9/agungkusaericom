@@ -143,6 +143,35 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="author_image">Foto Pemilik</label>
+                                    <input type="file" class="form-control @error('author_image') is-invalid @enderror"
+                                        value="{{ $setting->author_image }}" name="author_image">
+                                    @error('author_image')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="author_role">Role Pemilik</label>
+                                    <input type="text" class="form-control @error('author_role') is-invalid @enderror"
+                                        value="{{ $setting->author_role }}" name="author_role">
+                                    @error('author_role')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="author_description">Deskripsi Pemilik</label>
+                                    <textarea name="author_description" id="author_description" cols="30" rows="4" class="form-control @error('author_description') is-invalid @enderror" style="min-height: 120px">{{ $setting->author_description }}</textarea>
+                                    @error('author_description')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="favicon">Favicon</label>
                                     <input type="file" class="form-control @error('favicon') is-invalid @enderror"
                                         value="{{ $setting->favicon }}" name="favicon">
