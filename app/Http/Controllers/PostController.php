@@ -20,7 +20,15 @@ class PostController extends Controller
     }
     public function index()
     {
-        $posts = Post::with(['category','tags'])->latest()->paginate(12);
+        $q = request('q');
+        if($q)
+        {
+            $posts = Post::with(['category','tags'])->where('title','LIKE', '%'. $q . '%')->latest()->paginate(8);
+        }else{
+            $posts = Post::with(['category','tags'])->latest()->paginate(8);
+        }
+
+
         $post_categories = PostCategory::withCount('posts')->orderBy('name','ASC')->get();
         $post_tags = PostTag::orderBy('name','ASC')->get();
         $socmeds = Socmed::orderBy('name','ASC')->get();
@@ -28,7 +36,6 @@ class PostController extends Controller
             'title' => 'Blog',
             'posts' => $posts,
             'post_categories' => $post_categories,
-            'setting' => $this->setting,
             'socmeds' => $socmeds,
             'post_tags' => $post_tags
         ]);
@@ -41,6 +48,29 @@ class PostController extends Controller
             'title' => $post->title,
             'post' => $post,
             'setting' => $this->setting
+        ]);
+    }
+
+    public function category($slug)
+    {
+        $category = PostCategory::where('slug',$slug)->firstOrFail();
+        $posts = $category->posts()->paginate(8);
+
+        return view('frontend.pages.post.index',[
+            'title' => 'Category  ' . $category->name,
+            'posts' => $posts,
+            'category' => $category
+        ]);
+    }
+
+    public function tag($slug)
+    {
+        $tag = PostTag::where('slug',$slug)->firstOrFail();
+        $posts = $tag->posts()->paginate(8);
+        return view('frontend.pages.post.index',[
+            'title' => 'Tag ' . $tag->name,
+            'posts' => $posts,
+            'tag' => $tag
         ]);
     }
 }

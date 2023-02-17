@@ -15,10 +15,10 @@
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav justify-content-end">
                         <li class="nav-item @if(Route::currentRouteName() === 'home') active @endif"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                        <li class="nav-item @if(Route::currentRouteName() === 'home') active @endif"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item @if(Route::currentRouteName() === 'about') active @endif"><a class="nav-link" href="{{ route('about') }}">About</a></li>
                         {{-- <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li> --}}
-                        <li class="nav-item @if(Route::currentRouteName() === 'home') active @endif"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                        <li class="nav-item @if(Route::currentRouteName() === 'posts.index') active @endif"><a class="nav-link" href="{{ route('posts.index') }}">Blog</a></li>
+                        <li class="nav-item @if(Route::currentRouteName() === 'projects.index' || Route::currentRouteName() === 'projects.show') active @endif"><a class="nav-link" href="{{ route('projects.index') }}">Project</a></li>
+                        <li class="nav-item @if(Route::currentRouteName() === 'posts.index' || Route::currentRouteName() === 'posts.show') active @endif"><a class="nav-link" href="{{ route('posts.index') }}">Blog</a></li>
                         <li class="nav-item @if(Route::currentRouteName() === 'contact.index') active @endif"><a class="nav-link" href="{{ route('contact.index') }}">Contact</a></li>
                     </ul>
                 </div>

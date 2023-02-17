@@ -33,7 +33,7 @@
         <div class="row justify-content-start align-items-center">
             <div class="col-lg-5">
                 <div class="about_img">
-                    <img class="" src="{{ asset('assets/frontend/img/about-us.png')}}" alt="">
+                    <img class="" src="{{ $setting->image() }}" alt="">
                 </div>
             </div>
 
@@ -42,13 +42,8 @@
                     <h2>let’s <br>
                         Introduce about <br>
                         myself</h2>
-                    <p>
-                        Hello, my name is Agung Kusaeri and I am a backend developer with expertise in PHP and the Laravel framework. I have [number of years] years of experience in designing, developing, and maintaining server-side applications using PHP and Laravel.
-                    </p>
-                    <p>
-                        As a backend developer, I am responsible for building the logic and functionality that power web applications. I work with PHP to create APIs, integrate with databases, and manage server-side processing.
-                    </p>
-                    <a class="primary_btn" href="#"><span>Download CV</span></a>
+                 {!! $setting->description !!}
+                    <a class="primary_btn" href="{{ route('download.cv') }}"><span>Download CV</span></a>
                 </div>
             </div>
         </div>
@@ -329,4 +324,5 @@
     </div>
 </section>
 <!--================ End Newsletter Area =================-->
+<x-Frontend.Alert />
 @endsection

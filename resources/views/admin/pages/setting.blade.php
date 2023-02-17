@@ -54,12 +54,14 @@
                                 <hr>
                                 <li class="list-item-inline d-flex justify-content-between">
                                     <span>Favicon</span>
-                                    <img src="{{ $setting->favicon() }}" class="img-fluid" style="max-height: 50px" alt="">
+                                    <img src="{{ $setting->favicon() }}" class="img-fluid" style="max-height: 50px"
+                                        alt="">
                                 </li>
                                 <hr>
                                 <li class="list-item-inline d-flex justify-content-between">
                                     <span>Gambar</span>
-                                    <img src="{{ $setting->image() }}" class="img-fluid" style="max-height: 50px" alt="">
+                                    <img src="{{ $setting->image() }}" class="img-fluid" style="max-height: 50px"
+                                        alt="">
                                 </li>
                                 <hr>
                             </ul>
@@ -106,8 +108,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Alamat</label>
-                                    <textarea name="address" id="address" cols="30" rows="4" class="form-control @error('address') is-invalid @enderror" style="min-height: 120px">{{ $setting->address }}</textarea>
+                                    <textarea name="address" id="address" cols="30" rows="4"
+                                        class="form-control @error('address') is-invalid @enderror" style="min-height: 120px">{{ $setting->address }}</textarea>
                                     @error('address')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Deskripsi</label>
+                                    <textarea name="description" id="description" cols="30" rows="4"
+                                        class="form-control @error('description') is-invalid @enderror" style="min-height: 120px">{{ $setting->description }}</textarea>
+                                    @error('description')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -125,7 +138,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="meta_description">Meta Deskripsi</label>
-                                    <textarea name="meta_description" id="meta_description" cols="30" rows="4" class="form-control @error('meta_description') is-invalid @enderror" style="min-height: 120px">{{ $setting->meta_description }}</textarea>
+                                    <textarea name="meta_description" id="meta_description" cols="30" rows="4"
+                                        class="form-control @error('meta_description') is-invalid @enderror" style="min-height: 120px">{{ $setting->meta_description }}</textarea>
                                     @error('meta_description')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -164,8 +178,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="author_description">Deskripsi Pemilik</label>
-                                    <textarea name="author_description" id="author_description" cols="30" rows="4" class="form-control @error('author_description') is-invalid @enderror" style="min-height: 120px">{{ $setting->author_description }}</textarea>
+                                    <textarea name="author_description" id="author_description" cols="30" rows="4"
+                                        class="form-control @error('author_description') is-invalid @enderror" style="min-height: 120px">{{ $setting->author_description }}</textarea>
                                     @error('author_description')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="cv">Upload CV</label>
+                                    <input type="file" class="form-control @error('cv') is-invalid @enderror"
+                                        name="cv">
+                                    @error('cv')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -174,7 +199,7 @@
                                 <div class="form-group">
                                     <label for="favicon">Favicon</label>
                                     <input type="file" class="form-control @error('favicon') is-invalid @enderror"
-                                        value="{{ $setting->favicon }}" name="favicon">
+                                        name="favicon">
                                     @error('favicon')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -184,7 +209,7 @@
                                 <div class="form-group">
                                     <label for="image">Gambar</label>
                                     <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                        value="{{ $setting->image }}" name="image">
+                                        name="image">
                                     @error('image')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -203,3 +228,16 @@
     </section>
 @endsection
 <x-Admin.Sweetalert />
+@push('scripts')
+    <script src="{{ asset('assets/plugin/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('assets/plugin/select2/js/select2.min.js') }}"></script>
+    <script>
+        $(function() {
+            CKEDITOR.replace('description');
+            CKEDITOR.addCss(".cke_editable{cursor:text; font-size: 14px; font-family: Arial, sans-serif;}");
+            CKEDITOR.config.toolbar = [
+                ['Bold', 'Italic','fontSize_sizes']
+            ];
+        })
+    </script>
+@endpush

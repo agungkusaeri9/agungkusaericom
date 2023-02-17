@@ -9,4 +9,9 @@ class ProjectCategory extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class,'project_category_id','id');
+    }
 }

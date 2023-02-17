@@ -9,4 +9,9 @@ class PostTag extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class,'posts_tags','tag_id');
+    }
 }

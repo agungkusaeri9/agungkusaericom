@@ -1,14 +1,14 @@
 <div class="blog_right_sidebar">
     <aside class="single_sidebar_widget search_widget">
-       <form action="{{ route('posts.search') }}" method="get">
+      <form action="{{ route('projects.search') }}" method="get">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Posts" name="q" value="{{ request('q') }}">
+            <input type="text" class="form-control" value="{{ request('q') }}" name="q" placeholder="Search Projects">
             <span class="input-group-btn">
                 <button class="btn btn-default" type="submit"><i
                         class="lnr lnr-magnifier"></i></button>
             </span>
         </div><!-- /input-group -->
-       </form>
+      </form>
         <div class="br"></div>
     </aside>
     <aside class="single_sidebar_widget author_widget">
@@ -27,23 +27,6 @@
         </div>
         <div class="br"></div>
     </aside>
-    <aside class="single_sidebar_widget popular_post_widget">
-        <h3 class="widget_title">Popular Posts</h3>
-       @forelse ($popular_posts as $popular)
-       <div class="media post_item">
-        <img src="{{ $popular->image() }}" alt="post" class="img-popular">
-        <div class="media-body">
-            <a href="{{ route('posts.show',$popular->slug) }}">
-                <h3>{{ $popular->title }}</h3>
-            </a>
-            <p>{{ $popular->created_at->diffForHumans() }}</p>
-        </div>
-    </div>
-       @empty
-
-       @endforelse
-        <div class="br"></div>
-    </aside>
     <aside class="single_sidebar_widget ads_widget">
         <a href="#"><img class="img-fluid" src="{{ asset('assets/frontend/img/blog/add.jpg') }}" alt=""></a>
         <div class="br"></div>
@@ -51,11 +34,11 @@
     <aside class="single_sidebar_widget post_category_widget">
         <h4 class="widget_title">Categories</h4>
         <ul class="list cat-list">
-           @forelse ($post_categories as $post_category)
+           @forelse ($project_categories as $project_category)
            <li>
-            <a href="{{ route('posts.category',$post_category->slug) }}" class="d-flex justify-content-between">
-                <p>{{ $post_category->name }}</p>
-                <p>{{ $post_category->posts_count }}</p>
+            <a href="{{ route('projects.category',$project_category->slug) }}" class="d-flex justify-content-between">
+                <p>{{ $project_category->name }}</p>
+                <p>{{ $project_category->projects_count }}</p>
             </a>
         </li>
            @empty
@@ -67,8 +50,8 @@
     <aside class="single-sidebar-widget tag_cloud_widget">
         <h4 class="widget_title">Tag</h4>
         <ul class="list">
-           @forelse ($post_tags as $post_tag)
-           <li><a href="{{ route('posts.tag',$post_tag->slug) }}">{{ $post_tag->name }}</a></li>
+           @forelse ($project_tags as $project_tag)
+           <li><a href="{{ route('projects.tag',$project_tag->slug) }}">{{ $project_tag->name }}</a></li>
            @empty
 
            @endforelse
@@ -85,9 +68,6 @@
             background-size: 200px;
             border-radius:50%;
             text-align: center;
-        }
-        .img-popular{
-            max-height: 60px;
         }
     </style>
 @endpush

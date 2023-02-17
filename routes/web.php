@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +31,28 @@ Route::middleware('guest')->group(function () {
 
 // home
 Route::get('/', HomeController::class)->name('home');
+
 // contact
 Route::get('/contact',[ContactController::class,'index'])->name('contact.index');
 Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
 
+// home
+Route::get('/about', AboutController::class)->name('about');
+
+// download cv
+Route::get('/download-cv', [DownloadController::class,'cv'])->name('download.cv');
+
 // blog
-Route::get('/blog',[PostController::class,'index'])->name('posts.index');
-Route::get('/blog/{slug}',[PostController::class,'show'])->name('posts.show');
+Route::get('/blogs',[PostController::class,'index'])->name('posts.index');
+Route::get('/blogs/search',[PostController::class,'index'])->name('posts.search');
+Route::get('/blogs/category/{category}',[PostController::class,'category'])->name('posts.category');
+Route::get('/blogs/tag/{tag}',[PostController::class,'tag'])->name('posts.tag');
+Route::get('/blogs/{slug}',[PostController::class,'show'])->name('posts.show');
+
+// project
+Route::get('/projects',[ProjectController::class,'index'])->name('projects.index');
+Route::get('/projects/search',[ProjectController::class,'index'])->name('projects.search');
+Route::get('/projects/category/{category}',[ProjectController::class,'category'])->name('projects.category');
+Route::get('/projects/tag/{tag}',[ProjectController::class,'tag'])->name('projects.tag');
+Route::get('/projects/{slug}',[ProjectController::class,'show'])->name('projects.show');
+
