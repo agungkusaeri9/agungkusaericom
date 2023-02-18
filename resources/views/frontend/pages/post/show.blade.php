@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
 <!--================ Start Banner Area =================-->
-{{-- <section class="banner_area">
+<section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content text-center">
@@ -11,6 +11,15 @@
                     <a href="{{ route('posts.index') }}">Blog</a>
                     <a class="disabled">{{ $post->title }}</a>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{-- <section>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main_title text-left">
+                <h2 class="text-center">BLOG</h2>
             </div>
         </div>
     </div>

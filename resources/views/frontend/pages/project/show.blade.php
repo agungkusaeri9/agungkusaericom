@@ -1,7 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <!--================ Start Banner Area =================-->
-    <section class="banner_area">
+    <section class="banner_area w-100">
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
                 <div class="banner_content text-center">
@@ -15,8 +14,6 @@
             </div>
         </div>
     </section>
-    <!--================ End Banner Area =================-->
-
     <!--================Start Portfolio Details Area =================-->
     <section class="portfolio_details_area section_gap">
         <div class="container">
@@ -35,7 +32,13 @@
                                 {{-- <li><span>Rating</span>: <i class="fa fa-star"></i><i class="fa fa-star"></i><i
                                     class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li> --}}
                                 {{-- <li><span>Client</span>: colorlib</li> --}}
-                                <li><span>Website</span>: {{ $project->link ?? 'Tidak Ada' }}</li>
+                                <li><span>Website</span>:
+                                    @if ($project->link)
+                                        <a href="{{ $project->link }}">{{ $project->link }}</a>
+                                    @else
+                                        Unavailable
+                                    @endif
+                                </li>
                                 <li><span>Created</span>: {{ $project->created_at->translatedFormat('d F Y') }}</li>
                             </ul>
                         </div>
@@ -43,10 +46,27 @@
                     </div>
                     <div class="col-lg-4">
                         <x-Frontend.SidebarProjectRight />
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <!--================End Portfolio Details Area =================-->
 @endsection
+@push('styles')
+    <style>
+        .list li span {
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .section_gap {
+            padding: 100px 0 20px 0 !important;
+        }
+
+        .banner_area {
+            background-image: none !important;
+            min-height: 0 !important;
+        }
+    </style>
+@endpush

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Inbox;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class InboxController extends Controller
 {
@@ -20,8 +20,8 @@ class InboxController extends Controller
     {
         if(request()->ajax())
         {
-            $data = Inbox::query();
-            return DataTables::of($data)
+            $data = Inbox::latest();
+            return DataTables::eloquent($data)
                     ->addIndexColumn()
                     ->addColumn('action',function($model){
                         $action = "<button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";

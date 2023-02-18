@@ -1,58 +1,40 @@
 @extends('frontend.layouts.app')
 @section('content')
-    {{-- <section class="banner_area">
+<section class="banner_area w-100">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Blog</h2>
+                <h2>
+                     @isset($category)
+                    Category "
+                     {{ $category->name }}
+                     "
+                    @endisset
+                    @isset($tag)
+                    Tag "
+                    {{ $tag->name }}
+                    "
+                    @endisset
+
+                    @if(request('q'))
+                    Hasil Pencarian "<i>{{ request('q') }}"
+                    @endif
+
+                    @if (!isset($category) && !isset($tag) && !request('q'))
+                    Blogs
+                    @endif
+                </h2>
                 <div class="page_link">
                     <a href="{{ route('home') }}">Home</a>
-                    <a href="{{ route('posts.index') }}">Our Blog</a>
+                    <a href="{{ route('posts.index') }}">Blogs</a>
                 </div>
             </div>
         </div>
     </div>
-</section> --}}
+</section>
     <!--================Blog Area =================-->
     <section class="blog_area" style="margin-top: 100px">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    @isset($category)
-                    <div class="main_title text-left">
-                        <h2 class="text-left">Category "
-                            {{ $category->name }}
-                            "
-                        </h2>
-                    </div>
-
-
-                    @endisset
-                    @isset($tag)
-                    <div class="main_title text-left">
-                        <h2 class="text-left">Tag "
-                            {{ $tag->name }}
-                            "
-                        </h2>
-                    </div>
-                    @endisset
-
-                    @if(request('q'))
-                    <div class="main_title text-left">
-                        <h2 class="text-left">Hasil Pencarian "
-                           <i> {{ request('q') }}</i>
-                            "
-                        </h2>
-                    </div>
-                    @endif
-
-                    @if (!isset($category) && !isset($tag) && !request('q'))
-                    <div class="main_title text-left">
-                    <h2 class="text-left">BLOG</h2>
-                    </div>
-                    @endif
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog_left_sidebar">
@@ -111,3 +93,16 @@
     </section>
     <!--================Blog Area =================-->
 @endsection
+
+@push('styles')
+    <style>
+        .section_gap {
+            padding: 100px 0 200px 0 !important;
+        }
+
+        .banner_area {
+            background-image: none !important;
+            min-height: 0 !important;
+        }
+    </style>
+@endpush

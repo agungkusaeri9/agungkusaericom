@@ -44,10 +44,11 @@
        @endforelse
         <div class="br"></div>
     </aside>
-    <aside class="single_sidebar_widget ads_widget">
+    {{-- iklan --}}
+    {{-- <aside class="single_sidebar_widget ads_widget">
         <a href="#"><img class="img-fluid" src="{{ asset('assets/frontend/img/blog/add.jpg') }}" alt=""></a>
         <div class="br"></div>
-    </aside>
+    </aside> --}}
     <aside class="single_sidebar_widget post_category_widget">
         <h4 class="widget_title">Categories</h4>
         <ul class="list cat-list">
@@ -80,7 +81,7 @@
         .kotak-gambar{
             height: 200px;
             width: 200px;
-            background-image: url('{{ $setting->author_image }}');
+            background-image: url('{{ $setting->author_image() }}');
             background-position:center;
             background-size: 200px;
             border-radius:50%;

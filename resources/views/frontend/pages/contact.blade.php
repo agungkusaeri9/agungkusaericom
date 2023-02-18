@@ -1,19 +1,18 @@
 @extends('frontend.layouts.app')
 @section('content')
-<section class="banner_area">
+<section class="banner_area w-100">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Contact Us</h2>
+                <h2>Contact Me</h2>
                 <div class="page_link">
                     <a href="{{ route('home') }}">Home</a>
-                    <a href="{{ route('contact.index') }}">Contact</a>
+                    <a href="{{ route('contact.index') }}">Contact Me</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
     <section class="contact_area section_gap">
         <div class="container">
             <div class="row">
@@ -89,3 +88,16 @@
 
     <x-Frontend.alert />
 @endsection
+
+@push('styles')
+    <style>
+               .section_gap {
+            padding: 100px 0 200px 0 !important;
+        }
+
+        .banner_area {
+            background-image: none !important;
+            min-height: 0 !important;
+        }
+    </style>
+@endpush

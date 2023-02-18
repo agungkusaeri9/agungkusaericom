@@ -6,14 +6,10 @@ use Illuminate\View\Component;
 
 class Head extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $title;
+    public function __construct($title = '-')
     {
-        //
+        $this->title = $title;
     }
 
     /**
@@ -23,6 +19,8 @@ class Head extends Component
      */
     public function render()
     {
-        return view('components.frontend.head');
+        return view('components.frontend.head',[
+            'title' => $this->title
+        ]);
     }
 }

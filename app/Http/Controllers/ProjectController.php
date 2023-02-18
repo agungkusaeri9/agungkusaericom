@@ -31,7 +31,7 @@ class ProjectController extends Controller
         $project_tags = ProjectTag::orderBy('name','ASC')->get();
         $socmeds = Socmed::orderBy('name','ASC')->get();
         return view('frontend.pages.project.index',[
-            'title' => 'Blog',
+            'title' => 'Projects | ' . $this->setting->site_name,
             'projects' => $projects,
             'project_categories' => $project_categories,
             'setting' => $this->setting,
@@ -56,7 +56,7 @@ class ProjectController extends Controller
         $projects = $category->projects()->paginate(8);
 
         return view('frontend.pages.project.index',[
-            'title' => 'Category  ' . $category->name,
+            'title' => $category->name . ' | Category Project',
             'projects' => $projects,
             'category' => $category,
             'setting' => $this->setting
@@ -68,7 +68,7 @@ class ProjectController extends Controller
         $tag = ProjectTag::where('slug',$slug)->firstOrFail();
         $projects = $tag->projects()->paginate(8);
         return view('frontend.pages.project.index',[
-            'title' => 'Tag ' . $tag->name,
+            'title' => $tag->name . ' | Tag Project',
             'projects' => $projects,
             'tag' => $tag,
             'setting' => $this->setting

@@ -13,7 +13,7 @@ class ContactController extends Controller
     {
         $setting = Setting::first();
         return view('frontend.pages.contact',[
-            'title' => 'Contact Me',
+            'title' => 'Contact Me | ' . $setting->site_name,
             'setting' => $setting
         ]);
     }

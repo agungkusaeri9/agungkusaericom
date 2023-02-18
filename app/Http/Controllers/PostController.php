@@ -33,7 +33,7 @@ class PostController extends Controller
         $post_tags = PostTag::orderBy('name','ASC')->get();
         $socmeds = Socmed::orderBy('name','ASC')->get();
         return view('frontend.pages.post.index',[
-            'title' => 'Blog',
+            'title' => 'Blog | ' . $this->setting->site_name,
             'posts' => $posts,
             'post_categories' => $post_categories,
             'socmeds' => $socmeds,
@@ -57,7 +57,7 @@ class PostController extends Controller
         $posts = $category->posts()->paginate(8);
 
         return view('frontend.pages.post.index',[
-            'title' => 'Category  ' . $category->name,
+            'title' => $category->name . ' | Category Blog',
             'posts' => $posts,
             'category' => $category
         ]);
@@ -68,7 +68,7 @@ class PostController extends Controller
         $tag = PostTag::where('slug',$slug)->firstOrFail();
         $posts = $tag->posts()->paginate(8);
         return view('frontend.pages.post.index',[
-            'title' => 'Tag ' . $tag->name,
+            'title' => $tag->name . ' | Tag Blog',
             'posts' => $posts,
             'tag' => $tag
         ]);

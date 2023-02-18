@@ -40,8 +40,8 @@ class Setting extends Model
             return asset('assets/img/stisla.svg');
         }
     }
-    public function getAuthorImageAttribute($val)
-    {
-        return asset('storage/') . '/' . $val;
-    }
+    // public function getAuthorImageAttribute($val)
+    // {
+    //     return asset('storage/') . '/' . $val;
+    // }
 }

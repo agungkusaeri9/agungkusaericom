@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\Setting;
 use Illuminate\View\Component;
 
 class Navbar extends Component
@@ -23,6 +24,8 @@ class Navbar extends Component
      */
     public function render()
     {
-        return view('components.frontend.navbar');
+        return view('components.frontend.navbar',[
+            'setting' => Setting::first()
+        ]);
     }
 }

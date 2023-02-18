@@ -153,15 +153,6 @@
                 </div>
             </div>
         </div>
-        <div class="filters portfolio-filter">
-            <ul>
-                <li class="active" data-filter="*">All</li>
-                @foreach ($project_categories as $project_category)
-                <li data-filter=".{{ $project_category->id }}">{{ $project_category->name }}</li>
-                @endforeach
-
-            </ul>
-        </div>
 
         <div class="filters-content">
             <div class="row portfolio-grid justify-content-center">
@@ -169,7 +160,10 @@
                <div class="col-lg-4 col-md-6 all {{ $project->project_category_id }}">
                 <div class="portfolio_box">
                     <div class="single_portfolio">
-                        <img class="img-fluid w-100" src="{{ $project->image() }}" alt="">
+                        {{-- <img class="img-fluid w-100" src="{{ $project->image() }}" alt=""> --}}
+                        <div class="bg-image-portfolio" style="background-image:url('{{ $project->image() }}')">
+
+                        </div>
                         <div class="overlay"></div>
                         <a href="{{ $project->image() }}" class="img-gal">
                             <div class="icon">
@@ -201,7 +195,7 @@
 <!--================End Portfolio Area =================-->
 
 <!--================ Start Testimonial Area =================-->
-<div class="testimonial_area section_gap_bottom">
+{{-- <div class="testimonial_area section_gap_bottom">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
@@ -295,10 +289,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!--================ End Testimonial Area =================-->
 
-<!--================ Start Newsletter Area =================-->
+{{-- <!--================ Start Newsletter Area =================-->
 <section class="newsletter_area">
     <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -323,6 +317,15 @@
         </div>
     </div>
 </section>
-<!--================ End Newsletter Area =================-->
+<!--================ End Newsletter Area =================--> --}}
 <x-Frontend.Alert />
 @endsection
+@push('styles')
+<style>
+    #portfolio .bg-image-portfolio{
+        height: 230px;
+        background-position: center;
+        background-size: cover;
+    }
+</style>
+@endpush

@@ -18,7 +18,7 @@ class AboutController extends Controller
     {
         $setting = Setting::first();
         return view('frontend.pages.about',[
-            'title' => 'About Me - ' . $setting->site_name,
+            'title' => 'About Me | ' . $setting->site_name,
             'setting' => $setting,
             'skills' => Skill::orderBy('name','ASC')->get()
         ]);

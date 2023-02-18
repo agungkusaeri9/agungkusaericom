@@ -1,10 +1,29 @@
 @extends('frontend.layouts.app')
 @section('content')
-{{-- <section class="banner_area">
+<section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Project</h2>
+                <h2>
+                     @isset($category)
+                     Category "
+                     {{ $category->name }}
+                     "
+                    @endisset
+                    @isset($tag)
+                    Tag "
+                    {{ $tag->name }}
+                    "
+                    @endisset
+
+                    @if(request('q'))
+                    Hasil Pencarian "<i>{{ request('q') }}
+                    @endif
+
+                    @if (!isset($category) && !isset($tag) && !request('q'))
+                    PROJECTS
+                    @endif
+                </h2>
                 <div class="page_link">
                     <a href="{{ route('home') }}">Home</a>
                     <a href="{{ route('projects.index') }}">Projects</a>
@@ -12,47 +31,11 @@
             </div>
         </div>
     </div>
-</section> --}}
+</section>
+
     <!--================Blog Area =================-->
     <section class="blog_area mt-5">
         <div class="container">
-            <div class="row" style="margin-top: 100px">
-                <div class="col-md-8">
-                    @isset($category)
-                    <div class="main_title text-left">
-                        <h2 class="text-left">PROJECT Category "
-                            {{ $category->name }}
-                            "
-                        </h2>
-                    </div>
-
-
-                    @endisset
-                    @isset($tag)
-                    <div class="main_title text-left">
-                        <h2 class="text-left">PROJECT Tag "
-                            {{ $tag->name }}
-                            "
-                        </h2>
-                    </div>
-                    @endisset
-
-                    @if(request('q'))
-                    <div class="main_title text-left">
-                        <h2 class="text-left">Hasil Pencarian "
-                           <i> {{ request('q') }}</i>
-                            "
-                        </h2>
-                    </div>
-                    @endif
-
-                    @if (!isset($category) && !isset($tag) && !request('q'))
-                    <div class="main_title text-left">
-                    <h2 class="text-left">PROJECTS</h2>
-                    </div>
-                    @endif
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog_left_sidebar">
@@ -61,7 +44,7 @@
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
-                                        <a href="#">{{ $project->category->name }}</a>
+                                        <a href="{{ route('projects.category',$project->category->slug) }}">{{ $project->category->name }}</a>
                                     </div>
                                     <ul class="blog_meta list">
                                         <li><a href="#">{{ $setting->author }}<i class="lnr lnr-user"></i></a></li>
@@ -73,7 +56,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="blog_post">
-                                    <img src="{{ asset('assets/frontend/img/blog/main-blog/m-blog-1.jpg') }}" alt="">
+                                    <img src="{{ $project->image() }}" alt="">
                                     <div class="blog_details">
                                         <a href="{{ route('projects.show',$project->slug) }}">
                                             <h2>{{ $project->name }}</h2>
@@ -105,15 +88,9 @@
     <!--================Blog Area =================-->
 @endsection
 @push('styles')
-    <style>
-        .kotak-gambar{
-            height: 200px;
-            width: 200px;
-            background-image: url('{{ $setting->author_image }}');
-            background-position:center;
-            background-size: 200px;
-            border-radius:50%;
-            text-align: center;
-        }
-    </style>
+<style>
+    .banner_inner {
+        width: 100% !important;
+    }
+</style>
 @endpush
