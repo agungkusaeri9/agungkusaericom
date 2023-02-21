@@ -27,16 +27,20 @@ class ContactController extends Controller
             'text' => ['required']
         ]);
 
-        // batasin perhari maksimal 20 pesan
-        $hari_ini = Carbon::now()->translatedFormat('Y-m-d');
-        $cekPerhari = Inbox::whereDate('created_at',$hari_ini)->count();
-        if($cekPerhari > 2)
-        {
-            return redirect()->back()->with('error','Sorry, you cannot provide feedback and suggestions at the moment due to a daily limit. Please visit me another time or you can contact me through WhatsApp or email. Thank you.');
-        }
+       try {
+         // batasin perhari maksimal 20 pesan
+         $hari_ini = Carbon::now()->translatedFormat('Y-m-d');
+         $cekPerhari = Inbox::whereDate('created_at',$hari_ini)->count();
+         if($cekPerhari > 2)
+         {
+             return redirect()->back()->with('error','Sorry, you cannot provide feedback and suggestions at the moment due to a daily limit. Please visit me another time or you can contact me through WhatsApp or email. Thank you.');
+         }
 
-        $data = request()->only(['name','email','subject','text']);
-        Inbox::create($data);
-        return redirect()->back()->with('success','Thank you for your feedback and suggestions.');
+         $data = request()->only(['name','email','subject','text']);
+         Inbox::create($data);
+         return redirect()->back()->with('success','Thank you for your feedback and suggestions.');
+       } catch (\Throwable $th) {
+        return redirect()->back()->with('error','System Error.');
+       }
     }
 }

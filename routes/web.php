@@ -7,6 +7,7 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,9 @@ Route::get('/blogs/category/{category}',[PostController::class,'category'])->nam
 Route::get('/blogs/tag/{tag}',[PostController::class,'tag'])->name('posts.tag');
 Route::get('/blogs/{slug}',[PostController::class,'show'])->name('posts.show');
 
+// post comments
+Route::post('blogs/comments',[PostController::class,'comment'])->name('posts.comment');
+
 // project
 Route::get('/projects',[ProjectController::class,'index'])->name('projects.index');
 Route::get('/projects/search',[ProjectController::class,'index'])->name('projects.search');
@@ -56,3 +60,6 @@ Route::get('/projects/category/{category}',[ProjectController::class,'category']
 Route::get('/projects/tag/{tag}',[ProjectController::class,'tag'])->name('projects.tag');
 Route::get('/projects/{slug}',[ProjectController::class,'show'])->name('projects.show');
 
+
+// service
+Route::get('/services/{name}',[ServiceController::class,'index'])->name('services.index');

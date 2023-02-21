@@ -1,37 +1,49 @@
 @extends('frontend.layouts.app')
 @section('content')
-<section class="banner_area w-100">
-    <div class="banner_inner d-flex align-items-center">
-        <div class="container">
-            <div class="banner_content text-center">
-                <h2>
-                     @isset($category)
-                    Category "
-                     {{ $category->name }}
-                     "
-                    @endisset
-                    @isset($tag)
-                    Tag "
-                    {{ $tag->name }}
-                    "
-                    @endisset
+    <section class="banner_area w-100">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>
+                        @isset($category)
+                           "
+                            {{ $category->name }}
+                            "
+                        @endisset
+                        @isset($tag)
+                          "
+                            {{ $tag->name }}
+                            "
+                        @endisset
 
-                    @if(request('q'))
-                    Hasil Pencarian "<i>{{ request('q') }}"
-                    @endif
+                        @if (request('q'))
+                            "<i>{{ request('q') }}"
+                        @endif
 
-                    @if (!isset($category) && !isset($tag) && !request('q'))
-                    Blogs
-                    @endif
-                </h2>
-                <div class="page_link">
-                    <a href="{{ route('home') }}">Home</a>
-                    <a href="{{ route('posts.index') }}">Blogs</a>
+                        @if (!isset($category) && !isset($tag) && !request('q'))
+                            Blogs
+                        @endif
+                    </h2>
+                    <div class="page_link">
+                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('posts.index') }}">Blogs</a>
+                        @isset($category)
+                            <a href="javascript:void(0)">Category</a>
+                            <a href="{{ route('posts.category',$category->slug) }}" class="disabled"> {{ $category->name }}</a>
+                        @endisset
+                        @isset($tag)
+                            <a href="javascript:void(0)">Tag</a>
+                            <a href="{{ route('posts.tag',$tag->slug) }}" class="disabled"> {{ $tag->name }}</a>
+                        @endisset
+                        @if(request('q'))
+                            <a href="javascript:void(0)">Search</a>
+                            <a href="javascript:void(0)" class="disabled"> {{ request('q') }}</a>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
     <!--================Blog Area =================-->
     <section class="blog_area" style="margin-top: 100px">
         <div class="container">
@@ -49,13 +61,15 @@
                                             @endforelse
                                         </div>
                                         <ul class="blog_meta list">
-                                            <li><a href="#">{{ $post->user->name }}<i class="lnr lnr-user"></i></a>
+                                            <li><a href="javascript:void(0)">{{ $post->user->name }}<i
+                                                        class="lnr lnr-user"></i></a>
                                             </li>
-                                            <li><a href="#">{{ $post->created_at->diffForHumans() }}<i
+                                            <li><a href="javascript:void(0)">{{ $post->created_at->diffForHumans() }}<i
                                                         class="lnr lnr-calendar-full"></i></a></li>
-                                            <li><a href="#">{{ $post->visitor }} Views<i class="lnr lnr-eye"></i></a>
+                                            <li><a href="javascript:void(0)">{{ $post->visitor }} Views<i
+                                                        class="lnr lnr-eye"></i></a>
                                             </li>
-                                            <li><a href="#">(satic) Comments<i class="lnr lnr-bubble"></i></a></li>
+                                            {{-- <li><a href="#">(satic) Comments<i class="lnr lnr-bubble"></i></a></li> --}}
                                         </ul>
                                     </div>
                                 </div>

@@ -446,7 +446,7 @@ button:focus {
 ============================================================================================ */
 .home_banner_area {
     z-index: 1;
-    background: url(../img/banner/home-banner.png) no-repeat top center;
+    /* background: url(../img/banner/home-banner.png) no-repeat top center; */
     background-position: center;
     background-size: cover;
 }
@@ -4133,6 +4133,9 @@ h6 {
 @media (max-width: 576px) {
     .footer_area .footer_social a i {
         font-size: 25px;
+    }
+    .navbar-brand{
+        color: white !important;
     }
 }
 .footer_area .footer_social a i:hover {

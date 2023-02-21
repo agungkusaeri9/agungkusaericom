@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\ServiceType;
 use App\Models\Setting;
 use Illuminate\View\Component;
 
@@ -24,8 +25,10 @@ class Navbar extends Component
      */
     public function render()
     {
+        $services = ServiceType::orderBy('name','ASC')->get();
         return view('components.frontend.navbar',[
-            'setting' => Setting::first()
+            'setting' => Setting::first(),
+            'services' => $services
         ]);
     }
 }

@@ -107,6 +107,16 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="whatsapp_number">No. Whatsapp</label>
+                                    <input type="text" class="form-control @error('whatsapp_number') is-invalid @enderror"
+                                        value="{{ $setting->whatsapp_number }}" name="whatsapp_number">
+                                    @error('whatsapp_number')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="address">Alamat</label>
                                     <textarea name="address" id="address" cols="30" rows="4"
                                         class="form-control @error('address') is-invalid @enderror" style="min-height: 120px">{{ $setting->address }}</textarea>

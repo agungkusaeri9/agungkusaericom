@@ -38,6 +38,16 @@
     <section class="brand_area section_gap_bottom">
         <div class="container">
             <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="main_title">
+                        <h2>Skills</h2>
+                        <p>
+                            Developing skills and becoming an expert in building attractive and responsive websites so that you might be interested in me
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="row">
                         @forelse ($skills as $skill)

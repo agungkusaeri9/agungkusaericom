@@ -34,4 +34,9 @@ class Post extends Model
     {
         return $this->belongsToMany(PostTag::class,'posts_tags','post_id','tag_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(PostComment::class,'post_id','id')->whereNull('parent_id')->latest();
+    }
 }

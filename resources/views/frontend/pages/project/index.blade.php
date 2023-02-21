@@ -5,28 +5,40 @@
         <div class="container">
             <div class="banner_content text-center">
                 <h2>
-                     @isset($category)
-                     Category "
-                     {{ $category->name }}
-                     "
+                    @isset($category)
+                       "
+                        {{ $category->name }}
+                        "
                     @endisset
                     @isset($tag)
-                    Tag "
-                    {{ $tag->name }}
-                    "
+                      "
+                        {{ $tag->name }}
+                        "
                     @endisset
 
-                    @if(request('q'))
-                    Hasil Pencarian "<i>{{ request('q') }}
+                    @if (request('q'))
+                        "<i>{{ request('q') }}"
                     @endif
 
                     @if (!isset($category) && !isset($tag) && !request('q'))
-                    PROJECTS
+                        Projects
                     @endif
                 </h2>
                 <div class="page_link">
                     <a href="{{ route('home') }}">Home</a>
                     <a href="{{ route('projects.index') }}">Projects</a>
+                    @isset($category)
+                        <a href="javascript:void(0)">Category</a>
+                        <a href="{{ route('projects.category',$category->slug) }}" class="disabled"> {{ $category->name }}</a>
+                    @endisset
+                    @isset($tag)
+                        <a href="javascript:void(0)">Tag</a>
+                        <a href="{{ route('projects.tag',$tag->slug) }}" class="disabled"> {{ $tag->name }}</a>
+                    @endisset
+                    @if(request('q'))
+                        <a href="javascript:void(0)">Search</a>
+                        <a href="javascript:void(0)" class="disabled"> {{ request('q') }}</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -47,10 +59,8 @@
                                         <a href="{{ route('projects.category',$project->category->slug) }}">{{ $project->category->name }}</a>
                                     </div>
                                     <ul class="blog_meta list">
-                                        <li><a href="#">{{ $setting->author }}<i class="lnr lnr-user"></i></a></li>
-                                        <li><a href="#">{{ $project->created_at->diffForHumans() }}<i class="lnr lnr-calendar-full"></i></a></li>
-                                        <li><a href="#">{{ $project->visitor }} Views<i class="lnr lnr-eye"></i></a></li>
-                                        <li><a href="#">(satic) Comments<i class="lnr lnr-bubble"></i></a></li>
+                                        <li><a href="javascript:void(0)">{{ $setting->author }}<i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="javascript:void(0)">{{ $project->created_at->diffForHumans() }}<i class="lnr lnr-calendar-full"></i></a></li>
                                     </ul>
                                 </div>
                             </div>

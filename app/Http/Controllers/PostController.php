@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\PostCategory;
+use App\Models\PostComment;
 use App\Models\PostTag;
 use App\Models\Setting;
 use App\Models\Socmed;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use function PHPSTORM_META\map;
@@ -43,7 +45,7 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::with(['comments.child'])->withCount('comments')->where('slug', $slug)->firstOrFail();
         return view('frontend.pages.post.show',[
             'title' => $post->title,
             'post' => $post,
@@ -65,6 +67,7 @@ class PostController extends Controller
 
     public function tag($slug)
     {
+
         $tag = PostTag::where('slug',$slug)->firstOrFail();
         $posts = $tag->posts()->paginate(8);
         return view('frontend.pages.post.index',[
@@ -72,5 +75,37 @@ class PostController extends Controller
             'posts' => $posts,
             'tag' => $tag
         ]);
+    }
+
+    public function comment()
+    {
+        request()->validate([
+            'post_id' => ['required','numeric'],
+            'name' => ['required'],
+            'email' => ['required'],
+            'comment' => ['required','max:100']
+        ]);
+
+        try {
+            // batasi komentar perhari
+        $cek = PostComment::where('post_id',request('post_id'))->whereDate('created_at',now());
+        if($cek->count() > 50)
+        {
+            return redirect()->back()->with('error','Your comment failed to submit due to restrictions.');
+        }
+
+        $data = request()->only(['name','email','comment','parent_id']);
+        $post = Post::findOrFail(request('post_id'));
+        $save_info = request('save_info');
+        if($save_info)
+        {
+            session(['name' => $data['name']]);
+            session(['email' => $data['email']]);
+        }
+       $post->comments()->create($data);
+       return redirect()->back()->with('success','Your comment has been submitted.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','System Error.');
+        }
     }
 }

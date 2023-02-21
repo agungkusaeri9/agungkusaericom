@@ -1,201 +1,202 @@
 @extends('frontend.layouts.app')
 @section('content')
-<!--================ Start Home Banner Area =================-->
-<section class="home_banner_area">
-    <div class="banner_inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="banner_content">
-                        <h3 class="text-uppercase">Hell0</h3>
-                        <h1 class="text-uppercase">I am {{ $setting->site_name }}</h1>
-                        <h5 class="text-uppercase">Web Developer</h5>
-                        <div class="d-flex align-items-center">
-                            <a class="primary_btn" href="#"><span>Hire Me</span></a>
-                            <a class="primary_btn tr-bg" href="#"><span>Get CV</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="home_right_img">
-                        <img class="" src="{{ asset('assets/frontend/img/banner/home-right.png')}}" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--================ End Home Banner Area =================-->
-
-<!--================ Start About Us Area =================-->
-<section class="about_area section_gap">
-    <div class="container">
-        <div class="row justify-content-start align-items-center">
-            <div class="col-lg-5">
-                <div class="about_img">
-                    <img class="" src="{{ $setting->image() }}" alt="">
-                </div>
-            </div>
-
-            <div class="offset-lg-1 col-lg-5">
-                <div class="main_title text-left">
-                    <h2>let’s <br>
-                        Introduce about <br>
-                        myself</h2>
-                 {!! $setting->description !!}
-                    <a class="primary_btn" href="{{ route('download.cv') }}"><span>Download CV</span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--================ End About Us Area =================-->
-
-<!--================ Srart Brand Area =================-->
-<section class="brand_area section_gap_bottom">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
+    <!--================ Start Home Banner Area =================-->
+    <section class="home_banner_area">
+        <div class="banner_inner">
+            <div class="container">
                 <div class="row">
-                    @forelse ($skills as $skill)
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-brand-item d-table">
-                            <div class="d-table-cell text-center">
-                                <img src="{{ $skill->image() }}" alt="">
+                    <div class="col-lg-7">
+                        <div class="banner_content">
+                            <h3 class="text-uppercase">HELLO</h3>
+                            <h1 class="text-uppercase">I am {{ $setting->site_name }}</h1>
+                            <h5 class="text-uppercase">
+                                {{ $setting->author_role }}
+                            </h5>
+                            <div class="d-flex align-items-center">
+                                <a class="primary_btn" href="mailto:{{ $setting->email ?? '-' }}"><span>Hire Me</span></a>
+                                <a class="primary_btn tr-bg" href="{{ route('download.cv') }}"><span>Get CV</span></a>
                             </div>
                         </div>
                     </div>
-                    @empty
-                    <div class="col-12">
-                        <p class="text-cemter">Tidak Ada Data!</p>
-                    </div>
-                    @endforelse
-                </div>
-            </div>
-            <div class="offset-lg-2 col-lg-4 col-md-6">
-                <div class="client-info">
-                    <div class="d-flex mb-50">
-                        <span class="lage">2</span>
-                        <span class="smll">Years Experience Working</span>
-                    </div>
-                    <div class="call-now d-flex">
-                        <div>
-                            <span class="fa fa-phone"></span>
-                        </div>
-                        <div class="ml-15">
-                            <p>Call us now</p>
-                            <h3>{{ $setting->phone }}</h3>
+                    <div class="col-lg-5">
+                        <div class="home_right_img">
+                            <img class="" src="{{ asset('assets/frontend/img/banner/home-right.png') }}"
+                                alt="">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--================ End Brand Area =================-->
+    </section>
+    <!--================ End Home Banner Area =================-->
 
-<!--================ Start Features Area =================-->
-<section class="features_area">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <div class="main_title">
-                    <h2>service offers </h2>
-                    <p>
-                        Is give may shall likeness made yielding spirit a itself togeth created
-                        after sea <br> is in beast beginning signs open god you're gathering ithe
-                    </p>
+    <!--================ Start About Us Area =================-->
+    <section class="about_area section_gap">
+        <div class="container">
+            <div class="row justify-content-start align-items-center">
+                <div class="col-lg-6">
+                   <div class="text-center">
+                    <img class="img-fluid mb-5" src="{{ $setting->image() }}" alt="">
+                   </div>
                 </div>
-            </div>
-        </div>
-        <div class="row feature_inner">
-            <div class="col-lg-3 col-md-6">
-                <div class="feature_item">
-                    <img src="{{ asset('assets/frontend/img/services/s1.png')}}" alt="">
-                    <h4>Web Design</h4>
-                    <p>Creeping for female light years that lesser can't evening heaven isn't bearing tree</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature_item">
-                    <img src="{{ asset('assets/frontend/img/services/s2.png')}}" alt="">
-                    <h4>UI/ux design</h4>
-                    <p>Creeping for female light years that lesser can't evening heaven isn't bearing tree</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature_item">
-                    <img src="{{ asset('assets/frontend/img/services/s3.png')}}" alt="">
-                    <h4>Web Developer</h4>
-                    <p>Creeping for female light years that lesser can't evening heaven isn't bearing tree</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature_item">
-                    <img src="{{ asset('assets/frontend/img/services/s4.png')}}" alt="">
-                    <h4>seo optimize</h4>
-                    <p>Creeping for female light years that lesser can't evening heaven isn't bearing tree</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--================ End Features Area =================-->
-
-<!--================Start Portfolio Area =================-->
-<section class="portfolio_area" id="portfolio">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="main_title text-left">
-                    <h2>Portfolio <br>
-                        Recently done project</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="filters-content">
-            <div class="row portfolio-grid justify-content-center">
-               @forelse ($projects as $project)
-               <div class="col-lg-4 col-md-6 all {{ $project->project_category_id }}">
-                <div class="portfolio_box">
-                    <div class="single_portfolio">
-                        {{-- <img class="img-fluid w-100" src="{{ $project->image() }}" alt=""> --}}
-                        <div class="bg-image-portfolio" style="background-image:url('{{ $project->image() }}')">
-
-                        </div>
-                        <div class="overlay"></div>
-                        <a href="{{ $project->image() }}" class="img-gal">
-                            <div class="icon">
-                                <span class="lnr lnr-cross"></span>
-                            </div>
-                        </a>
+                <div class="col-lg-6">
+                    <div class="main_title text-left">
+                        <h2>let’s <br>
+                            Introduce about <br>
+                            myself</h2>
+                        {!! $setting->description !!}
+                        <a class="primary_btn" href="#"><span>Download CV</span></a>
                     </div>
-                    <div class="short_info">
-                        <h4><a href="">{{ $project->name }}</a></h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End About Us Area =================-->
+
+    <!--================ Srart Brand Area =================-->
+    <section class="brand_area section_gap_bottom">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="main_title">
+                        <h2>Skills</h2>
                         <p>
-                            @foreach ($project->tags as $tag)
-                           <span class="badge badge-info">{{ $tag->name }}</span>
-                            @endforeach
+                            Developing skills and becoming an expert in building attractive and responsive websites so that you might be interested in me
                         </p>
                     </div>
                 </div>
             </div>
-            @empty
-            <div class="col-12">
-                <p class="text-center">
-                    Data Tidak Ada!
-                </p>
-            </div>
-               @endforelse
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="row">
+                        @forelse ($skills as $skill)
+                            <div class="col-lg-4 col-md-4 col-6">
+                                <div class="single-brand-item d-table">
+                                    <div class="d-table-cell text-center">
+                                        <img src="{{ $skill->image() }}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="col-12">
+                                <p class="text-cemter">Tidak Ada Data!</p>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+                <div class="offset-lg-2 col-lg-4 col-md-6">
+                    <div class="client-info">
+                        <div class="d-flex mb-50">
+                            <span class="lage">2</span>
+                            <span class="smll">Years Experience Working</span>
+                        </div>
+                        <div class="call-now d-flex">
+                            <div>
+                                <span class="fa fa-phone"></span>
+                            </div>
+                            <div class="ml-15">
+                                <p>Call us now</p>
+                                <h3>{{ $setting->phone }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<!--================End Portfolio Area =================-->
+    </section>
+    <!--================ End Brand Area =================-->
 
-<!--================ Start Testimonial Area =================-->
-{{-- <div class="testimonial_area section_gap_bottom">
+    <!--================ Start Features Area =================-->
+    {{-- <section class="features_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="main_title">
+                        <h2>service offers </h2>
+                        <p>
+                            I am a professional who provides quality services to meet your business needs
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row feature_inner justify-content-center">
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature_item">
+                        <img src="{{ asset('assets/frontend/img/services/s3.png') }}" alt="">
+                        <h4>Web Developer</h4>
+                        <p>Creating a web application according to your needs</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature_item">
+                        <img src="{{ asset('assets/frontend/img/services/s1.png') }}" alt="">
+                        <h4>Web Design</h4>
+                        <p>Creating an attractive and interactive web design</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section> --}}
+    <!--================ End Features Area =================-->
+
+    <!--================Start Portfolio Area =================-->
+    <section class="portfolio_area" id="portfolio">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="main_title">
+                        <h2>Projects </h2>
+                        <p>
+                            I have several portfolios that I have created up until now. You can see them directly
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filters-content">
+                <div class="row portfolio-grid justify-content-center">
+                    @forelse ($projects as $project)
+                        <div class="col-lg-4 col-md-6 all {{ $project->project_category_id }}">
+                            <div class="portfolio_box">
+                                <div class="single_portfolio">
+                                    {{-- <img class="img-fluid w-100" src="{{ $project->image() }}" alt=""> --}}
+                                    <div class="bg-image-portfolio"
+                                        style="background-image:url('{{ $project->image() }}')">
+
+                                    </div>
+                                    <div class="overlay"></div>
+                                    <a href="{{ $project->image() }}" class="img-gal">
+                                        <div class="icon">
+                                            <span class="lnr lnr-cross"></span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="short_info">
+                                    <h4><a href="">{{ $project->name }}</a></h4>
+                                    <p>
+                                        @foreach ($project->tags as $tag)
+                                            <span class="badge badge-info">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <p class="text-center">
+                                Data Tidak Ada!
+                            </p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Portfolio Area =================-->
+
+    <!--================ Start Testimonial Area =================-->
+    {{-- <div class="testimonial_area section_gap_bottom">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
@@ -290,9 +291,9 @@
         </div>
     </div>
 </div> --}}
-<!--================ End Testimonial Area =================-->
+    <!--================ End Testimonial Area =================-->
 
-{{-- <!--================ Start Newsletter Area =================-->
+    {{-- <!--================ Start Newsletter Area =================-->
 <section class="newsletter_area">
     <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -318,14 +319,24 @@
     </div>
 </section>
 <!--================ End Newsletter Area =================--> --}}
-<x-Frontend.Alert />
+    <x-Frontend.Alert />
 @endsection
 @push('styles')
-<style>
-    #portfolio .bg-image-portfolio{
-        height: 230px;
-        background-position: center;
-        background-size: cover;
-    }
-</style>
+    <style>
+        #portfolio .bg-image-portfolio {
+            height: 230px;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .home_banner_area {
+            background: none;
+        }
+
+        @media (max-width: 576px) {
+            .about_area img{
+                max-height: 320px;
+            }
+        }
+    </style>
 @endpush
