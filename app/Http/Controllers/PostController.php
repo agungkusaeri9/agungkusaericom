@@ -25,9 +25,9 @@ class PostController extends Controller
         $q = request('q');
         if($q)
         {
-            $posts = Post::with(['category','tags'])->where('title','LIKE', '%'. $q . '%')->latest()->paginate(8);
+            $posts = Post::publish()->with(['category','tags'])->where('title','LIKE', '%'. $q . '%')->latest()->paginate(8);
         }else{
-            $posts = Post::with(['category','tags'])->latest()->paginate(8);
+            $posts = Post::publish()->with(['category','tags'])->latest()->paginate(8);
         }
 
 
@@ -45,7 +45,7 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::with(['comments.child'])->withCount('comments')->where('slug', $slug)->firstOrFail();
+        $post = Post::publish()->with(['comments.child'])->withCount('comments')->where('slug', $slug)->firstOrFail();
         return view('frontend.pages.post.show',[
             'title' => $post->title,
             'post' => $post,
@@ -95,7 +95,7 @@ class PostController extends Controller
         }
 
         $data = request()->only(['name','email','comment','parent_id']);
-        $post = Post::findOrFail(request('post_id'));
+        $post = Post::publish()->findOrFail(request('post_id'));
         $save_info = request('save_info');
         if($save_info)
         {

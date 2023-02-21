@@ -17,7 +17,9 @@ class GoogleController extends Controller
 
     public function google_callback()
     {
-        $user = Socialite::driver('google')->user();
+        try {
+            $user = Socialite::driver('google')->user();
+
             // cek user
             $findUser = User::where('google_id',$user->getId())->orWhere('email',$user->getEmail())->first();
             if($findUser)
@@ -27,6 +29,9 @@ class GoogleController extends Controller
             }else{
                 return redirect()->route('login')->with('error','Pengguna tidak terdaftar!');
             }
+        } catch (\Throwable $th) {
+            return redirect()->route('login')->with('error','System Error!');
+        }
         // try {
         //     $user = Socialite::driver('google')->user();
         //     // cek user

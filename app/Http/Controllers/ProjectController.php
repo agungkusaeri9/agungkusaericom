@@ -22,10 +22,10 @@ class ProjectController extends Controller
         $q = request('q');
         if($q)
         {
-            $projects = Project::with(['category','tags'])->where('name','LIKE','%' . $q . '%')->latest()->paginate(8);
+            $projects = Project::publish()->with(['category','tags'])->where('name','LIKE','%' . $q . '%')->latest()->paginate(8);
         }else{
 
-            $projects = Project::with(['category','tags'])->latest()->paginate(8);
+            $projects = Project::publish()->with(['category','tags'])->latest()->paginate(8);
         }
         $project_categories = ProjectCategory::withCount('projects')->orderBy('name','ASC')->get();
         $project_tags = ProjectTag::orderBy('name','ASC')->get();
@@ -42,7 +42,7 @@ class ProjectController extends Controller
 
     public function show($slug)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
+        $project = Project::publish()->where('slug', $slug)->firstOrFail();
         return view('frontend.pages.project.show',[
             'title' => $project->title,
             'project' => $project,

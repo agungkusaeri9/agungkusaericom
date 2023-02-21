@@ -28,4 +28,9 @@ class Project extends Model
     {
         return $this->hasMany(ProjectGallery::class);
     }
+
+    public function scopePublish($query)
+    {
+        $query->where('is_publish',1);
+    }
 }

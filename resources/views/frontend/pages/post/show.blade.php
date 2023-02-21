@@ -43,7 +43,9 @@
                         <div class="col-lg-12">
                             <h2 class="mt-3 mb-2">{{ $post->title }}</h2>
 
+                          <div class="description">
                             {!! $post->description !!}
+                          </div>
                         </div>
                     </div>
                     <div class="comments-area">
@@ -208,6 +210,8 @@
                 }, 1000);
                 $('input[name=parent_id]').val(comment_id);
             })
+            $('.description img').addClass('img-fluid');
         })
+
     </script>
 @endpush

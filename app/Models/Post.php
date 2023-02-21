@@ -39,4 +39,9 @@ class Post extends Model
     {
         return $this->hasMany(PostComment::class,'post_id','id')->whereNull('parent_id')->latest();
     }
+
+    public function scopePublish($query)
+    {
+        $query->where('status',1);
+    }
 }
