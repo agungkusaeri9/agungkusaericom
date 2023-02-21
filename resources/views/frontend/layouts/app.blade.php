@@ -2,11 +2,7 @@
 <html lang="en">
 
 <head>
-    <x-Frontend.Head>
-        @slot('title')
-            {{ $title }}
-        @endslot
-    </x-Frontend.Head>
+    <x-Frontend.Head></x-Frontend.Head>
 </head>
 
 <body>

@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\Setting;
 use Illuminate\View\Component;
 
 class Head extends Component
@@ -19,8 +20,10 @@ class Head extends Component
      */
     public function render()
     {
+        $setting = Setting::first();
         return view('components.frontend.head',[
-            'title' => $this->title
+            'title' => $this->title,
+            'setting' => $setting
         ]);
     }
 }
