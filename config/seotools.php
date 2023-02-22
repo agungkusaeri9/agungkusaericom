@@ -21,8 +21,8 @@ return [
          * Webmaster tags are always added.
          */
         'webmaster_tags' => [
-            'google'    => null,
-            'bing'      => null,
+            'google'    => env('WEBMASTER_GOOGLE'),
+            'bing'      => env('WEBMASTER_BING'),
             'alexa'     => null,
             'pinterest' => null,
             'yandex'    => null,

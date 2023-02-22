@@ -87,7 +87,7 @@ class ProjectController extends Controller
 
     public function show($slug)
     {
-        $project = Project::publish()->where('slug', $slug)->firstOrFail();
+        $project = Project::with(['tags','galleries'])->publish()->where('slug', $slug)->firstOrFail();
 
         $tags = [];
         if ($project->tags) {
@@ -101,14 +101,14 @@ class ProjectController extends Controller
         // seo meta
         SEOMeta::setTitle($project->name)
             ->setDescription($project->meta_description)
-            ->setCanonical(route('projects.category',$category->slug, $project->slug))
+            ->setCanonical(route('projects.show', $project->slug))
             ->addMeta('author', $setting->author)
             ->setKeywords($project->meta_keyword);
 
         // seo og
         OpenGraph::setTitle($project->name)
             ->setDescription($project->meta_description)
-            ->setUrl(route('projects.category',$category->slug, $project->slug))
+            ->setUrl(route('projects.show', $project->slug))
             ->setSiteName($setting->site_name)
             ->addImage($project->image())
             ->addProperty('image:type', 'image/jpeg/png')
@@ -129,7 +129,7 @@ class ProjectController extends Controller
             ->setImage($project->image())
             ->setTitle($project->name)
             ->setDescription($project->meta_description)
-            ->setUrl(route('projects.category',$category->slug, $project->slug))
+            ->setUrl(route('projects.show', $project->slug))
             ->setSite($setting->site_name)
             ->addValue('card', 'summary_large_image');
 
@@ -138,7 +138,7 @@ class ProjectController extends Controller
             ->setTitle($project->name)
             ->setImage($project->image())
             ->setDescription($project->meta_description)
-            ->setUrl(route('projects.category',$category->slug, $project->slug))
+            ->setUrl(route('projects.show', $project->slug))
             ->setSite($setting->site_name);
 
         return view('frontend.pages.project.show',[

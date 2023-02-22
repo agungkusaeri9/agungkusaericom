@@ -16,9 +16,11 @@
     <!--================Footer Area =================-->
     <x-Frontend.Footer />
     <!--================End Footer Area =================-->
+    <x-Frontend.IconWa />
 
     <!-- Optional JavaScript -->
     @include('frontend.layouts.partials.scripts')
+
 </body>
 
 </html>

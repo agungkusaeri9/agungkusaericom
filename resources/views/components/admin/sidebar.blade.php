@@ -89,7 +89,7 @@
             @endcan
             @can('Sitemap View')
                 <li>
-                    <a class="nav-link" href=""><i class="fas fa-sitemap"></i>
+                    <a class="nav-link" href="{{ route('admin.sitemap.update') }}"><i class="fas fa-sitemap"></i>
                         <span>Perbaharui Sitemap</span></a>
                 </li>
             @endcan

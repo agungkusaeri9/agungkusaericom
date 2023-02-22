@@ -107,7 +107,7 @@
     <!--================ End Brand Area =================-->
 
     <!--================ Start Features Area =================-->
-    {{-- <section class="features_area">
+    <section class="features_area">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
@@ -123,7 +123,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="feature_item">
                         <img src="{{ asset('assets/frontend/img/services/s3.png') }}" alt="">
-                        <h4>Web Developer</h4>
+                        <h4>Web Depelopment</h4>
                         <p>Creating a web application according to your needs</p>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
 
             </div>
         </div>
-    </section> --}}
+    </section>
     <!--================ End Features Area =================-->
 
     <!--================Start Portfolio Area =================-->
@@ -173,7 +173,7 @@
                                     </a>
                                 </div>
                                 <div class="short_info">
-                                    <h4><a href="">{{ $project->name }}</a></h4>
+                                    <h4><a href="{{ route('projects.show',$project->slug) }}">{{ $project->name }}</a></h4>
                                     <p>
                                         @foreach ($project->tags as $tag)
                                             <span class="badge badge-info">{{ $tag->name }}</span>

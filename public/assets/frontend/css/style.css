@@ -27,7 +27,7 @@ Author E-mail: naimlasker@gmail.com
 /*----------------------------------------------------*/
 body {
     line-height: 26px;
-    font-size: 15px;
+    font-size: 17px;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     color: #777777;
@@ -4156,3 +4156,19 @@ h6 {
 /*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
+.sendwa-group-icon {
+    position: fixed;
+    bottom: 25px;
+    right: 10px;
+}
+.sendwa-group-icon img.isw {
+    height: 50px;
+    width: 50px;
+    transition: 500ms;
+}
+
+.sendwa-group-icon img.isw:hover {
+    height: 55px;
+    width: 55px;
+    transition: 500ms;
+}

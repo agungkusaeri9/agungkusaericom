@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\ProjectTagController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceTypeController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SitemapController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\SocmedController;
 use App\Http\Controllers\Admin\UserController;
@@ -113,3 +114,6 @@ Route::resource('payments',PaymentController::class)->except('create','show','ed
 // skills
 Route::get('skills/data',[SkillController::class,'data'])->name('skills.data');
 Route::resource('skills',SkillController::class)->except('create','show','edit','update');
+
+// sitemap update
+Route::get('sitemap/update',[SitemapController::class,'index'])->name('sitemap.update');

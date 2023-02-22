@@ -5,7 +5,7 @@
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
                 <div class="banner_content text-center">
-                    <h2>Detail</h2>
+                    <h2>{{ $post->title }}</h2>
                     <div class="page_link">
                         <a href="{{ route('home') }}">Home</a>
                         <a href="{{ route('posts.index') }}">Blog</a>

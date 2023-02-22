@@ -170,7 +170,9 @@
     filebrowserBrowseUrl: '/filemanager?type=Files',
     filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
   };
-        CKEDITOR.replace( 'description',options);
+        CKEDITOR.replace('description', options);
+            CKEDITOR.addCss(".cke_editable{cursor:text; font-size: 16px; font-family: Arial, sans-serif;}");
+            CKEDITOR.config.height = 500;
     })
 </script>
 @endpush
