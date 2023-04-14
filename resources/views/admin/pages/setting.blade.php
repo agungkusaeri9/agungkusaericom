@@ -108,7 +108,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="whatsapp_number">No. Whatsapp</label>
-                                    <input type="text" class="form-control @error('whatsapp_number') is-invalid @enderror"
+                                    <input type="text"
+                                        class="form-control @error('whatsapp_number') is-invalid @enderror"
                                         value="{{ $setting->whatsapp_number }}" name="whatsapp_number">
                                     @error('whatsapp_number')
                                         <div class="invalid-feedback">
@@ -226,6 +227,50 @@
                                         </div>
                                     @enderror
                                 </div>
+                                <hr>
+                                <div class='form-group mb-3'>
+                                    <label for='invoice_name' class='mb-2'>Invoice Name</label>
+                                    <input type='text' name='invoice_name'
+                                        class='form-control @error('invoice_name') is-invalid @enderror'
+                                        value='{{ $setting->invoice_name ?? old('invoice_name') }}'>
+                                    @error('invoice_name')
+                                        <div class='invalid-feedback'>
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class='form-group mb-3'>
+                                    <label for='invoice_phone_number' class='mb-2'>Invoice Phone Number</label>
+                                    <input type='text' name='invoice_phone_number'
+                                        class='form-control @error('invoice_phone_number') is-invalid @enderror'
+                                        value='{{ $setting->invoice_phone_number ?? old('invoice_phone_number') }}'>
+                                    @error('invoice_phone_number')
+                                        <div class='invalid-feedback'>
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class='form-group mb-3'>
+                                    <label for='invoice_email' class='mb-2'>Invoice Email</label>
+                                    <input type='text' name='invoice_email'
+                                        class='form-control @error('invoice_email') is-invalid @enderror'
+                                        value='{{ $setting->invoice_email ?? old('invoice_email') }}'>
+                                    @error('invoice_email')
+                                        <div class='invalid-feedback'>
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class='form-group mb-3'>
+                                    <label for='invoice_address' class='mb-2'>Invoice Address</label>
+                                    <textarea name='invoice_address' id='invoice_address' cols='30' rows='3'
+                                        class='form-control @error('invoice_address') is-invalid @enderror'>{{ $setting->invoice_address ?? old('invoice_address') }}</textarea>
+                                    @error('invoice_address')
+                                        <div class='invalid-feedback'>
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="card-footer text-right">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -246,7 +291,7 @@
             CKEDITOR.replace('description');
             CKEDITOR.addCss(".cke_editable{cursor:text; font-size: 14px; font-family: Arial, sans-serif;}");
             CKEDITOR.config.toolbar = [
-                ['Bold', 'Italic','fontSize_sizes']
+                ['Bold', 'Italic', 'fontSize_sizes']
             ];
         })
     </script>

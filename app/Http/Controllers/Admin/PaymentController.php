@@ -29,7 +29,11 @@ class PaymentController extends Controller
                     return $action;
                 })
                 ->editColumn('image', function ($model) {
-                    return '<img src="' . $model->image() . '" class="img-fluid" style="max-height:50px">';
+                    if ($model->image) {
+                        return '<img src="' . $model->image() . '" class="img-fluid" style="max-height:50px">';
+                    } else {
+                        return 'Tidak Ada';
+                    }
                 })
                 ->rawColumns(['action', 'image'])
                 ->make(true);
@@ -46,9 +50,7 @@ class PaymentController extends Controller
     {
         request()->validate([
             'name' => ['required', Rule::unique('payments')->ignore(request('id'))],
-            'image' => ['image', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'number' => ['required','numeric'],
-            'description' => ['required']
+            'image' => ['image', 'mimes:jpg,jpeg,png', 'max:2048']
         ]);
 
         if (request()->file('image')) {
@@ -95,15 +97,15 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-       try {
-        $item =  Payment::find($id);
-        if ($item->image) {
-            Storage::disk('public')->delete($item->image);
+        try {
+            $item =  Payment::find($id);
+            if ($item->image) {
+                Storage::disk('public')->delete($item->image);
+            }
+            $item->delete();
+            return response()->json(['status' => 'succcess', 'message' => 'Metode Pembayaran berhasil dihapus.']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'error', 'message' => 'Metode Pembayaran gagal dihapus.']);
         }
-        $item->delete();
-        return response()->json(['status' => 'succcess', 'message' => 'Metode Pembayaran berhasil dihapus.']);
-       } catch (\Throwable $th) {
-        return response()->json(['status' => 'error', 'message' => 'Metode Pembayaran gagal dihapus.']);
-       }
     }
 }

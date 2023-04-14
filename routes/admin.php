@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InboxController;
+use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostCategoryController;
@@ -117,3 +118,8 @@ Route::resource('skills',SkillController::class)->except('create','show','edit',
 
 // sitemap update
 Route::get('sitemap/update',[SitemapController::class,'index'])->name('sitemap.update');
+
+// invoice
+Route::get('invoices/data',[InvoiceController::class,'data'])->name('invoices.data');
+Route::resource('invoices',InvoiceController::class);
+Route::get('invoices/{code}/export',[InvoiceController::class,'exportPdf'])->name('invoices.export-pdf');

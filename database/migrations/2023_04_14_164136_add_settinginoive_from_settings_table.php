@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('settings', function (Blueprint $table) {
+            $table->string('invoice_name')->nullable();
+            $table->string('invoice_phone_number')->nullable();
+            $table->string('invoice_email')->nullable();
+            $table->string('invoice_address')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropColumn('invoice_name');
+            $table->dropColumn('invoice_phone_number');
+            $table->dropColumn('invoice_email');
+            $table->dropColumn('invoice_address');
+        });
+    }
+};

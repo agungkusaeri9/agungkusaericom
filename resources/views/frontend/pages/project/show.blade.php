@@ -118,6 +118,9 @@
         .ul-info a {
             font-size: 14px;
         }
+        .description p{
+            font-size: 17px;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('assets/frontend/lightbox2-2.11.3/dist/css/lightbox.min.css') }}">
 @endpush

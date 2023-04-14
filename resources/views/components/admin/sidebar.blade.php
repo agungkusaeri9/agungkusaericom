@@ -81,12 +81,18 @@
                     @endcan
                 </ul>
             </li>
-            @can('Setting View')
+            @can('Invoice View')
                 <li>
-                    <a class="nav-link"  href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
-                        <span>Pengaturan Web</span></a>
+                    <a class="nav-link"  href="{{ route('admin.invoices.index') }}"><i class="fas fa-file-invoice"></i>
+                        <span>Invoice</span></a>
                 </li>
             @endcan
+            @can('Setting View')
+            <li>
+                <a class="nav-link"  href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
+                    <span>Pengaturan Web</span></a>
+            </li>
+        @endcan
             @can('Sitemap View')
                 <li>
                     <a class="nav-link" href="{{ route('admin.sitemap.update') }}"><i class="fas fa-sitemap"></i>
