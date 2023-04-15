@@ -29,8 +29,7 @@ class ServiceController extends Controller
             return redirect()->back();
         }
 
-        if ($service->name === 'Jasa Pembuatan Web') {
-            $title = 'Jasa Pembuatan Web | ' . $this->setting->site_name;
+        $title = 'Jasa Pembuatan Web | ' . $this->setting->site_name;
             $meta_description = $this->setting->site_name . ' - Bisnis online Anda membutuhkan website yang efektif? Percayakan pembuatan website Anda kepada saya dan nikmati hasil yang memuaskan. Hubungi saya untuk mendapatkan penawaran terbaik.';
 
             // seo meta
@@ -70,10 +69,10 @@ class ServiceController extends Controller
                 ->setSite($this->setting->site_name);
 
 
-            return view('frontend.pages.service.jasa-pembuatan-web', [
-                'title' => 'Jasa Pembuatan Web | ' . $this->setting->site_name,
-                'setting' => $this->setting
+            return view('frontend.pages.service.show', [
+                'title' => 'Service | ' . $service->name,
+                'setting' => $this->setting,
+                'item' => $service
             ]);
-        }
     }
 }

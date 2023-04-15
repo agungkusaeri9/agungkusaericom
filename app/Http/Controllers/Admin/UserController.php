@@ -209,7 +209,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $item = User::findOrFail($id);
-        Storage::disk('public')->delete($item->avatar);
+        $item->avatar ?  Storage::disk('public')->delete($item->avatar) : '';
         $item->delete();
         return response()->json(['status' => 'success', 'message' => 'User berhasil dihapus.']);
     }

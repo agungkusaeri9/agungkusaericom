@@ -97,10 +97,10 @@
     </section>
     <!--================Blog Area =================-->
 @endsection
-@push('styles')
+{{-- @push('styles')
 <style>
     .banner_inner {
         width: 100% !important;
     }
 </style>
-@endpush
+@endpush --}}

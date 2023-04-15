@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="profile-widget-description pb-5">
-              <div class="profile-widget-name">{{ Str::ucfirst(auth()->user()->name) }} <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> Role</div></div>
+              <div class="profile-widget-name">{{ Str::ucfirst(auth()->user()->name) }} <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> {{ auth()->user()->getRoleNames()->first() }}</div></div>
               Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>.
             </div>
           </div>

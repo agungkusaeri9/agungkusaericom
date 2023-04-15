@@ -13,6 +13,7 @@
 <link rel="icon" href="{{ $setting->favicon() }}" type="image/png" sizes="16x16">
 <!-- main css -->
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 {!! SEO::generate() !!}
 @vite(['resources/js/app.js'])
 @stack('styles')

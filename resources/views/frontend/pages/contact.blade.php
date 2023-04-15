@@ -26,7 +26,7 @@
                         <div class="info_item">
                             <i class="lnr lnr-phone-handset"></i>
                             <h6>Phone </h6>
-                            <p><a href="#" class="text-dark">{{ $setting->phone }}</a></p>
+                            <p><a href="telp:" class="text-dark">{{ $setting->phone }}</a></p>
                         </div>
                         <div class="info_item">
                             <i class="lnr lnr-envelope"></i>

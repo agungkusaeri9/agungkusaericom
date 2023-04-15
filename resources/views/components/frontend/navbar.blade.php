@@ -18,7 +18,7 @@
                                 href="{{ route('home') }}">Home</a></li>
                         <li class="nav-item @if (Route::currentRouteName() === 'about') active @endif"><a class="nav-link"
                                 href="{{ route('about') }}">About</a></li>
-                        <li class="nav-item submenu dropdown">
+                        <li class="nav-item submenu dropdown @if (Route::currentRouteName() === 'services.index') active @endif">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Services</a>
                             <ul class="dropdown-menu">

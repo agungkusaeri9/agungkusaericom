@@ -107,6 +107,7 @@ Route::resource('inboxes',InboxController::class)->only('index','destroy');
 // service types
 Route::get('service-types/data',[ServiceTypeController::class,'data'])->name('service-types.data');
 Route::resource('service-types',ServiceTypeController::class)->except('create','show','edit','update');
+Route::get('service-types/get',[ServiceTypeController::class,'getById'])->name('service-types.getById');
 
 // payment
 Route::get('payments/data',[PaymentController::class,'data'])->name('payments.data');

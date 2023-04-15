@@ -26,12 +26,19 @@ class ServiceTypeController extends Controller
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action',function($model){
-                        $action = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+                        $action = "<button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name' ><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name' ><i class='fas fa fa-trash'></i> Hapus</button>";
                         return $action;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
         }
+    }
+
+    public function getById()
+    {
+        $id = request('id');
+        $item = ServiceType::find($id);
+        return response()->json($item);
     }
 
     /**
@@ -51,6 +58,9 @@ class ServiceTypeController extends Controller
             'id'  => request('id')
         ],[
             'name' => request('name'),
+            'content' => request('content'),
+            'head' => request('head'),
+            'script' => request('script'),
             'slug' => Str::slug(request('name'))
         ]);
 

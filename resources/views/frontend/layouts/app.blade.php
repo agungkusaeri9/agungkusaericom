@@ -20,7 +20,7 @@
 
     <!-- Optional JavaScript -->
     @include('frontend.layouts.partials.scripts')
-
+    <x-Frontend.Alert/>
 </body>
 
 </html>

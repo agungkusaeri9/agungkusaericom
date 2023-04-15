@@ -4,11 +4,11 @@
             <div class="col-lg-12">
                 <div class="footer_top flex-column">
                     <div class="footer_logo">
-                        <h4>Follow Me</h4>
+                        <h4 class="text-white">Follow Me</h4>
                     </div>
-                    <div class="footer_social">
+                    <div class="footer_social text-white">
                         @forelse ($socmeds as $socmed)
-                        <a href="{{ $socmed->link }}"><i class="fa fa-{{ \Str::lower($socmed->name) }}"></i></a>
+                        <a target="_blank" href="{{ $socmed->link }}"><i class="{{ $socmed->name }}"></i></a>
                         @empty
 
                         @endforelse
