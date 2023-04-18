@@ -31,6 +31,8 @@ class Setting extends Model
         }
     }
 
+
+
     public function author_image()
     {
         if($this->author_image)

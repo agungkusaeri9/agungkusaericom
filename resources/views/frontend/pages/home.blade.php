@@ -45,7 +45,7 @@
                             Introduce about <br>
                             myself</h2>
                         {!! $setting->description !!}
-                        <a class="primary_btn" href="#"><span>Download CV</span></a>
+                        <a class="primary_btn" href="{{ route('download.cv') }}"><span>Download CV</span></a>
                     </div>
                 </div>
             </div>

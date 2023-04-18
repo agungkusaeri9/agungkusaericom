@@ -43,7 +43,8 @@ class LoginController extends Controller
     {
         $setting = Setting::first();
         return view('auth.login',[
-            'setting' => $setting
+            'setting' => $setting,
+            'title' => 'Login | ' . $setting->site_name
         ]);
     }
 }
