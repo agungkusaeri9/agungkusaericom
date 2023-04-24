@@ -28,7 +28,8 @@ class HomeController extends Controller
             ->setDescription($setting->meta_description)
             ->setCanonical(route('home'))
             ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword);
+            ->setKeywords($setting->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)

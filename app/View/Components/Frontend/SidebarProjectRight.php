@@ -27,7 +27,9 @@ class SidebarProjectRight extends Component
      */
     public function render()
     {
-        $project_categories = ProjectCategory::withCount('projects')->orderBy('name','ASC')->get();
+        $project_categories = ProjectCategory::withCount(['projects' => function($q){
+            $q->where('is_publish',1);
+        }])->orderBy('name','ASC')->get();
         $project_tags = ProjectTag::orderBy('name','ASC')->get();
         $setting = Setting::first();
         $socmeds = Socmed::orderBy('name','ASC')->get();

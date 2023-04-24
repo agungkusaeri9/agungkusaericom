@@ -21,19 +21,19 @@
                     @endif
 
                     @if (!isset($category) && !isset($tag) && !request('q'))
-                        Projects
+                    Portofolio
                     @endif
                 </h2>
                 <div class="page_link">
                     <a href="{{ route('home') }}">Home</a>
-                    <a href="{{ route('projects.index') }}">Projects</a>
+                    <a href="{{ route('portofolio.index') }}">Portofolio</a>
                     @isset($category)
                         <a href="javascript:void(0)">Category</a>
-                        <a href="{{ route('projects.category',$category->slug) }}" class="disabled"> {{ $category->name }}</a>
+                        <a href="{{ route('portofolio.category',$category->slug) }}" class="disabled"> {{ $category->name }}</a>
                     @endisset
                     @isset($tag)
                         <a href="javascript:void(0)">Tag</a>
-                        <a href="{{ route('projects.tag',$tag->slug) }}" class="disabled"> {{ $tag->name }}</a>
+                        <a href="{{ route('portofolio.tag',$tag->slug) }}" class="disabled"> {{ $tag->name }}</a>
                     @endisset
                     @if(request('q'))
                         <a href="javascript:void(0)">Search</a>
@@ -56,9 +56,7 @@
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
-                                        <a href="{{ route('projects.category',$project->category->slug) }}">{{ $project->category->name }}</a>
-
-
+                                        <a href="{{ route('portofolio.category',$project->category->slug) }}">{{ $project->category->name }}</a>
                                     </div>
                                     <ul class="blog_meta list">
                                         <li><a href="javascript:void(0)">{{ $setting->author }}<i class="lnr lnr-user"></i></a></li>
@@ -70,13 +68,13 @@
                                 <div class="blog_post">
                                     <img src="{{ $project->image() }}" alt="">
                                     <div class="blog_details">
-                                        <a href="{{ route('projects.show',$project->slug) }}">
+                                        <a href="{{ route('portofolio.show',$project->slug) }}">
                                             <h2>{{ $project->name }}</h2>
                                         </a>
                                         <p>
                                             {{ $project->meta_description }}
                                         </p>
-                                        <a href="{{ route('projects.show',$project->slug) }}" class="primary_btn"><span>View More</span></a>
+                                        <a href="{{ route('portofolio.show',$project->slug) }}" class="primary_btn"><span>View More</span></a>
                                     </div>
                                 </div>
                             </div>

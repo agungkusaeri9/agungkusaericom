@@ -47,7 +47,8 @@ class PostController extends Controller
             ->setDescription($meta_description)
             ->setCanonical(route('posts.index'))
             ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword);
+            ->setKeywords($setting->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)
@@ -105,7 +106,8 @@ class PostController extends Controller
             ->setDescription($post->meta_description)
             ->setCanonical(route('posts.show', $post->slug))
             ->addMeta('author', $post->user->name)
-            ->setKeywords($post->meta_keyword);
+            ->setKeywords($post->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($post->title)
@@ -166,7 +168,8 @@ class PostController extends Controller
             ->setDescription($meta_description)
             ->setCanonical(route('posts.category',$category->slug))
             ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword);
+            ->setKeywords($setting->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)
@@ -220,7 +223,8 @@ class PostController extends Controller
             ->setDescription($meta_description)
             ->setCanonical(route('posts.tag',$tag->slug))
             ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword);
+            ->setKeywords($setting->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)

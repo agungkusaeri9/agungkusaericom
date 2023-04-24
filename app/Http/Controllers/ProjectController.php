@@ -44,7 +44,8 @@ class ProjectController extends Controller
             ->setDescription($meta_description)
             ->setCanonical(route('projects.index'))
             ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword);
+            ->setKeywords($setting->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)
@@ -103,7 +104,8 @@ class ProjectController extends Controller
             ->setDescription($project->meta_description)
             ->setCanonical(route('projects.show', $project->slug))
             ->addMeta('author', $setting->author)
-            ->setKeywords($project->meta_keyword);
+            ->setKeywords($project->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($project->name)
@@ -150,7 +152,7 @@ class ProjectController extends Controller
     public function category($slug)
     {
         $category = ProjectCategory::where('slug',$slug)->firstOrFail();
-        $projects = $category->projects()->paginate(8);
+        $projects = $category->projects()->publish()->paginate(8);
 
 
         $setting = Setting::first();
@@ -161,7 +163,8 @@ class ProjectController extends Controller
             ->setDescription($meta_description)
             ->setCanonical(route('projects.category',$category->slug))
             ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword);
+            ->setKeywords($setting->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)
@@ -203,7 +206,7 @@ class ProjectController extends Controller
     public function tag($slug)
     {
         $tag = ProjectTag::where('slug',$slug)->firstOrFail();
-        $projects = $tag->projects()->paginate(8);
+        $projects = $tag->projects()->publish()->paginate(8);
 
         $setting = Setting::first();
         $title = 'Tag Project ' . $tag->name . ' | ' . $this->setting->site_name;
@@ -213,7 +216,8 @@ class ProjectController extends Controller
             ->setDescription($meta_description)
             ->setCanonical(route('projects.category',$tag->slug))
             ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword);
+            ->setKeywords($setting->meta_keyword)
+            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)

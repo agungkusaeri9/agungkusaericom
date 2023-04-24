@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
@@ -63,3 +64,10 @@ Route::get('/projects/{slug}',[ProjectController::class,'show'])->name('projects
 
 // service
 Route::get('/services/{name}',[ServiceController::class,'index'])->name('services.index');
+
+// portofolio
+Route::get('/portofolio-secret-123',[PortofolioController::class,'index'])->name('portofolio.index');
+Route::get('/portofolio-secret-123/search',[PortofolioController::class,'index'])->name('portofolio.search');
+Route::get('/portofolio-secret-123/category/{category}',[PortofolioController::class,'category'])->name('portofolio.category');
+Route::get('/portofolio-secret-123/tag/{tag}',[PortofolioController::class,'tag'])->name('portofolio.tag');
+Route::get('/portofolio-secret-123/{slug}',[PortofolioController::class,'show'])->name('portofolio.show');

@@ -174,9 +174,10 @@
                                 </div>
                                 <div class="short_info">
                                     <h4><a href="{{ route('projects.show',$project->slug) }}">{{ $project->name }}</a></h4>
+                                    <p>{{ $project->meta_description }}</p>
                                     <p>
                                         @foreach ($project->tags as $tag)
-                                            <span class="badge badge-info">{{ $tag->name }}</span>
+                                            <a href="{{ route('projects.tag',$tag->slug) }}" class="badge badge-info">{{ $tag->name }}</a>
                                         @endforeach
                                     </p>
                                 </div>
