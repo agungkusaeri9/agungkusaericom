@@ -51,15 +51,15 @@
                                 </address>
                             </div>
                         </div>
-                        {{-- <div class="row">
+                        <div class="row">
                             <div class="col-md-6"></div>
                             <div class="col-md-6 text-md-right">
                                 <address>
                                     <strong>Tanggal Pemesanan:</strong><br>
-                                    {{$item->created_at->translatedFormat('d F Y H:i:s') }}<br><br>
+                                    {{$item->created_at->translatedFormat('H:i:s d F Y') }}<br><br>
                                 </address>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
 
@@ -68,8 +68,8 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-hover table-md">
                                 <tr>
-                                    <th data-width="40">#</th>
-                                    <th>Deskripsi</th>
+                                    <th data-width="40">No.</th>
+                                    <th style="width:500px">Deskripsi</th>
                                     <th class="text-center">Harga</th>
                                     <th class="text-center">Jumlah</th>
                                     <th class="text-right">Total</th>
@@ -95,7 +95,7 @@
                                         <address>
                                             <strong>Metode Pembayaran:</strong><br>
                                             @if ($item->payment->number)
-                                                {{ $item->payment->name . ' | ' . $item->payment->number . ' | ' . $item->payment->description }}
+                                                {{ $item->payment->name . ' - ' . $item->payment->number . ' a.n ' . $item->payment->description }}
                                             @else
                                                 {{ $item->payment->name }}
                                             @endif

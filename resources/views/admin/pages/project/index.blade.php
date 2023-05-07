@@ -24,6 +24,7 @@
                                             <th>Nama</th>
                                             <th>Kategori</th>
                                             <th>Publikasi</th>
+                                            <th>Portofolio</th>
                                             <th>Status</th>
                                             <th>Tanggal</th>
                                             <th>Aksi</th>
@@ -90,6 +91,10 @@
                     {
                         data: 'is_publish',
                         name: 'is_publish'
+                    },
+                    {
+                        data: 'is_portfolio',
+                        name: 'is_portfolio'
                     },
                     {
                         data: 'status',

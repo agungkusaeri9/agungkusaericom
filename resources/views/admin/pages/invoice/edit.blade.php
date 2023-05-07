@@ -96,7 +96,17 @@
                                                 </div>
                                             @enderror
                                         </div>
-
+                                        <div class='form-group mb-3 f-paid-time d-none'>
+                                            <label for='paid_time' class='mb-2'>Tanggal Dibayarkan</label>
+                                            <input type='datetime-local' name='paid_time'
+                                                class='form-control @error('paid_time') is-invalid @enderror'
+                                                value='{{  $item->paid_time ? $item->paid_time->translatedFormat('Y-m-d H:i:s') : old('paid_time') }}' id="paid_time">
+                                            @error('paid_time')
+                                                <div class='invalid-feedback'>
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                         <div class="form-group">
                                             <button class="btn btn-block btn-primary"><i class="fas fa-save"></i>
                                                 Simpan</button>
@@ -304,6 +314,26 @@
 
             $("body").on("click", ".rowDelete", function() {
                 $(this).parents("#row").remove();
+            })
+
+            let status = '{{ $item->status }}';
+            if(status == 1)
+                {
+                    $('.f-paid-time').removeClass('d-none');
+                }else{
+                    $('.f-paid-time').addClass('d-none');
+                    $('#paid_time').val('');
+                }
+            $('#status').on('change', function() {
+                let status = $(this).val();
+                if(status == 1)
+                {
+                    $('.f-paid-time').removeClass('d-none');
+                }else{
+                    $('.f-paid-time').addClass('d-none');
+                    $('#paid_time').val('');
+                }
+
             })
         })
     </script>

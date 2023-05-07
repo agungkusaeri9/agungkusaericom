@@ -40,7 +40,7 @@
                                     <a href="{{ $project->link }}" class="text-dark ">
                                         <i class="fas fa-link"></i> <span>
                                             @if ($project->link)
-                                                {{ $project->link }}
+                                                Kunjungi
                                             @else
                                                 Unavaible
                                             @endif

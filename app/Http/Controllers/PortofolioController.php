@@ -27,10 +27,10 @@ class PortofolioController extends Controller
         $q = request('q');
         if($q)
         {
-            $projects = Project::with(['category','tags'])->where('name','LIKE','%' . $q . '%')->latest()->paginate(8);
+            $projects = Project::where('is_portfolio',1)->with(['category','tags'])->where('name','LIKE','%' . $q . '%')->latest()->paginate(8);
         }else{
 
-            $projects = Project::with(['category','tags'])->latest()->paginate(8);
+            $projects = Project::where('is_portfolio',1)->with(['category','tags'])->latest()->paginate(8);
         }
         $project_categories = ProjectCategory::withCount('projects')->orderBy('name','ASC')->get();
         $project_tags = ProjectTag::orderBy('name','ASC')->get();
@@ -62,7 +62,7 @@ class PortofolioController extends Controller
 
     public function show($slug)
     {
-        $project = Project::with(['tags','galleries'])->publish()->where('slug', $slug)->firstOrFail();
+        $project = Project::where('is_portfolio',1)->with(['tags','galleries'])->publish()->where('slug', $slug)->firstOrFail();
 
         $tags = [];
         if ($project->tags) {
@@ -91,8 +91,7 @@ class PortofolioController extends Controller
     public function category($slug)
     {
         $category = ProjectCategory::where('slug',$slug)->firstOrFail();
-        $projects = $category->projects()->paginate(8);
-
+        $projects = $category->projects()->where('is_portfolio',1)->paginate(8);
 
         $setting = Setting::first();
         $title = 'Kategori Project ' . $category->name . ' | ' . $this->setting->site_name;
@@ -118,7 +117,7 @@ class PortofolioController extends Controller
     public function tag($slug)
     {
         $tag = ProjectTag::where('slug',$slug)->firstOrFail();
-        $projects = $tag->projects()->paginate(8);
+        $projects = $tag->projects()->where('is_portfolio',1)->paginate(8);
 
         $setting = Setting::first();
         $title = 'Tag Project ' . $tag->name . ' | ' . $this->setting->site_name;

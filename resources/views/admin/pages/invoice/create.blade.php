@@ -66,7 +66,8 @@
                                                 class="form-control @error('payment_id') is-invalid @enderror">
                                                 <option value="" selected disabled>Pilih Metode Pembayaran</option>
                                                 @foreach ($payments as $payment)
-                                                <option value="{{ $payment->id }}">{{ $payment->name . ' | ' . $payment->number }}</option>
+                                                    <option value="{{ $payment->id }}">
+                                                        {{ $payment->name . ' | ' . $payment->number }}</option>
                                                 @endforeach
                                             </select>
                                             @error('payment_id')
@@ -79,7 +80,7 @@
                                         <div class="form-group">
                                             <label for="status">Status</label>
                                             <select name="status" id="status"
-                                                class="form-control @error('status') is-invalid @enderror" >
+                                                class="form-control @error('status') is-invalid @enderror">
                                                 <option value="" selected disabled>Pilih Status</option>
                                                 <option @if (old('status') == 1) selected @endif value="1">
                                                     Paid</option>
@@ -89,6 +90,17 @@
                                             </select>
                                             @error('status')
                                                 <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class='form-group mb-3 f-paid-time d-none'>
+                                            <label for='paid_time' class='mb-2'>Tanggal Dibayarkan</label>
+                                            <input type='datetime-local' name='paid_time'
+                                                class='form-control @error('paid_time') is-invalid @enderror'
+                                                value='{{ old('paid_time') }}' id="paid_time">
+                                            @error('paid_time')
+                                                <div class='invalid-feedback'>
                                                     {{ $message }}
                                                 </div>
                                             @enderror
@@ -214,6 +226,18 @@
 
             $("body").on("click", ".rowDelete", function() {
                 $(this).parents("#row").remove();
+            })
+
+            $('#status').on('change', function() {
+                let status = $(this).val();
+                if(status == 1)
+                {
+                    $('.f-paid-time').removeClass('d-none');
+                }else{
+                    $('.f-paid-time').addClass('d-none');
+                    $('#paid_time').val('');
+                }
+
             })
         })
     </script>

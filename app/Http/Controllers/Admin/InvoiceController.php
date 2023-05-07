@@ -28,13 +28,19 @@ class InvoiceController extends Controller
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($model) {
+                    $print = route('admin.invoices.export-pdf', $model->code);
                     $edit = route('admin.invoices.edit', $model->id);
                     $show = route('admin.invoices.show', $model->id);
-                    $action = "<a href='$show' class='btn btn-sm btn-warning mx-1' ><i class='fas fa fa-eye'></i> Detail</a><a href='$edit' class='btn btn-sm btn-info btnEdit mx-1' ><i class='fas fa fa-edit'></i> Edit</a><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-code='$model->code' ><i class='fas fa fa-trash'></i> Hapus</button>";
+                    $action = "<a href='$print' target='_blank' class='btn btn-sm btn-secondary mx-1' ><i class='fas fa fa-print'></i> Print</a>
+                    <a href='$show' class='btn btn-sm btn-warning mx-1' ><i class='fas fa fa-eye'></i> Detail</a><a href='$edit' class='btn btn-sm btn-info btnEdit mx-1' ><i class='fas fa fa-edit'></i> Edit</a><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-code='$model->code' ><i class='fas fa fa-trash'></i> Hapus</button>";
                     return $action;
                 })
                 ->editColumn('created_at', function ($model) {
-                    return $model->created_at->translatedFormat('d-m-Y H:i:s');
+                    return $model->created_at->translatedFormat('H:i:s d-m-Y');
+                })
+                ->editColumn('paid_time', function ($model) {
+                    $md =  $model->paid_time ? $model->paid_time->translatedFormat('H:i:s d-m-Y') : '-';
+                    return $md;
                 })
                 ->editColumn('sub_total', function ($model) {
                     return 'Rp ' . number_format($model->sub_total, 0, ',', '.');
@@ -149,7 +155,7 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try {
             $item = Invoice::findOrFail($id);
-            $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id']);
+            $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id','paid_time']);
 
             // hitung sub total
             $sub_total = 0;

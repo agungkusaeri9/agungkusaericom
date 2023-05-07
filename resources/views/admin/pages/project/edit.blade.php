@@ -131,6 +131,20 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
+                                            <label for="is_portfolio">Set Portofolio</label>
+                                            <select name="is_portfolio" id="is_portfolio"
+                                                class="form-control @error('is_portfolio') is-invalid @enderror">
+                                                <option value="" selected disabled>Pilih</option>
+                                                <option @selected($item->is_portfolio == 1) value="1">Ya</option>
+                                                <option @selected($item->is_portfolio == 0) value="0">Tidak</option>
+                                            </select>
+                                            @error('is_portfolio')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <label for="image">Gambar</label><br>
                                             <div class="text-center">
                                                 <img src="{{ $item->image() }}" class="img-fluid mb-2" alt=""

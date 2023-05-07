@@ -44,6 +44,13 @@ class ProjectController extends Controller
                         return '<span class="badge badge-danger ">Tidak</span>';
                     }
                 })
+                ->editColumn('is_portfolio', function ($model) {
+                    if ($model->is_portfolio == true) {
+                        return '<span class="badge badge-success">Ya</span>';
+                    } else {
+                        return '<span class="badge badge-danger ">Tidak</span>';
+                    }
+                })
                 ->editColumn('status', function ($model) {
                     if ($model->status === 'ON PROGRESS') {
                         return '<span class="badge badge-warning">ON PROGRESS</span>';
@@ -61,7 +68,7 @@ class ProjectController extends Controller
                 ->addColumn('created', function ($model) {
                     return $model->created_at->translatedFormat('d-m-Y H:i:s');
                 })
-                ->rawColumns(['action', 'is_publish', 'status', 'image'])
+                ->rawColumns(['action', 'is_publish', 'status', 'image','is_portfolio'])
                 ->make(true);
         }
     }

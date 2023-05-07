@@ -124,3 +124,6 @@ Route::get('sitemap/update',[SitemapController::class,'index'])->name('sitemap.u
 Route::get('invoices/data',[InvoiceController::class,'data'])->name('invoices.data');
 Route::resource('invoices',InvoiceController::class);
 Route::get('invoices/{code}/export',[InvoiceController::class,'exportPdf'])->name('invoices.export-pdf');
+
+// chart js
+Route::post('/ajaxTransaction',[DashboardController::class,'ajaxTransaction'])->name('ajaxTransaction');

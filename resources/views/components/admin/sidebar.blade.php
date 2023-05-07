@@ -8,7 +8,8 @@
         </div>
         <ul class="sidebar-menu">
             @can('Dashboard')
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i
+                            class="fas fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
             @endcan
@@ -41,9 +42,9 @@
                     <span>Service</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('admin.service-types.index') }}">Jenis</a></li>
-                    <li><a href="">Layanan</a></li>
+                    {{-- <li><a href="">Layanan</a></li> --}}
                     <li><a href="{{ route('admin.payments.index') }}">Pembayaran</a></li>
-                    <li><a href="">Transaksi</a></li>
+                    {{-- <li><a href="">Transaksi</a></li> --}}
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -83,16 +84,16 @@
             </li>
             @can('Invoice View')
                 <li>
-                    <a class="nav-link"  href="{{ route('admin.invoices.index') }}"><i class="fas fa-file-invoice"></i>
+                    <a class="nav-link" href="{{ route('admin.invoices.index') }}"><i class="fas fa-file-invoice"></i>
                         <span>Invoice</span></a>
                 </li>
             @endcan
             @can('Setting View')
-            <li>
-                <a class="nav-link"  href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
-                    <span>Pengaturan Web</span></a>
-            </li>
-        @endcan
+                <li>
+                    <a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
+                        <span>Pengaturan Web</span></a>
+                </li>
+            @endcan
             @can('Sitemap View')
                 <li>
                     <a class="nav-link" href="{{ route('admin.sitemap.update') }}"><i class="fas fa-sitemap"></i>

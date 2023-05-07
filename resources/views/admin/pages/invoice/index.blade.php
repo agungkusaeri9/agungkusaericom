@@ -20,8 +20,9 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
+                                            <th>Tanggal Dibuat</th>
+                                            <th>Tanggal Dibayar</th>
                                             <th>Kode</th>
-                                            <th>Tanggal</th>
                                             <th>Nama</th>
                                             <th>Nomor Whatsapp</th>
                                             <th>Sub Total</th>
@@ -80,12 +81,16 @@
                         searchable: false
                     },
                     {
-                        data: 'code',
-                        name: 'code'
-                    },
-                    {
                         data: 'created_at',
                         name: 'created_at'
+                    },
+                    {
+                        data: 'paid_time',
+                        name: 'paid_time'
+                    },
+                    {
+                        data: 'code',
+                        name: 'code'
                     },
                     {
                         data: 'name',

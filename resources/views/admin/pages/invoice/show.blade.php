@@ -57,7 +57,7 @@
                                 <table class="table table-striped table-hover table-md">
                                     <tr>
                                         <th data-width="40">#</th>
-                                        <th>Deskripsi</th>
+                                        <th style="width:450px">Deskripsi</th>
                                         <th class="text-center">Harga</th>
                                         <th class="text-center">Jumlah</th>
                                         <th class="text-right">Total</th>

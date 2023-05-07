@@ -72,6 +72,17 @@
                                 </li>
                                 <hr>
                                 <li class="list-item d-flex justify-content-between">
+                                    <span class="font-weight-bold">Set Portofolio</span>
+                                    <span class="ml-5 text-right">
+                                        @if ($item->is_portfolio == true)
+                                        <span class="badge badge-success">Ya</span>
+                                        @else
+                                        <span class="badge badge-danger">Tidak</span>
+                                        @endif
+                                    </span>
+                                </li>
+                                <hr>
+                                <li class="list-item d-flex justify-content-between">
                                     <span class="font-weight-bold">Dibuat</span>
                                     <span class="ml-5 text-right">{{ $item->created_at->translatedFormat('d-m-Y H:i:s') }}</span>
                                 </li>

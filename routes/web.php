@@ -66,8 +66,8 @@ Route::get('/projects/{slug}',[ProjectController::class,'show'])->name('projects
 Route::get('/services/{name}',[ServiceController::class,'index'])->name('services.index');
 
 // portofolio
-Route::get('/portofolio-secret-123',[PortofolioController::class,'index'])->name('portofolio.index');
-Route::get('/portofolio-secret-123/search',[PortofolioController::class,'index'])->name('portofolio.search');
-Route::get('/portofolio-secret-123/category/{category}',[PortofolioController::class,'category'])->name('portofolio.category');
-Route::get('/portofolio-secret-123/tag/{tag}',[PortofolioController::class,'tag'])->name('portofolio.tag');
-Route::get('/portofolio-secret-123/{slug}',[PortofolioController::class,'show'])->name('portofolio.show');
+Route::get('/list-portofolio',[PortofolioController::class,'index'])->name('portofolio.index');
+Route::get('/list-portofolio/search',[PortofolioController::class,'index'])->name('portofolio.search');
+Route::get('/list-portofolio/category/{category}',[PortofolioController::class,'category'])->name('portofolio.category');
+Route::get('/list-portofolio/tag/{tag}',[PortofolioController::class,'tag'])->name('portofolio.tag');
+Route::get('/list-portofolio/{slug}',[PortofolioController::class,'show'])->name('portofolio.show');
