@@ -135,9 +135,9 @@
     <link rel="stylesheet" href="{{ asset('assets/chart.js/Chart.min.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
-        #myChart{
-                height: 400px;
-            }
+        #myChart {
+            height: 400px;
+        }
     </style>
 @endpush
 @push('scripts')
@@ -194,7 +194,8 @@
                                         return i > 0 && c !== "." && (a.length - i) % 3 === 0 ?
                                             "." + c : c;
                                     });
-                            }
+                            },
+                            beginAtZero: true
                         },
 
                     }],

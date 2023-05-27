@@ -5,7 +5,7 @@
             <h1>Edit Invoice</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="{{ route('admin.invoices.index') }}">Invoice</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('admin.invoices.index') }}">Data Invoice</a></div>
                 <div class="breadcrumb-item">Edit Invoice</div>
             </div>
         </div>
@@ -19,6 +19,16 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="code">Kode</label>
+                                            <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                                name="code" value="{{ $item->code ?? old('code') }}" id="code" readonly>
+                                            @error('code')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                         <div class="form-group">
                                             <label for="name">Nama</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
@@ -107,6 +117,17 @@
                                                 </div>
                                             @enderror
                                         </div>
+                                        <div class='form-group mb-3'>
+                                            <label for='created_at' class='mb-2'>Tanggal Dibuat</label>
+                                            <input type='datetime-local' name='created_at'
+                                                class='form-control @error('created_at') is-invalid @enderror'
+                                                value='{{  $item->created_at ? $item->created_at->translatedFormat('Y-m-d H:i:s') : old('created_at') }}' id="created_at">
+                                            @error('created_at')
+                                                <div class='invalid-feedback'>
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                         <div class="form-group">
                                             <button class="btn btn-block btn-primary"><i class="fas fa-save"></i>
                                                 Simpan</button>
@@ -145,7 +166,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-1">
+                                                <div class="col-md-3">
                                                     <div class='form-group mb-3'>
                                                         <label for='item_qty' class='mb-2'>Qty</label>
                                                         <input type='number' required name='item_qty[]'
@@ -157,17 +178,6 @@
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                </div>
-                                                <div class='form-group mb-3'>
-                                                    <label for='total' class='mb-2'>Total</label>
-                                                    <input type='text' name='total'
-                                                        class='form-control @error('total') is-invalid @enderror' readonly
-                                                        value='{{ number_format($detail->total, 0, ',', '.') }}'>
-                                                    @error('total')
-                                                        <div class='invalid-feedback'>
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                                 <div class="col-md-1 align-self-end mb-3">
                                                     @if ($key  == 1)
@@ -220,17 +230,6 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class='form-group mb-3'>
-                                                    <label for='total' class='mb-2'>Total</label>
-                                                    <input type='text' name='total'
-                                                        class='form-control @error('total') is-invalid @enderror' readonly
-                                                        value=''>
-                                                    @error('total')
-                                                        <div class='invalid-feedback'>
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
                                                 <div class="col-md-1 align-self-end mb-3">
                                                     <button type="button" class="btn py-2 rowAdd btn-success"><i
                                                         class="fas fa-plus"></i></button>
@@ -279,7 +278,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-3">
                         <div class='form-group mb-3'>
                             <label for='item_qty' class='mb-2'>Qty</label>
                             <input type='number' required name='item_qty[]'
@@ -291,17 +290,6 @@
                                 </div>
                             @enderror
                         </div>
-                    </div>
-                    <div class='form-group mb-3'>
-                        <label for='total' class='mb-2'>Total</label>
-                        <input type='text'  name='total'
-                            class='form-control @error('total') is-invalid @enderror'
-                            readonly value=''>
-                        @error('total')
-                            <div class='invalid-feedback'>
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
                     <div class="col-md-1 align-self-end mb-3">
                         <button type="button" class="btn py-2 rowDelete btn-danger"><i

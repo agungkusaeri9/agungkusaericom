@@ -13,6 +13,34 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
+                            <h5 class="card-title">Filter</h5>
+                            <form action="javascript:void(0)" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status">Pilih Status</label>
+                                            <select name="status" id="status" class="form-control">
+                                                <option value="">Semua</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="unpaid">Unpaid</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md align-self-center">
+                                        <button class="btn btn-sm px-2 btn-secondary py-2 btnFilter"><i class="fas fa-filter"></i>
+                                            Filter</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
                             <a href="{{ route('admin.invoices.create') }}" class="btn btn-sm btn-primary mb-3 btnAdd"><i
                                     class="fas fa-plus"></i> Buat Invoice</a>
                             <div class="table-responsive">
@@ -40,7 +68,6 @@
             </div>
         </div>
     </section>
-
 @endsection
 <x-Admin.Datatable />
 <x-Admin.Ajaxpost />
@@ -72,8 +99,13 @@
             let otable = $('#dTable').DataTable({
                 processing: true,
                 serverSide: true,
-                responsive:true,
-                ajax: '{{ route('admin.invoices.data') }}',
+                responsive: true,
+                ajax: {
+                    url: '{{ route('admin.invoices.data') }}',
+                    data: function(d) {
+                        d.status = $('#status').val();
+                    }
+                },
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -124,6 +156,11 @@
                     }
                 ]
             });
+
+            $('.btnFilter').on('click', function() {
+                otable.draw();
+            });
+
             $('.btnAdd').on('click', function() {
                 $('#myModal .modal-title').text('Tambah Data');
                 $('#myModal').modal('show');
@@ -140,7 +177,7 @@
                     processData: false,
                     data: form,
                     success: function(response) {
-                       swal(response);
+                        swal(response);
                         otable.ajax.reload();
                         $('#myModal').modal('hide');
                     },
@@ -177,7 +214,7 @@
                             type: 'DELETE',
                             dataType: 'JSON',
                             success: function(response) {
-                               swal(response);
+                                swal(response);
                                 otable.ajax.reload();
                                 $('#myModal').modal('hide');
 

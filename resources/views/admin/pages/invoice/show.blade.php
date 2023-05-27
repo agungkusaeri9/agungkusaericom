@@ -5,7 +5,7 @@
             <h1>Invoice</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="{{ route('admin.invoices.index') }}">Invoice</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('admin.invoices.index') }}">Data  Invoice</a></div>
                 <div class="breadcrumb-item">{{ $item->code }}</div>
             </div>
         </div>

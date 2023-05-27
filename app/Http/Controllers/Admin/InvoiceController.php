@@ -21,7 +21,7 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function data()
+    public function data(Request $request)
     {
         if (request()->ajax()) {
             $data = Invoice::latest();
@@ -53,6 +53,15 @@ class InvoiceController extends Controller
                 })
                 ->editColumn('status', function ($model) {
                     return $model->status();
+                })
+                ->filter(function ($instance) use ($request) {
+
+                    if ($request->get('status')) {
+                        if($request->get('status') === 'paid')
+                            $instance->where('status', 1);
+                        else
+                            $instance->where('status', 0);
+                    }
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -155,7 +164,7 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try {
             $item = Invoice::findOrFail($id);
-            $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id','paid_time']);
+            $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id','paid_time','created_at']);
 
             // hitung sub total
             $sub_total = 0;
