@@ -13,6 +13,7 @@
                         <span>Dashboard</span></a>
                 </li>
             @endcan
+
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
                     <span>Blog</span></a>
@@ -68,6 +69,19 @@
                     @endcan
                 </ul>
             </li>
+            @can('Invoice View')
+                <li>
+                    <a class="nav-link" href="{{ route('admin.invoices.index') }}"><i class="fas fa-file-invoice"></i>
+                        <span>Invoice</span></a>
+                </li>
+            @endcan
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i>
+                    <span>Laporan</span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ route('admin.report.income.index') }}">Pendapatan</a></li>
+                </ul>
+            </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-database"></i>
                     <span>Master</span></a>
@@ -80,26 +94,14 @@
                     @can('Filemanager View')
                         <li><a href="{{ url('admin/filemanager') }}" target="_blank">File Manager</a></li>
                     @endcan
+                    @can('Setting View')
+                        <li><a href="{{ route('admin.settings.index') }}" target="_blank">Pengaturan Web</a></li>
+                    @endcan
+                    @can('Sitemap View')
+                        <li><a href="{{ route('admin.sitemap.update') }}" target="_blank">Perbaharui Sitemap</a></li>
+                    @endcan
                 </ul>
             </li>
-            @can('Invoice View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.invoices.index') }}"><i class="fas fa-file-invoice"></i>
-                        <span>Invoice</span></a>
-                </li>
-            @endcan
-            @can('Setting View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
-                        <span>Pengaturan Web</span></a>
-                </li>
-            @endcan
-            @can('Sitemap View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.sitemap.update') }}"><i class="fas fa-sitemap"></i>
-                        <span>Perbaharui Sitemap</span></a>
-                </li>
-            @endcan
         </ul>
 
     </aside>

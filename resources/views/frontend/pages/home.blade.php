@@ -35,9 +35,9 @@
         <div class="container">
             <div class="row justify-content-start align-items-center">
                 <div class="col-lg-6">
-                   <div class="text-center">
-                    <img class="img-fluid mb-5" src="{{ $setting->image() }}" alt="">
-                   </div>
+                    <div class="text-center">
+                        <img class="img-fluid mb-5" src="{{ $setting->image() }}" alt="">
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="main_title text-left">
@@ -61,7 +61,8 @@
                     <div class="main_title">
                         <h2>Skills</h2>
                         <p>
-                            Developing skills and becoming an expert in building attractive and responsive websites so that you might be interested in me
+                            Developing skills and becoming an expert in building attractive and responsive websites so that
+                            you might be interested in me
                         </p>
                     </div>
                 </div>
@@ -173,11 +174,13 @@
                                     </a>
                                 </div>
                                 <div class="short_info">
-                                    <h4><a href="{{ route('projects.show',$project->slug) }}">{{ $project->name }}</a></h4>
+                                    <h4><a href="{{ route('projects.show', $project->slug) }}">{{ $project->name }}</a>
+                                    </h4>
                                     <p>{{ $project->meta_description }}</p>
                                     <p>
                                         @foreach ($project->tags as $tag)
-                                            <a href="{{ route('projects.tag',$tag->slug) }}" class="badge badge-info">{{ $tag->name }}</a>
+                                            <a href="{{ route('projects.tag', $tag->slug) }}"
+                                                class="badge badge-info">{{ $tag->name }}</a>
                                         @endforeach
                                     </p>
                                 </div>
@@ -335,7 +338,7 @@
         }
 
         @media (max-width: 576px) {
-            .about_area img{
+            .about_area img {
                 max-height: 320px;
             }
         }
