@@ -18,17 +18,6 @@
                                 href="{{ route('home') }}">Home</a></li>
                         <li class="nav-item @if (Route::currentRouteName() === 'about') active @endif"><a class="nav-link"
                                 href="{{ route('about') }}">About</a></li>
-                        <li class="nav-item submenu dropdown @if (Route::currentRouteName() === 'services.index') active @endif">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">Services</a>
-                            <ul class="dropdown-menu">
-                               @forelse ($services as $service)
-                               <li class="nav-item"><a class="nav-link" href="{{ route('services.index',Str::slug($service->name)) }}">{{ $service->name }}</a></li>
-                               @empty
-
-                               @endforelse
-                            </ul>
-                        </li>
                         <li class="nav-item @if (Route::currentRouteName() === 'projects.index' || Route::currentRouteName() === 'projects.show') active @endif"><a class="nav-link"
                                 href="{{ route('projects.index') }}">Projects</a></li>
                         <li class="nav-item @if (Route::currentRouteName() === 'posts.index' || Route::currentRouteName() === 'posts.show') active @endif"><a class="nav-link"
