@@ -35,8 +35,8 @@
         <div class="container">
             <div class="row justify-content-start align-items-center">
                 <div class="col-lg-6">
-                    <div class="text-center">
-                        <img class="img-fluid mb-5" src="{{ $setting->image() }}" alt="">
+                    <div class="text-center border-1">
+                        <img class="img-fluid mb-5 rounded-circle" src="{{ $setting->image() }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
