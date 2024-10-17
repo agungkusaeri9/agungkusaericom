@@ -78,6 +78,10 @@
                         class="fas fa-hand-holding-usd"></i>
                     <span>Utang Piutang</span></a>
             </li>
+            <li>
+                <a class="nav-link" href="{{ route('admin.visitor.index') }}"><i class="fas fa-user-friends"></i>
+                    <span>Visitor</span></a>
+            </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i>
                     <span>Laporan</span></a>

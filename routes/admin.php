@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\SocmedController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UtangPiutangController;
+use App\Http\Controllers\Admin\VisitorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -147,3 +148,7 @@ Route::resource('pengaturan-seo', PengaturanSeoController::class)->except('creat
 Route::get('utang-piutan/getById', [UtangPiutangController::class, 'getById'])->name('utang-piutang.getById');
 Route::get('utang-piutang/data', [UtangPiutangController::class, 'data'])->name('utang-piutang.data');
 Route::resource('utang-piutang', UtangPiutangController::class)->except('create', 'show', 'edit', 'update');
+
+// visitor
+Route::get('visitor/data', [VisitorController::class, 'data'])->name('visitor.data');
+Route::resource('visitor', VisitorController::class)->only('index');

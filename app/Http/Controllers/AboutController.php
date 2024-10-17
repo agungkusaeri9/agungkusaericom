@@ -14,6 +14,11 @@ use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class AboutController extends Controller
 {
+    public function __construct()
+    {
+        visitor()->visit();
+    }
+
     /**
      * Handle the incoming request.
      *

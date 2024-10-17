@@ -20,6 +20,7 @@ class ProjectController extends Controller
     private $setting;
     public function __construct()
     {
+        visitor()->visit();
         $this->setting = Setting::first();
     }
 

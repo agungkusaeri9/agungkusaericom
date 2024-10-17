@@ -17,6 +17,11 @@ use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        visitor()->visit();
+    }
+
     public function __invoke()
     {
         $setting = Setting::first();

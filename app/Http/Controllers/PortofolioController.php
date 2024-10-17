@@ -22,6 +22,7 @@ class PortofolioController extends Controller
     public function __construct()
     {
         $this->setting = Setting::first();
+        visitor()->visit();
     }
 
     public function index()

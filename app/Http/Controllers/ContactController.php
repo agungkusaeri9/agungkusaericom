@@ -15,6 +15,11 @@ use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+        visitor()->visit();
+    }
+
     public function index()
     {
         $setting = Setting::first();
