@@ -30,7 +30,7 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-tasks"></i>
                     <span>Project</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('admin.project-categories.index') }}">Kategori</a></li>
@@ -38,16 +38,14 @@
                     <li><a href="{{ route('admin.projects.index') }}">Project</a></li>
                 </ul>
             </li>
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
                     <span>Service</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('admin.service-types.index') }}">Jenis</a></li>
-                    {{-- <li><a href="">Layanan</a></li> --}}
                     <li><a href="{{ route('admin.payments.index') }}">Pembayaran</a></li>
-                    {{-- <li><a href="">Transaksi</a></li> --}}
                 </ul>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users-cog"></i>
                     <span>Management User</span></a>
@@ -75,6 +73,11 @@
                         <span>Invoice</span></a>
                 </li>
             @endcan
+            <li>
+                <a class="nav-link" href="{{ route('admin.utang-piutang.index') }}"><i
+                        class="fas fa-hand-holding-usd"></i>
+                    <span>Utang Piutang</span></a>
+            </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i>
                     <span>Laporan</span></a>
@@ -82,15 +85,12 @@
                     <li><a href="{{ route('admin.report.income.index') }}">Pendapatan</a></li>
                 </ul>
             </li>
-            <li>
-                <a class="nav-link" href="{{ route('admin.utang-piutang.index') }}"><i class="fas fa-file-invoice"></i>
-                    <span>Utang Piutang</span></a>
-            </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-database"></i>
                     <span>Master</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('admin.skills.index') }}">Skill</a></li>
+                    <li><a href="{{ route('admin.payments.index') }}">Jenis Pembayaran</a></li>
                     <li><a href="{{ route('admin.inboxes.index') }}">Pesan Masuk</a></li>
                     @can('Sosial Media View')
                         <li><a href="{{ route('admin.socmeds.index') }}">Sosial Media</a></li>
