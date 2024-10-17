@@ -44,3 +44,17 @@ function getMonthName($monthNumber)
         return 'Bulan tidak valid';
     }
 }
+
+function formatTanggal($tanggal, $format = null)
+{
+    if ($tanggal) {
+        $tanggal_parse  = Carbon::parse($tanggal);
+        if (!$format) {
+            $format = 'd F Y';
+        }
+        $tanggal_format = $tanggal_parse->translatedFormat($format);
+        return $tanggal_format;
+    } else {
+        return '-';
+    }
+}

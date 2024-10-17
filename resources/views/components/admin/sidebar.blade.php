@@ -48,7 +48,7 @@
                     {{-- <li><a href="">Transaksi</a></li> --}}
                 </ul>
             </li>
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users-cog"></i>
                     <span>Management User</span></a>
                 <ul class="dropdown-menu">
@@ -68,7 +68,7 @@
                         </li>
                     @endcan
                 </ul>
-            </li>
+            </li> --}}
             @can('Invoice View')
                 <li>
                     <a class="nav-link" href="{{ route('admin.invoices.index') }}"><i class="fas fa-file-invoice"></i>
@@ -81,6 +81,10 @@
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('admin.report.income.index') }}">Pendapatan</a></li>
                 </ul>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ route('admin.utang-piutang.index') }}"><i class="fas fa-file-invoice"></i>
+                    <span>Utang Piutang</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-database"></i>

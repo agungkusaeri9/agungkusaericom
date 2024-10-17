@@ -57,7 +57,7 @@ class InvoiceController extends Controller
                 ->filter(function ($instance) use ($request) {
 
                     if ($request->get('status')) {
-                        if($request->get('status') === 'paid')
+                        if ($request->get('status') === 'paid')
                             $instance->where('status', 1);
                         else
                             $instance->where('status', 0);
@@ -133,7 +133,7 @@ class InvoiceController extends Controller
 
     public function show($id)
     {
-        $item = Invoice::with(['details','payment'])->findOrFail($id);
+        $item = Invoice::with(['details', 'payment'])->findOrFail($id);
         return view('admin.pages.invoice.show', [
             'title' => 'Detail Invoice',
             'item' => $item,
@@ -164,7 +164,7 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try {
             $item = Invoice::findOrFail($id);
-            $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id','paid_time','created_at']);
+            $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id', 'paid_time', 'created_at']);
 
             // hitung sub total
             $sub_total = 0;
@@ -178,7 +178,7 @@ class InvoiceController extends Controller
 
 
             // delete detail
-            InvoiceDetail::where('invoice_id',$item->id)->delete();
+            InvoiceDetail::where('invoice_id', $item->id)->delete();
 
             // insert detail invoice
             foreach (request('item_price') as $key => $item_price) {
@@ -215,14 +215,15 @@ class InvoiceController extends Controller
         }
     }
 
-    public function exportPdf($code){
-        $item = Invoice::where('code',$code)->firstorFail();
+    public function exportPdf($code)
+    {
+        $item = Invoice::where('code', $code)->firstorFail();
         // $pdf = Pdf::loadView('admin.pages.invoice.export-pdf',[
         //     'item' => $item,
         //     'setting' => Setting::first()
         // ]);
         // return $pdf->stream();
-        return view('admin.pages.invoice.export-pdf',[
+        return view('admin.pages.invoice.export-pdf', [
             'item' => $item,
             'title' => 'Invoice #' . $item->code,
             'setting' => Setting::first()

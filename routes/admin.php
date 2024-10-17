@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\SitemapController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\SocmedController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UtangPiutangController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -141,3 +142,8 @@ Route::post('report/income', [ReportController::class, 'income_export'])->name('
 Route::get('pengaturan-seo/data', [PengaturanSeoController::class, 'data'])->name('pengaturan-seo.data');
 Route::get('pengaturan-seo/getByIdJson', [PengaturanSeoController::class, 'getByIdJson'])->name('pengaturan-seo.getByIdJson');
 Route::resource('pengaturan-seo', PengaturanSeoController::class)->except('create', 'show', 'edit', 'update');
+
+// utang
+Route::get('utang-piutan/getById', [UtangPiutangController::class, 'getById'])->name('utang-piutang.getById');
+Route::get('utang-piutang/data', [UtangPiutangController::class, 'data'])->name('utang-piutang.data');
+Route::resource('utang-piutang', UtangPiutangController::class)->except('create', 'show', 'edit', 'update');
