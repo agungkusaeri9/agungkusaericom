@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\PengaturanSeoController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
@@ -135,3 +136,8 @@ Route::post('/ajaxTransaction', [DashboardController::class, 'ajaxTransaction'])
 Route::get('report/income', [ReportController::class, 'income'])->name('report.income.index');
 
 Route::post('report/income', [ReportController::class, 'income_export'])->name('report.income.export');
+
+// pengaturan-seo
+Route::get('pengaturan-seo/data', [PengaturanSeoController::class, 'data'])->name('pengaturan-seo.data');
+Route::get('pengaturan-seo/getByIdJson', [PengaturanSeoController::class, 'getByIdJson'])->name('pengaturan-seo.getByIdJson');
+Route::resource('pengaturan-seo', PengaturanSeoController::class)->except('create', 'show', 'edit', 'update');

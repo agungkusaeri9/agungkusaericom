@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PengaturanSeo;
 use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\PostComment;
@@ -14,6 +15,7 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 use function PHPSTORM_META\map;
 
@@ -40,117 +42,54 @@ class PostController extends Controller
 
 
         $setting = Setting::first();
-        $title = 'Temukan berbagai artikel menarik disini | ' . $this->setting->site_name;
-        $meta_description =  $setting->site_name . ' - Temukan berbagai artikel menarik tentang teknologi yang mencakup perkembangan terbaru dalam AI, Bahasa Pemrogramman, keamanan siber, dan lainnya.';
-        // seo meta
-        SEOMeta::setTitle($title)
-            ->setDescription($meta_description)
-            ->setCanonical(route('posts.index'))
-            ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword)
-            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
-
-        // seo og
-        OpenGraph::setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.index'))
-            ->setSiteName($setting->site_name)
-            ->addImage($setting->image())
-            ->addProperty('image:type', 'image/jpeg/png')
-            ->addProperty('image:width', 400)
-            ->addProperty('image:height', 300)
-            ->addProperty('locale', 'id_ID')
-            ->addProperty('type', 'website');
-
-        // seo twitter
-        TwitterCard::setType('website')
-            ->setImage($setting->image())
-            ->setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.index'))
-            ->setSite($setting->site_name)
-            ->addValue('card', 'summary_large_image');
-
-        // seo jsonld
-        JsonLd::setType('website')
-            ->setTitle($title)
-            ->setImage($setting->image())
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.index'))
-            ->setSite($setting->site_name);
-
-
+        $seo = PengaturanSeo::where('halaman', 'blog')->first();
+        $seoData = new SEOData(
+            title: $seo->judul ?? '',
+            description: $seo->meta_description ?? '',
+            author: $seo->author ?? '',
+            image: $seo ? $seo->gambar() : '',
+            url: $seo->url ?? '',
+            site_name: $seo->site_name ?? '',
+            published_time: $seo ? $seo->published_time : null,
+            modified_time: $seo ? $seo->modified_time : null,
+            robots: $seo ? $seo->robots : ''
+        );
         return view('frontend.pages.post.index', [
             'posts' => $posts,
             'post_categories' => $post_categories,
             'socmeds' => $socmeds,
-            'post_tags' => $post_tags
+            'post_tags' => $post_tags,
+            'SEOData' => $seoData
         ]);
     }
 
     public function show($slug)
     {
         $post = Post::publish()->with(['tags', 'comments.child'])->withCount('comments')->where('slug', $slug)->firstOrFail();
-
         $tags = [];
         if ($post->tags) {
             foreach ($post->tags as $tg) {
                 array_push($tags, $tg->name);
             }
         }
-
-        $setting = Setting::first();
         $this->setting->site_name;
-        // seo meta
-        SEOMeta::setTitle($post->title)
-            ->setDescription($post->meta_description)
-            ->setCanonical(route('posts.show', $post->slug))
-            ->addMeta('author', $post->user->name)
-            ->setKeywords($post->meta_keyword)
-            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
-
-        // seo og
-        OpenGraph::setTitle($post->title)
-            ->setDescription($post->meta_description)
-            ->setUrl(route('posts.show', $post->slug))
-            ->setSiteName($setting->site_name)
-            ->addImage($post->image())
-            ->addProperty('image:type', 'image/jpeg/png')
-            ->addProperty('image:width', 400)
-            ->addProperty('image:height', 300)
-            ->addProperty('locale', 'id_ID')
-            ->addProperty('type', 'article')
-            ->setArticle([
-                'published_time' => $post->created_at,
-                'modified_time' => $post->updated_at,
-                'author' => $post->user->name,
-                'section' => $post->category->name,
-                'tag' => $tags
-            ]);
-
-        // seo twitter
-        TwitterCard::setType('article')
-            ->setImage($post->image())
-            ->setTitle($post->title)
-            ->setDescription($post->meta_description)
-            ->setUrl(route('posts.show', $post->slug))
-            ->setSite($setting->site_name)
-            ->addValue('card', 'summary_large_image');
-
-        // seo jsonld
-        JsonLd::setType('article')
-            ->setTitle($post->title)
-            ->setImage($post->image())
-            ->setDescription($post->meta_description)
-            ->setUrl(route('posts.show', $post->slug))
-            ->setSite($setting->site_name);
-
-
+        $seoData = new SEOData(
+            title: $post->title ?? '',
+            description: $post->meta_description ?? '',
+            author: $this->setting->author ?? '',
+            image: $post ? $post->image() : '',
+            url: route('posts.show', $post->slug) ?? '',
+            site_name: $this->setting->site_name ?? '',
+            published_time: $post ? $post->created_at : null,
+            modified_time: $post ? $post->updated_at : null,
+            robots: 'index, follow'
+        );
 
         return view('frontend.pages.post.show', [
             'title' => $post->title,
             'post' => $post,
-            'setting' => $this->setting
+            'setting' => $this->setting,
+            'SEOData' => $seoData
         ]);
     }
 
@@ -166,15 +105,15 @@ class PostController extends Controller
         // seo meta
         SEOMeta::setTitle($title)
             ->setDescription($meta_description)
-            ->setCanonical(route('posts.category',$category->slug))
+            ->setCanonical(route('posts.category', $category->slug))
             ->addMeta('author', $setting->author)
             ->setKeywords($setting->meta_keyword)
-            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+            ->addMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)
             ->setDescription($meta_description)
-            ->setUrl(route('posts.category',$category->slug))
+            ->setUrl(route('posts.category', $category->slug))
             ->setSiteName($setting->site_name)
             ->addImage($setting->image())
             ->addProperty('image:type', 'image/jpeg/png')
@@ -188,7 +127,7 @@ class PostController extends Controller
             ->setImage($setting->image())
             ->setTitle($title)
             ->setDescription($meta_description)
-            ->setUrl(route('posts.category',$category->slug))
+            ->setUrl(route('posts.category', $category->slug))
             ->setSite($setting->site_name)
             ->addValue('card', 'summary_large_image');
 
@@ -197,7 +136,7 @@ class PostController extends Controller
             ->setTitle($title)
             ->setImage($setting->image())
             ->setDescription($meta_description)
-            ->setUrl(route('posts.category',$category->slug))
+            ->setUrl(route('posts.category', $category->slug))
             ->setSite($setting->site_name);
 
 
@@ -221,15 +160,15 @@ class PostController extends Controller
         // seo meta
         SEOMeta::setTitle($title)
             ->setDescription($meta_description)
-            ->setCanonical(route('posts.tag',$tag->slug))
+            ->setCanonical(route('posts.tag', $tag->slug))
             ->addMeta('author', $setting->author)
             ->setKeywords($setting->meta_keyword)
-            ->addMeta('robots','index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+            ->addMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 
         // seo og
         OpenGraph::setTitle($title)
             ->setDescription($meta_description)
-            ->setUrl(route('posts.tag',$tag->slug))
+            ->setUrl(route('posts.tag', $tag->slug))
             ->setSiteName($setting->site_name)
             ->addImage($setting->image())
             ->addProperty('image:type', 'image/jpeg/png')
@@ -243,7 +182,7 @@ class PostController extends Controller
             ->setImage($setting->image())
             ->setTitle($title)
             ->setDescription($meta_description)
-            ->setUrl(route('posts.tag',$tag->slug))
+            ->setUrl(route('posts.tag', $tag->slug))
             ->setSite($setting->site_name)
             ->addValue('card', 'summary_large_image');
 
@@ -252,7 +191,7 @@ class PostController extends Controller
             ->setTitle($title)
             ->setImage($setting->image())
             ->setDescription($meta_description)
-            ->setUrl(route('posts.tag',$tag->slug))
+            ->setUrl(route('posts.tag', $tag->slug))
             ->setSite($setting->site_name);
 
 

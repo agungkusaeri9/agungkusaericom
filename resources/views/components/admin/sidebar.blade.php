@@ -95,11 +95,12 @@
                         <li><a href="{{ url('admin/filemanager') }}" target="_blank">File Manager</a></li>
                     @endcan
                     @can('Setting View')
-                        <li><a href="{{ route('admin.settings.index') }}" target="_blank">Pengaturan Web</a></li>
+                        <li><a href="{{ route('admin.settings.index') }}" target="">Pengaturan Web</a></li>
                     @endcan
                     @can('Sitemap View')
-                        <li><a href="{{ route('admin.sitemap.update') }}" target="_blank">Perbaharui Sitemap</a></li>
+                        <li><a href="{{ route('admin.sitemap.update') }}" target="">Perbaharui Sitemap</a></li>
                     @endcan
+                    <li><a href="{{ route('admin.pengaturan-seo.index') }}" target="">Pengaturan SEO</a></li>
                 </ul>
             </li>
         </ul>

@@ -7,11 +7,13 @@ use Illuminate\View\Component;
 
 class Head extends Component
 {
-    public $title;
-    public function __construct($title = '-')
-    {
-        $this->title = $title;
-    }
+    // public $title;
+    // public $SEOData;
+    // public function __construct($SEOData)
+    // {
+    //     // $this->title = $title;
+    //     $this->SEOData = $SEOData;
+    // }
 
     /**
      * Get the view / contents that represent the component.
@@ -21,9 +23,10 @@ class Head extends Component
     public function render()
     {
         $setting = Setting::first();
-        return view('components.frontend.head',[
-            'title' => $this->title,
-            'setting' => $setting
+        return view('components.frontend.head', [
+            // 'title' => $this->title,
+            'setting' => $setting,
+            // 'SEOData' => $this->SEOData
         ]);
     }
 }

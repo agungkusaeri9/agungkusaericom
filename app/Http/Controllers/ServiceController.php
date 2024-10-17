@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PengaturanSeo;
 use App\Models\ServiceType;
 use App\Models\Setting;
 use Artesaos\SEOTools\Facades\JsonLd;
@@ -9,6 +10,7 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Illuminate\Http\Request;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class ServiceController extends Controller
 {
@@ -29,51 +31,24 @@ class ServiceController extends Controller
             return redirect()->back();
         }
 
-        $title = 'Jasa Pembuatan Web | ' . $this->setting->site_name;
-        $meta_description = $this->setting->site_name . ' - Bisnis online Anda membutuhkan website yang efektif? Percayakan pembuatan website Anda kepada saya dan nikmati hasil yang memuaskan. Hubungi saya untuk mendapatkan penawaran terbaik.';
-
-        // seo meta
-        SEOMeta::setTitle($title)
-            ->setDescription($meta_description)
-            ->setCanonical(route('services.index', $service_name))
-            ->addMeta('author', $this->setting->author)
-            ->setKeywords($this->setting->meta_keyword)
-            ->addMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
-
-        // seo og
-        OpenGraph::setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('services.index', $service_name))
-            ->setSiteName($this->setting->site_name)
-            ->addImage($this->setting->image())
-            ->addProperty('image:type', 'image/jpeg/png')
-            ->addProperty('image:width', 400)
-            ->addProperty('image:height', 300)
-            ->addProperty('locale', 'id_ID')
-            ->addProperty('type', 'website');
-
-        // seo twitter
-        TwitterCard::setType('website')
-            ->setImage($this->setting->image())
-            ->setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('services.index', $service_name))
-            ->setSite($this->setting->site_name)
-            ->addValue('card', 'summary_large_image');
-
-        // seo jsonld
-        JsonLd::setType('website')
-            ->setTitle($title)
-            ->setImage($this->setting->image())
-            ->setDescription($meta_description)
-            ->setUrl(route('services.index', $service_name))
-            ->setSite($this->setting->site_name);
-
+        $seo = PengaturanSeo::where('halaman', 'service')->first();
+        $seoData = new SEOData(
+            title: $seo->judul ?? '',
+            description: $seo->meta_description ?? '',
+            author: $seo->author ?? '',
+            image: $seo ? $seo->gambar() : '',
+            url: $seo->url ?? '',
+            site_name: $seo->site_name ?? '',
+            published_time: $seo ? $seo->published_time : null,
+            modified_time: $seo ? $seo->modified_time : null,
+            robots: $seo ? $seo->robots : ''
+        );
 
         return view('frontend.pages.service.show', [
             'title' => 'Service | ' . $service->name,
             'setting' => $this->setting,
-            'item' => $service
+            'item' => $service,
+            'SEOData' => $seoData
         ]);
     }
 }

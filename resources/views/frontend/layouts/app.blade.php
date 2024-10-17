@@ -3,6 +3,7 @@
 
 <head>
     <x-Frontend.Head></x-Frontend.Head>
+    {!! seo($SEOData) !!}
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 
     <!-- Optional JavaScript -->
     @include('frontend.layouts.partials.scripts')
-    <x-Frontend.Alert/>
+    <x-Frontend.Alert />
 </body>
 
 </html>
