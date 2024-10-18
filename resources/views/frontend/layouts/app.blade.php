@@ -10,14 +10,14 @@
     <!--================ Start Header Area =================-->
     <x-Frontend.Navbar />
     <!--================ End Header Area =================-->
-    <div class="py-3">
+    <div class="px-32 py-20">
         @yield('content')
     </div>
 
     <!--================Footer Area =================-->
     <x-Frontend.Footer />
     <!--================End Footer Area =================-->
-    <x-Frontend.IconWa />
+    {{-- <x-Frontend.IconWa /> --}}
 
     <!-- Optional JavaScript -->
     @include('frontend.layouts.partials.scripts')

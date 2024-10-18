@@ -1,122 +1,37 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <section class="banner_area w-100">
-        <div class="banner_inner d-flex align-items-center">
-            <div class="container">
-                <div class="banner_content text-center">
-                    <h2>
-                        @isset($category)
-                           "
-                            {{ $category->name }}
-                            "
-                        @endisset
-                        @isset($tag)
-                          "
-                            {{ $tag->name }}
-                            "
-                        @endisset
+    <div class="w-full py-10">
+        <h1 class="text-5xl mb-5 text-center text-gray-800">Blog</h1>
+        <p class="text-center text-gray-600 mb-10">Mewujudkan ide menjadi kenyataan dengan solusi yang tepat</p>
 
-                        @if (request('q'))
-                            "<i>{{ request('q') }}"
-                        @endif
-
-                        @if (!isset($category) && !isset($tag) && !request('q'))
-                            Blogs
-                        @endif
-                    </h2>
-                    <div class="page_link">
-                        <a href="{{ route('home') }}">Home</a>
-                        <a href="{{ route('posts.index') }}">Blogs</a>
-                        @isset($category)
-                            <a href="javascript:void(0)">Category</a>
-                            <a href="{{ route('posts.category',$category->slug) }}" class="disabled"> {{ $category->name }}</a>
-                        @endisset
-                        @isset($tag)
-                            <a href="javascript:void(0)">Tag</a>
-                            <a href="{{ route('posts.tag',$tag->slug) }}" class="disabled"> {{ $tag->name }}</a>
-                        @endisset
-                        @if(request('q'))
-                            <a href="javascript:void(0)">Search</a>
-                            <a href="javascript:void(0)" class="disabled"> {{ request('q') }}</a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================Blog Area =================-->
-    <section class="blog_area" style="margin-top: 100px">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="blog_left_sidebar">
-                        @forelse ($posts as $post)
-                            <article class="row blog_item">
-                                <div class="col-md-3">
-                                    <div class="blog_info text-right">
-                                        <div class="post_tag">
-                                            @forelse ($post->tags as $tag)
-                                                <a href="#">{{ $tag->name }}</a>
-                                            @empty
-                                            @endforelse
-                                        </div>
-                                        <ul class="blog_meta list">
-                                            <li><a href="javascript:void(0)">{{ $post->user->name }}<i
-                                                        class="lnr lnr-user"></i></a>
-                                            </li>
-                                            <li><a href="javascript:void(0)">{{ $post->created_at->diffForHumans() }}<i
-                                                        class="lnr lnr-calendar-full"></i></a></li>
-                                            <li><a href="javascript:void(0)">{{ $post->visitor }} Views<i
-                                                        class="lnr lnr-eye"></i></a>
-                                            </li>
-                                            {{-- <li><a href="#">(satic) Comments<i class="lnr lnr-bubble"></i></a></li> --}}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="blog_post">
-                                        <img src="{{ $post->image() }}" alt="">
-                                        <div class="blog_details">
-                                            <a href="{{ route('posts.show', $post->slug) }}">
-                                                <h2>{{ $post->title }}</h2>
-                                            </a>
-                                            <p>
-                                                {{ $post->meta_description }}
-                                            </p>
-                                            <a href="{{ route('posts.show', $post->slug) }}" class="primary_btn"><span>View
-                                                    More</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        @empty
-                            <div class="col-12">
-                                <div class="alert alert-danger">
-                                    <p class="text-center">Artikel Tidak Ditemukan!</p>
+        <div class="grid lg:grid-cols-4">
+            @forelse ($posts as $post)
+                <div class="mb-10">
+                    <a href="{{ route('posts.show', $post->slug) }}">
+                        <div class="card bg-base-100 w-96 shadow-sm">
+                            <figure>
+                                <img src="{{ $post->image() }}" alt="{{ $post->title }}" class="h-60" />
+                            </figure>
+                            <div class="card-body">
+                                <h2 class="card-title">
+                                    {{ $post->title }}
+                                </h2>
+                                <p class="text-justify my-2">{{ \Str::limit($post->meta_description, 140) }}</p>
+                                <div class="card-actions justify-end">
+                                    <a href="">
+                                        <div class="badge badge-outline">{{ $post->category->name }}</div>
+                                    </a>
                                 </div>
                             </div>
-                        @endforelse
-                        {{ $posts->withQueryString()->links() }}
-                    </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="col-lg-4">
-                    <x-Frontend.SidebarRightPost />
-                </div>
-            </div>
+
+            @empty
+            @endforelse
         </div>
-    </section>
-    <!--================Blog Area =================-->
+        <div>
+            {{ $posts->links('pagination::tailwind') }}
+        </div>
+    </div>
 @endsection
-
-@push('styles')
-    <style>
-        .section_gap {
-            padding: 100px 0 200px 0 !important;
-        }
-
-        .banner_area {
-            background-image: none !important;
-            min-height: 0 !important;
-        }
-    </style>
-@endpush
