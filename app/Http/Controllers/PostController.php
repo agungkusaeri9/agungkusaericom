@@ -85,7 +85,6 @@ class PostController extends Controller
             modified_time: $post ? $post->updated_at : null,
             robots: 'index, follow'
         );
-
         return view('frontend.pages.post.show', [
             'title' => $post->title,
             'post' => $post,

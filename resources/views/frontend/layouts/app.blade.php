@@ -10,7 +10,7 @@
     <!--================ Start Header Area =================-->
     <x-Frontend.Navbar />
     <!--================ End Header Area =================-->
-    <div class="px-32 py-20">
+    <div class="container">
         @yield('content')
     </div>
 

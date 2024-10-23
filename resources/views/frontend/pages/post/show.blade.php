@@ -1,14 +1,20 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <div class="w-full py-10">
-        <div class=">breadcrumbs text-sm">
-            <ul>
-                <li><a>Home</a></li>
-                <li><a>Documents</a></li>
-                <li>Add Document</li>
-            </ul>
+    <div class="grid grid-cols-1 gap-4">
+        <div class="sm:col-span-12 md:col-span-8">
+            <div class="breadcrumbs text-sm flex justify-center mb-10">
+                <ul>
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('posts.index') }}">Blog</a></li>
+                    <li>{{ $post->title }}</li>
+                </ul>
+            </div>
+            <img src="{{ $post->image() }}" class="w-full" alt="{{ $post->title }}">
+            <h1 class="text-4xl mt-4 mb-5">{{ $post->title }}</h1>
+            <p>{!! $post->description !!}</p>
         </div>
-        <h1 class="text-5xl mb-5 text-center text-gray-800">Blog</h1>
-        <p class="text-center text-gray-600 mb-10">Mewujudkan ide menjadi kenyataan dengan solusi yang tepat</p>
+        <div class="sm:col-span-12 md:col-span-4">
+            <x-frontend.SidebarRightPost />
+        </div>
     </div>
 @endsection

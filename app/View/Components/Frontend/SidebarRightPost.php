@@ -28,11 +28,11 @@ class SidebarRightPost extends Component
      */
     public function render()
     {
-        $post_categories = PostCategory::withCount('posts')->orderBy('name','ASC')->get();
-        $post_tags = PostTag::orderBy('name','ASC')->get();
+        $post_categories = PostCategory::withCount('posts')->orderBy('name', 'ASC')->get();
+        $post_tags = PostTag::withCount('posts')->orderBy('name', 'ASC')->get();
         $setting = Setting::first();
-        $socmeds = Socmed::orderBy('name','ASC')->get();
-        $popular_posts = Post::orderBy('visitor','DESC')->limit(5)->get();
-        return view('components.frontend.sidebar-right-post',compact('post_categories','post_tags','setting','socmeds','popular_posts'));
+        $socmeds = Socmed::orderBy('name', 'ASC')->get();
+        $popular_posts = Post::orderBy('visitor', 'DESC')->limit(5)->get();
+        return view('components.frontend.sidebar-right-post', compact('post_categories', 'post_tags', 'setting', 'socmeds', 'popular_posts'));
     }
 }

@@ -2,18 +2,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="icon" href="img/favicon.png" type="image/png">
-<!-- Bootstrap CSS -->
-{{-- <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/frontend/vendors/linericon/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/frontend/css/font-awesome.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/frontend/vendors/owl-carousel/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/frontend/css/magnific-popup.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/frontend/vendors/nice-select/css/nice-select.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/fontawesome-free/css/all.min.css') }}"> --}}
 <link rel="icon" href="{{ $setting->favicon() }}" type="image/png" sizes="16x16">
-{{-- <!-- main css -->
-<link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}"> --}}
-@vite('resources/css/app.css')
-{{-- @vite(['resources/js/app.js']) --}}
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 @stack('styles')
