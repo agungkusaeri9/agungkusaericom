@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\PostCategory;
 use Illuminate\View\Component;
 
 class CardPost extends Component
@@ -11,12 +12,14 @@ class CardPost extends Component
      *
      * @return void
      */
-    public $title,$image,$slug;
-    public function __construct($title,$image,$slug)
+    public $title, $image, $categoryid, $slug, $metadescription;
+    public function __construct($title, $image, $slug, $categoryid, $metadescription = null)
     {
         $this->title = $title;
         $this->image = $image;
         $this->slug = $slug;
+        $this->categoryid = $categoryid;
+        $this->metadescription = $metadescription;
     }
 
     /**
@@ -26,10 +29,13 @@ class CardPost extends Component
      */
     public function render()
     {
-        return view('components.frontend.card-post',[
+        $category = PostCategory::find($this->categoryid);
+        return view('components.frontend.card-post', [
             'title' => $this->title,
             'image' => $this->image,
-            'slug' => $this->slug
+            'metadescription' => $this->metadescription,
+            'slug' => $this->slug,
+            'category' => $category,
         ]);
     }
 }

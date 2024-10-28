@@ -35,14 +35,9 @@ class PostController extends Controller
         } else {
             $posts = Post::publish()->with(['category', 'tags'])->latest()->paginate(8);
         }
-
-
         $post_categories = PostCategory::withCount('posts')->orderBy('name', 'ASC')->get();
         $post_tags = PostTag::orderBy('name', 'ASC')->get();
         $socmeds = Socmed::orderBy('name', 'ASC')->get();
-
-
-        $setting = Setting::first();
         $seo = PengaturanSeo::where('halaman', 'blog')->first();
         $seoData = new SEOData(
             title: $seo->judul ?? '',
@@ -85,11 +80,13 @@ class PostController extends Controller
             modified_time: $post ? $post->updated_at : null,
             robots: 'index, follow'
         );
+        $latest_post = Post::latest()->limit(6)->get();
         return view('frontend.pages.post.show', [
             'title' => $post->title,
             'post' => $post,
             'setting' => $this->setting,
-            'SEOData' => $seoData
+            'SEOData' => $seoData,
+            'latest_posts' => $latest_post
         ]);
     }
 
@@ -97,54 +94,24 @@ class PostController extends Controller
     {
         $category = PostCategory::where('slug', $slug)->firstOrFail();
         $posts = $category->posts()->paginate(8);
-
-
-        $setting = Setting::first();
         $title = 'Kategori Artikel ' . $category->name . ' | '  . $this->setting->site_name;
-        $meta_description =  $setting->site_name . ' - Temukan berbagai artikel menarik tentang teknologi yang mencakup perkembangan terbaru dalam AI, Bahasa Pemrogramman, keamanan siber, dan lainnya.';
-        // seo meta
-        SEOMeta::setTitle($title)
-            ->setDescription($meta_description)
-            ->setCanonical(route('posts.category', $category->slug))
-            ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword)
-            ->addMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
-
-        // seo og
-        OpenGraph::setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.category', $category->slug))
-            ->setSiteName($setting->site_name)
-            ->addImage($setting->image())
-            ->addProperty('image:type', 'image/jpeg/png')
-            ->addProperty('image:width', 400)
-            ->addProperty('image:height', 300)
-            ->addProperty('locale', 'id_ID')
-            ->addProperty('type', 'website');
-
-        // seo twitter
-        TwitterCard::setType('website')
-            ->setImage($setting->image())
-            ->setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.category', $category->slug))
-            ->setSite($setting->site_name)
-            ->addValue('card', 'summary_large_image');
-
-        // seo jsonld
-        JsonLd::setType('website')
-            ->setTitle($title)
-            ->setImage($setting->image())
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.category', $category->slug))
-            ->setSite($setting->site_name);
-
-
-
+        $seo = PengaturanSeo::where('halaman', 'blog')->first();
+        $seoData = new SEOData(
+            title: $title,
+            description: $seo->meta_description ?? '',
+            author: $seo->author ?? '',
+            image: $seo ? $seo->gambar() : '',
+            url: $seo->url ?? '',
+            site_name: $seo->site_name ?? '',
+            published_time: $seo ? $seo->published_time : null,
+            modified_time: $seo ? $seo->modified_time : null,
+            robots: $seo ? $seo->robots : ''
+        );
         return view('frontend.pages.post.index', [
             'title' => $category->name . ' | Category Blog',
             'posts' => $posts,
-            'category' => $category
+            'category' => $category,
+            'SEOData' => $seoData
         ]);
     }
 
@@ -154,51 +121,24 @@ class PostController extends Controller
         $tag = PostTag::where('slug', $slug)->firstOrFail();
         $posts = $tag->posts()->paginate(8);
 
-        $setting = Setting::first();
         $title = 'Tag Artikel ' . $tag->name . ' | '  . $this->setting->site_name;
-        $meta_description =  $setting->site_name . ' - Temukan berbagai artikel menarik tentang teknologi yang mencakup perkembangan terbaru dalam AI, Bahasa Pemrogramman, keamanan siber, dan lainnya.';
-        // seo meta
-        SEOMeta::setTitle($title)
-            ->setDescription($meta_description)
-            ->setCanonical(route('posts.tag', $tag->slug))
-            ->addMeta('author', $setting->author)
-            ->setKeywords($setting->meta_keyword)
-            ->addMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
-
-        // seo og
-        OpenGraph::setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.tag', $tag->slug))
-            ->setSiteName($setting->site_name)
-            ->addImage($setting->image())
-            ->addProperty('image:type', 'image/jpeg/png')
-            ->addProperty('image:width', 400)
-            ->addProperty('image:height', 300)
-            ->addProperty('locale', 'id_ID')
-            ->addProperty('type', 'website');
-
-        // seo twitter
-        TwitterCard::setType('website')
-            ->setImage($setting->image())
-            ->setTitle($title)
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.tag', $tag->slug))
-            ->setSite($setting->site_name)
-            ->addValue('card', 'summary_large_image');
-
-        // seo jsonld
-        JsonLd::setType('website')
-            ->setTitle($title)
-            ->setImage($setting->image())
-            ->setDescription($meta_description)
-            ->setUrl(route('posts.tag', $tag->slug))
-            ->setSite($setting->site_name);
-
-
+        $seo = PengaturanSeo::where('halaman', 'blog')->first();
+        $seoData = new SEOData(
+            title: $title,
+            description: $seo->meta_description ?? '',
+            author: $seo->author ?? '',
+            image: $seo ? $seo->gambar() : '',
+            url: $seo->url ?? '',
+            site_name: $seo->site_name ?? '',
+            published_time: $seo ? $seo->published_time : null,
+            modified_time: $seo ? $seo->modified_time : null,
+            robots: $seo ? $seo->robots : ''
+        );
         return view('frontend.pages.post.index', [
             'title' => $tag->name . ' | Tag Blog',
             'posts' => $posts,
-            'tag' => $tag
+            'tag' => $tag,
+            'SEOData' => $seoData
         ]);
     }
 
@@ -210,6 +150,7 @@ class PostController extends Controller
             'email' => ['required'],
             'comment' => ['required', 'max:100']
         ]);
+
 
         try {
             // batasi komentar perhari

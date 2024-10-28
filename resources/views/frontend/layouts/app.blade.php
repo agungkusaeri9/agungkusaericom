@@ -6,18 +6,18 @@
     {!! seo($SEOData) !!}
 </head>
 
-<body>
+<body class="relative">
     <!--================ Start Header Area =================-->
     <x-Frontend.Navbar />
     <!--================ End Header Area =================-->
-    <div class="container">
+    <div class="container mx-auto min-h-screen">
         @yield('content')
     </div>
 
     <!--================Footer Area =================-->
     <x-Frontend.Footer />
     <!--================End Footer Area =================-->
-    {{-- <x-Frontend.IconWa /> --}}
+    <x-Frontend.IconWa />
 
     <!-- Optional JavaScript -->
     @include('frontend.layouts.partials.scripts')

@@ -82,11 +82,12 @@ class ProjectController extends Controller
             modified_time: $project ? $project->updated_at : null,
             robots: 'index, follow'
         );
-
+        $project_terkait = Project::whereNot('id', $project->id)->latest()->limit(3)->get();
         return view('frontend.pages.project.show', [
             'project' => $project,
             'setting' => $this->setting,
-            'SEOData' => $seoData
+            'SEOData' => $seoData,
+            'project_terkait' => $project_terkait
         ]);
     }
 
