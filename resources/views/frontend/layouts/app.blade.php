@@ -21,7 +21,7 @@
 
     <!-- Optional JavaScript -->
     @include('frontend.layouts.partials.scripts')
-    <x-Frontend.Alert />
+    <x-Frontend.Toast />
 </body>
 
 </html>

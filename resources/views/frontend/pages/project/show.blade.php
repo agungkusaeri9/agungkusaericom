@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-[60%] px-4 mt-5 justify-center">
+    <div class="grid grid-cols-1 md:grid-cols-[60%] px-4 mt-5 justify-center md:mt-10">
         <div>
             <div>
                 <img src="{{ $project->image() }}" alt="{{ $project->name }}" class="w-full object-cover mt-3">
@@ -214,7 +214,7 @@
         </div>
         {{-- related projects --}}
         <div class="mt-10">
-            <h1 class="text-xl font-semibold my-5">Related Project</h1>
+            <h1 class="text-xl font-semibold my-5 md:text-2xl">Related Project</h1>
             <x-Frontend.RelatedProject id="{{ $project->id }}" />
         </div>
     </div>

@@ -1,7 +1,7 @@
 <div class="bg-white mb-5 rounded-md">
     <a href="{{ route('projects.show', $project->slug) }}">
         <img src="{{ $project->image() }}" alt="{{ $project->name }}"
-            class="aspect-video h-60 rounded-t-md  md:h-50 object-cover opacity-80 hover:opacity-100 border-gray-100">
+            class="aspect-video h-60 rounded-t-md w-full md:h-50 object-cover hover:brightness-50 border-gray-100">
         <div class="pt-2 px-1">
             <h1 class="text-xl font-semibold text-slate-800 mb-2">{{ $project->name }}</h1>
             <div class="mb-2">

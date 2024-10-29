@@ -1,17 +1,11 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <div class="grid grid-cols-1">
-        <div class="px-4 mt-5">
-            <div class="flex justify-center">
-                <div class="w-full md:w-1/2 md:mb-10 text-center">
-                    <h1 class="text-4xl font-bold mb-3 text-slate-800">Projects</h1>
-                    <p class="text-sm mb-5">Explore a collection of recent projects, in-depth guides, and tutorials focused
-                        on technology and programming. Gain valuable insights and practical solutions to boost your coding
-                        skills and knowledge.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-Frontend.SectionTitle title="Projects"
+        description="Explore a collection of recent projects, in-depth
+guides, and
+tutorials focused
+on technology and programming. Gain valuable insights and practical solutions to boost your coding
+skills and knowledge." />
     <div class="grid grid-cols-1 gap-2">
         <div class="px-4">
             <div class="md:flex md:justify-end">

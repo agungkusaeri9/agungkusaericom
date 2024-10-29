@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-[60%] px-4 mt-5 justify-center">
+    <div class="grid grid-cols-1 md:grid-cols-[60%] px-4 md:mt-10 justify-center">
         <div>
             <div>
                 <img src="{{ $post->image() }}" alt="{{ $post->title }}" class="w-full object-cover mt-3">
@@ -241,7 +241,7 @@
 
         {{-- latest articles --}}
         <div class="mt-10">
-            <h1 class="text-xl font-semibold my-5">Latest Articles</h1>
+            <h1 class="text-xl font-semibold my-5 md:text-2xl">Latest Articles</h1>
             <x-Frontend.LatestPost />
         </div>
     </div>

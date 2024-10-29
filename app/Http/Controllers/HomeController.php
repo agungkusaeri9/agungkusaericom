@@ -27,7 +27,6 @@ class HomeController extends Controller
         $setting = Setting::first();
         $skills = Skill::orderBy('name', 'ASC')->get();
         $project_categories = ProjectCategory::orderBy('name', 'ASC')->get();
-        $projects = Project::with('category')->latest()->limit(6)->get();
         $seo = PengaturanSeo::where('halaman', 'home')->first();
         $seoData = new SEOData(
             title: $seo->judul ?? '',
@@ -40,12 +39,13 @@ class HomeController extends Controller
             modified_time: $seo ? $seo->modified_time : null,
             robots: $seo ? $seo->robots : ''
         );
+        $latest_posts = Post::publish()->latest()->limit(4)->get();
         return view('frontend.pages.home', [
             'setting' => $setting,
             'skills' => $skills,
             'project_categories' => $project_categories,
-            'projects' => $projects,
-            'SEOData' => $seoData
+            'SEOData' => $seoData,
+            'latest_posts' => $latest_posts
         ]);
     }
 }
