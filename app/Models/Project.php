@@ -12,12 +12,12 @@ class Project extends Model
 
     public function category()
     {
-        return $this->belongsTo(ProjectCategory::class,'project_category_id','id');
+        return $this->belongsTo(ProjectCategory::class, 'project_category_id', 'id');
     }
 
     public function tags()
     {
-        return $this->belongsToMany(ProjectTag::class,'project_tag','project_id','tag_id');
+        return $this->belongsToMany(ProjectTag::class, 'project_tag', 'project_id', 'tag_id');
     }
     public function image()
     {
@@ -31,6 +31,11 @@ class Project extends Model
 
     public function scopePublish($query)
     {
-        $query->where('is_publish',1);
+        $query->where('is_publish', 1);
+    }
+
+    public function getImageAttribute($value)
+    {
+        return asset('storage/' . $value);
     }
 }

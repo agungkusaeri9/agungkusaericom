@@ -54,19 +54,24 @@ class Setting extends Model
             [
                 'no' => 2,
                 'name' => 'Februari'
-            ], [
+            ],
+            [
                 'no' => 3,
                 'name' => 'Maret'
-            ], [
+            ],
+            [
                 'no' => 4,
                 'name' => 'April'
-            ], [
+            ],
+            [
                 'no' => 5,
                 'name' => 'Mei'
-            ], [
+            ],
+            [
                 'no' => 6,
                 'name' => 'Juni'
-            ], [
+            ],
+            [
                 'no' => 7,
                 'name' => 'Juli'
             ],
@@ -105,5 +110,10 @@ class Setting extends Model
         }
 
         return $years;
+    }
+
+    public function getAuthorImageAttribute($value)
+    {
+        return asset('storage/' . $value);
     }
 }

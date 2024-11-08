@@ -10,12 +10,17 @@ class ProjectGallery extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function project(){
+    public function project()
+    {
         return $this->belongsTo(Project::class);
     }
 
     public function image()
     {
         return asset('storage/' . $this->image);
+    }
+    public function getImageAttribute($value)
+    {
+        return asset('storage/' . $value);
     }
 }
