@@ -34,8 +34,8 @@ class Project extends Model
         $query->where('is_publish', 1);
     }
 
-    public function getImageAttribute($value)
-    {
-        return asset('storage/' . $value);
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return asset('storage/' . $value);
+    // }
 }

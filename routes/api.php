@@ -24,10 +24,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('projects', [ProjectController::class, 'index']);
-Route::get('projects/{slug}', [ProjectController::class, 'show']);
-Route::get('blogs', [BlogController::class, 'index']);
-Route::get('blogs/{slug}', [BlogController::class, 'show']);
-Route::post('contact', [ContactController::class, 'store']);
-Route::get('about', [AboutController::class, 'index']);
-Route::get('skill', [SkillController::class, 'index']);
+// Route::get('projects', [ProjectController::class, 'index']);
+// Route::get('projects/{slug}', [ProjectController::class, 'show']);
+// Route::get('blogs', [BlogController::class, 'index']);
+// Route::get('blogs/{slug}', [BlogController::class, 'show']);
+// Route::post('contact', [ContactController::class, 'store']);
+// Route::get('about', [AboutController::class, 'index']);
+// Route::get('skill', [SkillController::class, 'index']);

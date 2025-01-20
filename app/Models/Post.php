@@ -44,8 +44,8 @@ class Post extends Model
         $query->where('status', 1);
     }
 
-    public function getImageAttribute($value)
-    {
-        return asset('storage/' . $value);
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return asset('storage/' . $value);
+    // }
 }
