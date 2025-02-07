@@ -71,6 +71,17 @@
                                                 </div>
                                             @enderror
                                         </div>
+                                         <div class="form-group">
+                                            <label for="short_description">Deskripsi Singkat</label>
+                                            <textarea name="short_description" id="short_description"
+                                                class="form-control @error('short_description') is-invalid @enderror" cols="30" rows="5"
+                                                style="min-height: 120px"></textarea>
+                                            @error('short_description')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                         <div class="form-group">
                                             <label for="meta_description">Meta Deksripsi</label>
                                             <textarea name="meta_description" id="meta_description"

@@ -11,7 +11,7 @@ class SettingController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.setting',[
+        return view('admin.pages.setting', [
             'title' => 'Pengaturan Web',
             'setting' => Setting::first()
         ]);
@@ -24,62 +24,54 @@ class SettingController extends Controller
             'email' => ['email'],
             'meta_description' => ['max:140'],
             'author' => ['required'],
-            'favicon' => ['image','mimes:png,jpg,jpeg,ico'],
-            'author_image' => ['image','max:2048'],
-            'cv' => ['mimes:pdf,docx','max:2048']
+            'favicon' => ['image', 'mimes:png,jpg,jpeg,ico'],
+            // 'author_image' => ['image', 'max:4048'],
+            'cv' => ['mimes:pdf,docx', 'max:4048']
         ]);
 
         $setting = Setting::first();
         $data = request()->all();
 
-        if(request()->file('favicon'))
-        {
-            if($setting->favicon)
-            {
+        if (request()->file('favicon')) {
+            if ($setting->favicon) {
                 Storage::disk('public')->delete($setting->favicon);
             }
-            $data['favicon'] = request()->file('favicon')->store('settings','public');
-        }else{
+            $data['favicon'] = request()->file('favicon')->store('settings', 'public');
+        } else {
             $data['favicon'] = $setting->favicon;
         }
 
-        if(request()->file('image'))
-        {
-            if($setting->image)
-            {
+        if (request()->file('image')) {
+            if ($setting->image) {
                 Storage::disk('public')->delete($setting->image);
             }
-            $data['image'] = request()->file('image')->store('settings','public');
-        }else{
+            $data['image'] = request()->file('image')->store('settings', 'public');
+        } else {
             $data['image'] = $setting->image;
         }
 
-        if(request()->file('author_image'))
-        {
+        if (request()->file('author_image')) {
 
-            if($setting->author_image)
-            {
+            if ($setting->author_image) {
                 Storage::disk('public')->delete($setting->author_image);
             }
-            $data['author_image'] = request()->file('author_image')->store('settings','public');
-        }else{
+            $data['author_image'] = request()->file('author_image')->store('settings', 'public');
+        } else {
             $data['author_image'] = $setting->author_image;
         }
 
 
-        if(request()->file('cv'))
-        {
-            if($setting->cv)
-            {
+        if (request()->file('cv')) {
+            if ($setting->cv) {
                 Storage::disk('public')->delete($setting->cv);
             }
-            $data['cv'] = request()->file('cv')->store('settings','public');
-        }else{
+            $data['cv'] = request()->file('cv')->store('settings', 'public');
+        } else {
             $data['cv'] = $setting->cv;
         }
 
         $setting->update($data);
 
-        return redirect()->route('admin.settings.index')->with('success','Pengaturan Web berhasil disimpan.');
+        return redirect()->route('admin.settings.index')->with('success', 'Pengaturan Web berhasil disimpan.');
     }
 }

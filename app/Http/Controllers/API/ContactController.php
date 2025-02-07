@@ -26,7 +26,7 @@ class ContactController extends Controller
             }
 
             $cekPerhari = Inbox::whereDate('created_at', $hari_ini)->count();
-            if ($cekPerhari > 2) {
+            if ($cekPerhari > 10) {
                 return ResponseFormatter::error(null, 'Sorry, you cannot provide feedback and suggestions at the moment due to a daily limit. Please visit me another time or you can contact me through WhatsApp or email. Thank you.');
             }
 

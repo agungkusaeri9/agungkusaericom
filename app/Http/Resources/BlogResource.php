@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Setting;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BlogResource extends JsonResource
@@ -14,16 +15,24 @@ class BlogResource extends JsonResource
      */
     public function toArray($request)
     {
+        $author = Setting::first();
         return [
             'title' => $this->title,
             'slug' => $this->slug,
-            'category_name' => $this->category->name,
-            'category_slug' => $this->category->slug,
+            'category' => new BlogCategoryResource($this->category),
+            'short_description' => $this->short_description,
+            'description' => $this->description,
             'visitor' => $this->visitor,
             'meta_description' => $this->meta_description,
-            'image' => $this->image,
-            'author' => $this->user->name,
-            'tags' => $this->tags
+            'image' => $this->image(),
+            'tags' => $this->tags,
+            'author' => [
+                'name' => $author->author,
+                'image' => $author->image(),
+                'role' => $author->author_role
+            ],
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

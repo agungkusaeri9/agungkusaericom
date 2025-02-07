@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Setting;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProjectResource extends JsonResource
@@ -14,18 +15,27 @@ class ProjectResource extends JsonResource
      */
     public function toArray($request)
     {
+        $author = Setting::first();
         return [
             'name' => $this->name,
             'slug' => $this->slug,
             'meta_description' => $this->meta_description,
-            'category_name' => $this->category->name,
-            'category_slug' => $this->category->slug,
+            'short_description' => $this->short_description,
+            'meta_keyword' => $this->meta_keyword,
+            'category' => new ProjectCategoryResource($this->category),
             'description' => $this->description,
             'link' => $this->link,
-            'image' => $this->image,
-            'galleries' => $this->galleries,
-            'tags' => $this->tags,
-            'created' => $this->created_at
+            'image' => $this->image(),
+            'galleries' => GalleryResource::collection($this->galleries),
+            'tags' => TagResource::collection($this->tags),
+            'author' => [
+                'name' => $author->author,
+                'image' => $author->image(),
+                'role' => $author->author_role
+            ],
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
+
         ];
     }
 }

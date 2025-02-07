@@ -18,13 +18,25 @@ class BlogController extends Controller
     public function index()
     {
         $limit = request('limit') ?? 10;
+        $search = request('search') ?? "";
         $category = request('category');
+        $tag = request('tag');
+        $page = request('page');
         try {
             $items = Post::with(['category', 'tags']);
             if ($category) {
                 $items->whereHas('category', function ($cat) use ($category) {
                     $cat->where('slug', $category);
                 });
+            }
+            if ($tag) {
+                $items->whereHas('tags', function ($cat) use ($tag) {
+                    $cat->where('slug', $tag);
+                });
+            }
+
+            if ($search) {
+                $items->where('name', 'like', '%' . $search . '%');
             }
 
             $blogs = $items->paginate($limit);
@@ -35,7 +47,7 @@ class BlogController extends Controller
                 'per_page' => $blogs->perPage(),
                 'total' => $blogs->total(),
             ];
-            return ResponseFormatter::success(BlogResource::collection($blogs), "Blog Found.", 200, $pagination);
+            return ResponseFormatter::success(BlogResource::collection($blogs), "Blogs Found.", 200, $pagination);
         } catch (\Throwable $th) {
             //throw $th;
             return ResponseFormatter::error(null, $th->getMessage());
@@ -46,7 +58,26 @@ class BlogController extends Controller
     {
         try {
             $project = Post::with(['category', 'tags'])->where('slug', $slug)->first();
-            return ResponseFormatter::success(new BlogDetailResource($project), "Project Found.", 200);
+            return ResponseFormatter::success(new BlogResource($project), "Blog Found.", 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return ResponseFormatter::error(null, $th->getMessage());
+        }
+    }
+
+
+    public function related()
+    {
+        try {
+            $limit = request('limit');
+            $slug = request('slug');
+            $blog = Post::with(['category', 'tags'])->where('slug', $slug)->first();
+            if (!$blog) {
+                return ResponseFormatter::error(null, "Blogs Not Found.", 404);
+            }
+            $blogs = Post::with(['category', 'tags'])->where('post_category_id', $blog->post_category_id)->latest()->limit($limit)->get();
+
+            return ResponseFormatter::success(BlogResource::collection($blogs), "Blog Found.", 200);
         } catch (\Throwable $th) {
             //throw $th;
             return ResponseFormatter::error(null, $th->getMessage());

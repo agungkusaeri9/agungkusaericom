@@ -52,7 +52,7 @@ class SocmedController extends Controller
     {
         request()->validate([
             'name' => ['required', Rule::unique('socmeds')->ignore(request('id'))],
-            'icon' => ['image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'icon' => ['image', 'mimes:jpg,jpeg,png,svg', 'max:2048'],
             'link' => ['required']
         ]);
 
@@ -99,15 +99,15 @@ class SocmedController extends Controller
      */
     public function destroy($id)
     {
-       try {
-        $item =  Socmed::find($id);
-        if ($item->icon) {
-            Storage::disk('public')->delete($item->icon);
+        try {
+            $item =  Socmed::find($id);
+            if ($item->icon) {
+                Storage::disk('public')->delete($item->icon);
+            }
+            $item->delete();
+            return response()->json(['status' => 'succcess', 'message' => 'Data Sosial Media berhasil dihapus.']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'error', 'message' => 'Data Sosial Media gagal dihapus.']);
         }
-        $item->delete();
-        return response()->json(['status' => 'succcess', 'message' => 'Data Sosial Media berhasil dihapus.']);
-       } catch (\Throwable $th) {
-        return response()->json(['status' => 'error', 'message' => 'Data Sosial Media gagal dihapus.']);
-       }
     }
 }

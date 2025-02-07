@@ -12,10 +12,9 @@ class Socmed extends Model
 
     public function icon()
     {
-        if($this->icon)
-        {
+        if ($this->icon) {
             return asset('storage/' . $this->icon);
-        }else{
+        } else {
             return asset('assets/img/stisla.svg');
         }
     }

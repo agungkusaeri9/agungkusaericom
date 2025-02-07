@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Skill;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AboutResource extends JsonResource
@@ -14,17 +15,20 @@ class AboutResource extends JsonResource
      */
     public function toArray($request)
     {
+        $skills = Skill::all();
         return [
             'site_name' => $this->site_name,
             'email' => $this->email,
             'address' => $this->address,
             'phone' => $this->phone,
             'description' => $this->description,
-            'author' => $this->author,
-            'author_image' => $this->author_image,
-            'author_role' => $this->author_role,
-            'author_description' => $this->author_description,
-            'cv' => $this->cv
+            'author' => [
+                'name' => $this->author,
+                'image' => $this->image(),
+                'role' => $this->author_role
+            ],
+            'cv' => $this->cv,
+            'skills' => SkillResource::collection($skills),
         ];
     }
 }

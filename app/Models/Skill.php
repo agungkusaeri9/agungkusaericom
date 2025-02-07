@@ -15,8 +15,8 @@ class Skill extends Model
         return asset('storage/' . $this->image);
     }
 
-    public function getImageAttribute($value)
-    {
-        return asset('storage/' . $value);
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return asset('storage/' . $value);
+    // }
 }

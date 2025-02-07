@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\API\ProjectTagController;
 use App\Http\Controllers\API\AboutController;
+use App\Http\Controllers\API\BlogCategoryController;
 use App\Http\Controllers\API\BlogController;
+use App\Http\Controllers\API\BlogTagController;
 use App\Http\Controllers\API\ContactController;
+use App\Http\Controllers\API\ProjectCategoryController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\SkillController;
+use App\Http\Controllers\API\SocialMediaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,10 +29,20 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-// Route::get('projects', [ProjectController::class, 'index']);
-// Route::get('projects/{slug}', [ProjectController::class, 'show']);
-// Route::get('blogs', [BlogController::class, 'index']);
-// Route::get('blogs/{slug}', [BlogController::class, 'show']);
-// Route::post('contact', [ContactController::class, 'store']);
-// Route::get('about', [AboutController::class, 'index']);
-// Route::get('skill', [SkillController::class, 'index']);
+Route::get('projects', [ProjectController::class, 'index']);
+Route::get('projects/related', [ProjectController::class, 'related']);
+Route::get('projects/{slug}', [ProjectController::class, 'show']);
+
+Route::get('project-categories', [ProjectCategoryController::class, 'index']);
+Route::get('project-tags', [ProjectTagController::class, 'index']);
+
+
+Route::get('blog-tags', [BlogTagController::class, 'index']);
+Route::get('blog-categories', [BlogCategoryController::class, 'index']);
+Route::get('blogs/related', [BlogController::class, 'related']);
+Route::get('blogs', [BlogController::class, 'index']);
+Route::get('blogs/{slug}', [BlogController::class, 'show']);
+Route::post('contact', [ContactController::class, 'store']);
+Route::get('about', [AboutController::class, 'index']);
+Route::get('skill', [SkillController::class, 'index']);
+Route::get('social-medias', [SocialMediaController::class, 'index']);

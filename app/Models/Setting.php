@@ -112,8 +112,8 @@ class Setting extends Model
         return $years;
     }
 
-    public function getAuthorImageAttribute($value)
-    {
-        return asset('storage/' . $value);
-    }
+    // public function getAuthorImageAttribute($value)
+    // {
+    //     return asset('storage/' . $value);
+    // }
 }
