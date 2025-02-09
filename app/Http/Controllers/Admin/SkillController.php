@@ -46,7 +46,7 @@ class SkillController extends Controller
     {
         request()->validate([
             'name' => ['required', Rule::unique('skills')->ignore(request('id'))],
-            'image' => ['required','image', 'mimes:jpg,jpeg,png,svg', 'max:2048'],
+            'image' => [Rule::when(!request('id'), 'required'), 'image', 'mimes:jpg,jpeg,png,svg', 'max:2048'],
             'type' => ['required'],
             'description' => ['required']
         ]);
@@ -96,15 +96,15 @@ class SkillController extends Controller
      */
     public function destroy($id)
     {
-       try {
-        $item =  Skill::find($id);
-        if ($item->image) {
-            Storage::disk('public')->delete($item->image);
+        try {
+            $item =  Skill::find($id);
+            if ($item->image) {
+                Storage::disk('public')->delete($item->image);
+            }
+            $item->delete();
+            return response()->json(['status' => 'succcess', 'message' => 'Skill berhasil dihapus.']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'error', 'message' => 'Skill gagal dihapus.']);
         }
-        $item->delete();
-        return response()->json(['status' => 'succcess', 'message' => 'Skill berhasil dihapus.']);
-       } catch (\Throwable $th) {
-        return response()->json(['status' => 'error', 'message' => 'Skill gagal dihapus.']);
-       }
     }
 }

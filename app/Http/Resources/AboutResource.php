@@ -27,6 +27,7 @@ class AboutResource extends JsonResource
                 'image' => $this->image(),
                 'role' => $this->author_role
             ],
+            'whatsapp' => $this->whatsapp_number,
             'cv' => $this->cv,
             'skills' => SkillResource::collection($skills),
         ];
