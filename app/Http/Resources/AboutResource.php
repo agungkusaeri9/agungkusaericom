@@ -29,7 +29,7 @@ class AboutResource extends JsonResource
             ],
             'whatsapp' => $this->whatsapp_number,
             'cv' => $this->cv,
-            'skills' => SkillResource::collection($skills),
+            // 'skills' => SkillResource::collection($skills),
         ];
     }
 }

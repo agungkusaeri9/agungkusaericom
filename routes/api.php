@@ -50,3 +50,4 @@ Route::get('skill', [SkillController::class, 'index']);
 Route::get('social-medias', [SocialMediaController::class, 'index']);
 Route::get('seo', [SeoController::class, 'get']);
 Route::get('services', [ServiceController::class, 'index']);
+Route::get('skills',[SkillController::class,'get']);

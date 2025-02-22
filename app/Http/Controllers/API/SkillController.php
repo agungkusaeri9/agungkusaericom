@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
-    public function index()
+    public function get()
     {
         $limit = request('limit') ?? 10;
         try {

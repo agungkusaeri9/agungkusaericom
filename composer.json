@@ -59,6 +59,18 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "setup": [
+            "composer install",
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "php artisan key:generate",
+            "php artisan config:cache",
+            "php artisan migrate --seeder",
+            "php artisan storage:link",
+            "php artisan jwt:secret",
+            "npm install",
+            "npm run build",
+            "chmod -R 777 /var/www/storage"
         ]
     },
     "extra": {
@@ -72,6 +84,9 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true
+        },
+        "platform": {
+            "php": "8.1.31"
         }
     },
     "minimum-stability": "dev",
