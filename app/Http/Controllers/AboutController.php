@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PengaturanSeo;
 use App\Models\Setting;
 use App\Models\Skill;
+use App\Models\Tool;
 use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
@@ -43,6 +44,7 @@ class AboutController extends Controller
         return view('frontend.pages.about', [
             'setting' => $setting,
             'skills' => Skill::orderBy('name', 'ASC')->get(),
+            'tools' => Tool::orderBy('name', 'ASC')->get(),
             'SEOData' => $seoData
         ]);
     }

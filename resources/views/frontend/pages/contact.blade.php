@@ -6,7 +6,7 @@
         to
         connecting with you." />
 
-    <div class="grid grid-cols-1 md:grid-cols-2 px-4 md:w-[70%] justify-center mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 px-4  justify-center mx-auto">
         <div class="mb-10 md:mb-0">
             <p class="text-gray-600 mb-6">
                 Have any questions or feedback? Fill out the form below to get in touch with us.
@@ -48,7 +48,7 @@
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Name</label>
                     <input type="text" id="name"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 py-4 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                         placeholder="Name" required name="name" value="{{ old('name') }}" />
                     @error('name')
                         <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span>
@@ -59,7 +59,7 @@
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Email</label>
                     <input type="text" name="email" id="email"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 py-4 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                         placeholder="Email" required value="{{ old('email') }}" />
                     @error('email')
                         <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span>
@@ -70,14 +70,14 @@
                     <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Subject</label>
                     <input type="text" name="subject" id="subject"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 py-4 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                         placeholder="subject" required value="{{ old('subject') }}" />
                     @error('subject')
                         <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span>
                             {{ $message }}</p>
                     @enderror
                 </div>
-                <div class="mb-2">
+                <div class="mb-3">
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Message</label>
                     <textarea id="text" name="text" rows="4"

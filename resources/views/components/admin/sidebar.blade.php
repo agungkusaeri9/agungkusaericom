@@ -94,6 +94,7 @@
                     <span>Master</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('admin.skills.index') }}">Skill</a></li>
+                    <li><a href="{{ route('admin.tools.index') }}">Tool</a></li>
                     <li><a href="{{ route('admin.payments.index') }}">Jenis Pembayaran</a></li>
                     <li><a href="{{ route('admin.inboxes.index') }}">Pesan Masuk</a></li>
                     @can('Sosial Media View')

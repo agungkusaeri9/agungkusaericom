@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\Setting;
 use App\Models\Skill;
+use App\Models\Tool;
 use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
@@ -26,6 +27,7 @@ class HomeController extends Controller
     {
         $setting = Setting::first();
         $skills = Skill::orderBy('name', 'ASC')->get();
+        $tools = Tool::orderBy('name', 'ASC')->get();
         $project_categories = ProjectCategory::orderBy('name', 'ASC')->get();
         $seo = PengaturanSeo::where('halaman', 'home')->first();
         $seoData = new SEOData(
@@ -43,6 +45,7 @@ class HomeController extends Controller
         return view('frontend.pages.home', [
             'setting' => $setting,
             'skills' => $skills,
+            'tools' => $tools,
             'project_categories' => $project_categories,
             'SEOData' => $seoData,
             'latest_posts' => $latest_posts

@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SitemapController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\SocmedController;
+use App\Http\Controllers\Admin\ToolsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UtangPiutangController;
 use App\Http\Controllers\Admin\VisitorController;
@@ -121,6 +122,10 @@ Route::resource('payments', PaymentController::class)->except('create', 'show', 
 // skills
 Route::get('skills/data', [SkillController::class, 'data'])->name('skills.data');
 Route::resource('skills', SkillController::class)->except('create', 'show', 'edit', 'update');
+
+// tools
+Route::get('tools/data', [ToolsController::class, 'data'])->name('tools.data');
+Route::resource('tools', ToolsController::class)->except('create', 'show', 'edit', 'update');
 
 // sitemap update
 Route::get('sitemap/update', [SitemapController::class, 'index'])->name('sitemap.update');

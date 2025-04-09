@@ -1,8 +1,8 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-[60%] px-4 mt-5 justify-center md:mt-10">
+    <div class="grid grid-cols-1  px-4 mt-5 justify-center md:mt-10">
         <div>
-            <div>
+            <div class="border border-gray-300 rounded-md">
                 <img src="{{ $project->image() }}" alt="{{ $project->name }}" class="w-full object-cover mt-3">
             </div>
             <nav class="flex mt-4" aria-label="Breadcrumb">

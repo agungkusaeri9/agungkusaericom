@@ -30,13 +30,15 @@ solutions that drive success and innovation." />
                 delivering high-quality results and innovative solutions.
             </p>
         </div>
-        <div class="flex justify-center gap-5 md:gap-24">
-            @foreach ($skills as $skil)
-                <div>
-                    <img class="object-cover h-20 aspect-square md:h-40 rounded-sm hover:brightness-50"
-                        src="{{ $skil->image() }}" alt="Skill {{ $skil->name }}">
-                </div>
-            @endforeach
+        <div class="flex justify-center">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5 md:gap-24 max-w-[1000px]">
+                @foreach ($skills as $skil)
+                    <div>
+                        <img class="object-cover h-20 aspect-square md:h-20 rounded-sm hover:brightness-50"
+                            src="{{ $skil->image() }}" alt="Skill {{ $skil->name }}">
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 
@@ -49,22 +51,14 @@ solutions that drive success and innovation." />
                 high-quality results in various projects.
             </p>
         </div>
-        <div class="flex justify-center gap-5 md:gap-24 mb-5">
-            <div class="">
-                <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                    src="{{ asset('assets/frontend/img/linux-svgrepo-com.svg') }}" alt="Linux">
-            </div>
-            <div class="">
-                <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                    src="{{ asset('assets/frontend/img/visual-studio-code-svgrepo-com.svg') }}" alt="Visual Studio Code">
-            </div>
-            <div class="">
-                <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                    src="{{ asset('assets/frontend/img/git-svgrepo-com.svg') }}" alt="Git">
-            </div>
-            <div class="">
-                <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                    src="{{ asset('assets/frontend/img/postman-icon-svgrepo-com.svg') }}" alt="Postman">
+        <div class="flex justify-center">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5 md:gap-24 max-w-[1000px]">
+                @foreach ($tools as $tool)
+                    <div>
+                        <img class="object-cover h-20 aspect-square md:h-20 rounded-sm hover:brightness-50"
+                            src="{{ $tool->image() }}" alt="{{ $tool->name }}">
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
