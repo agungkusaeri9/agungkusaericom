@@ -27,7 +27,7 @@
 
         {{-- about me --}}
         <div class="md:mb-20">
-            <div class="grid grid-cols-1 md:w-[100%] px-4  md:grid-cols-[40%_60%] md:gap-10">
+            <div class="grid grid-cols-1 md:w-[100%]   md:grid-cols-[40%_60%] md:gap-10">
                 <div class="flex justify-center mb-5 md:w-90 items-center">
                     <img src="{{ $setting->author_image() }}"
                         class="w-[150px] h-[150px] md:w-[350px] md:h-[350px] rounded-full object-cover shadow-lg"
@@ -52,14 +52,17 @@
                     delivering high-quality results and innovative solutions.
                 </p>
             </div>
-            <div class="flex justify-center gap-5 md:gap-24">
-                @foreach ($skills as $skil)
-                    <div>
-                        <img class="object-cover h-20 aspect-square md:h-40 rounded-sm hover:brightness-50"
-                            src="{{ $skil->image() }}" alt="Skill {{ $skil->name }}">
-                    </div>
-                @endforeach
+            <div class="flex justify-center">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5 md:gap-24 max-w-[1000px]">
+                    @foreach ($skills as $skil)
+                        <div>
+                            <img class="object-cover h-20 aspect-square md:h-20 rounded-sm hover:brightness-50"
+                                src="{{ $skil->image() }}" alt="Skill {{ $skil->name }}">
+                        </div>
+                    @endforeach
+                </div>
             </div>
+
         </div>
 
         {{-- tools --}}
@@ -72,23 +75,14 @@
                     high-quality results in various projects.
                 </p>
             </div>
-            <div class="flex justify-center gap-5 md:gap-24 mb-5">
-                <div class="">
-                    <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                        src="{{ asset('assets/frontend/img/linux-svgrepo-com.svg') }}" alt="Linux">
-                </div>
-                <div class="">
-                    <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                        src="{{ asset('assets/frontend/img/visual-studio-code-svgrepo-com.svg') }}"
-                        alt="Visual Studio Code">
-                </div>
-                <div class="">
-                    <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                        src="{{ asset('assets/frontend/img/git-svgrepo-com.svg') }}" alt="Git">
-                </div>
-                <div class="">
-                    <img class="object-cover aspect-square h-20 md:h-40 rounded-sm opacity-100 hover:brightness-50"
-                        src="{{ asset('assets/frontend/img/postman-icon-svgrepo-com.svg') }}" alt="Postman">
+            <div class="flex justify-center">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5 md:gap-24 max-w-[1000px]">
+                    @foreach ($tools as $tool)
+                        <div>
+                            <img class="object-cover h-20 aspect-square md:h-20 rounded-sm hover:brightness-50"
+                                src="{{ $tool->image() }}" alt="{{ $tool->name }}">
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -117,16 +111,13 @@
                     <div class="bg-white mb-5 rounded-md">
                         <a href="{{ route('posts.show', $lp->slug) }}">
                             <img src="{{ $lp->image() }}" alt=""
-                                class="aspect-video h-35 rounded-t-md  md:h-50 object-cover hover:brightness-50">
+                                class="aspect-video h-35 rounded-t-md  md:h-[150px] object-cover hover:brightness-50">
                             <div class="pt-2 px-1">
-                                <h1 class="text-sm font-semibold text-slate-800 mb-2">{{ $lp->title }}</h1>
-                                <div class="mb-2">
+                                <h1 class="text-lg text-justify font-normal text-slate-800 mb-2">{{ $lp->title }}</h1>
+                                {{-- <div class="mb-2">
                                     <a href="{{ route('posts.category', $lp->category->slug) }}"
                                         class="bg-slate-600 rounded-md text-white text-xs p-1">{{ $lp->category->name }}</a>
-                                </div>
-                                <p class="text-slate-700 text-justify text-xs">
-                                    {{ \Str::limit($lp->meta_description, 200) }}
-                                </p>
+                                </div> --}}
                             </div>
                         </a>
                     </div>

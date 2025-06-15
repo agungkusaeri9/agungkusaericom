@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-[60%] px-4 md:mt-10 justify-center">
+    <div class="grid grid-cols-1  px-4 md:mt-10 justify-center">
         <div>
             <div>
                 <img src="{{ $post->image() }}" alt="{{ $post->title }}" class="w-full object-cover mt-3">

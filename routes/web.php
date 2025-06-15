@@ -33,9 +33,13 @@ Auth::routes(['register' => false]);
 
 
 // home
+// Route::get('/', function () {
+//     return abort(404);
+// })->name('home');
+
 Route::get('/', HomeController::class)->name('home');
 
-// contact
+// // contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
