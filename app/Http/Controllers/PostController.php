@@ -16,6 +16,7 @@ use Artesaos\SEOTools\Facades\TwitterCard;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
+use Spatie\Sitemap\Tags\Tag;
 
 use function PHPSTORM_META\map;
 
@@ -80,13 +81,24 @@ class PostController extends Controller
             modified_time: $post ? $post->updated_at : null,
             robots: 'index, follow'
         );
+        $relatedPosts = Post::where('post_category_id', $post->post_category_id)
+            ->where('id', '!=', $post->id)
+            ->latest()
+            ->take(3)
+            ->get();
+        $popularTags = PostTag::withCount('posts')
+            ->orderBy('posts_count', 'desc')
+            ->take(10)
+            ->get();
         $latest_post = Post::latest()->limit(6)->get();
         return view('frontend.pages.post.show', [
             'title' => $post->title,
             'post' => $post,
             'setting' => $this->setting,
             'SEOData' => $seoData,
-            'latest_posts' => $latest_post
+            'latest_posts' => $latest_post,
+            'relatedPosts' => $relatedPosts,
+            'popularTags' => $popularTags
         ]);
     }
 
@@ -94,7 +106,7 @@ class PostController extends Controller
     {
         $category = PostCategory::where('slug', $slug)->firstOrFail();
         $posts = $category->posts()->paginate(8);
-        $title = 'Kategori Artikel ' . $category->name . ' | '  . $this->setting->site_name;
+        $title = 'Kategori Artikel ' . $category->name . ' | ' . $this->setting->site_name;
         $seo = PengaturanSeo::where('halaman', 'blog')->first();
         $seoData = new SEOData(
             title: $title,
@@ -121,7 +133,7 @@ class PostController extends Controller
         $tag = PostTag::where('slug', $slug)->firstOrFail();
         $posts = $tag->posts()->paginate(8);
 
-        $title = 'Tag Artikel ' . $tag->name . ' | '  . $this->setting->site_name;
+        $title = 'Tag Artikel ' . $tag->name . ' | ' . $this->setting->site_name;
         $seo = PengaturanSeo::where('halaman', 'blog')->first();
         $seoData = new SEOData(
             title: $title,

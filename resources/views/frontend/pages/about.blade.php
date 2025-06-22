@@ -1,65 +1,132 @@
 @extends('frontend.layouts.app')
 @section('content')
     <x-Frontend.SectionTitle title="About Me"
-        description=" Welcome to our About page! Discover our mission, values, and commitment to delivering quality tech
+        description="Welcome to our About page! Discover our mission, values, and commitment to delivering quality tech
 solutions that drive success and innovation." />
 
-    <div class="md:mb-20">
-        <div class="grid grid-cols-1 md:w-[100%] px-4  md:grid-cols-[40%_60%] md:gap-10">
-            <div class="flex justify-center mb-5 md:w-90 items-center">
-                <img src="{{ $setting->author_image() }}"
-                    class="w-[150px] h-[150px] md:w-[350px] md:h-[350px] rounded-full object-cover shadow-lg"
-                    alt="{{ $setting->author }}">
+    <!-- Hero Section -->
+    <div class="max-w-6xl mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Profile Image -->
+            <div class="flex justify-center lg:justify-start">
+                <div class="relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-lg opacity-10">
+                    </div>
+                    <img src="{{ $setting->author_image() }}"
+                        class="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full object-cover shadow-lg border-2 border-gray-100"
+                        alt="{{ $setting->author }}">
+                </div>
             </div>
-            <div class="md:mt-10">
-                <h2 class="text-xl text-center md:text-left md:text-3xl font-bold text-gray-800 mb-5 md:mb-10">Let's
-                    Introduce
-                    About
-                    Myself</h2>
-                <p class="text-justify text-sm text-slate-700 md:text-xl">{{ $setting->author_description }}</p>
+
+            <!-- About Content -->
+            <div class="space-y-6">
+                <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full">
+                    <span class="text-sm font-medium text-blue-700">👋 Hello, I'm {{ $setting->author }}</span>
+                </div>
+
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 leading-tight">
+                    Let's Introduce About Myself
+                </h2>
+
+                <div class="prose prose-lg text-gray-600 leading-relaxed">
+                    <p class="text-justify">{{ $setting->author_description }}</p>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-3 gap-4 pt-6">
+                    <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-2xl font-bold text-blue-600">5+</div>
+                        <div class="text-sm text-gray-600">Years Experience</div>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-2xl font-bold text-green-600">50+</div>
+                        <div class="text-sm text-gray-600">Projects Completed</div>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-2xl font-bold text-purple-600">100%</div>
+                        <div class="text-sm text-gray-600">Client Satisfaction</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Skills Section -->
+    <div class="bg-gradient-to-br from-gray-50 to-blue-50 py-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm mb-4">
+                    <span class="text-sm font-medium text-gray-700">🛠️ Professional Skills</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">Skills & Expertise</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    A collection of professional skills developed through experience and learning, focusing on
+                    delivering high-quality results and innovative solutions.
+                </p>
+            </div>
 
-    <div class="md:mb-20">
-        <div class="grid grid-cols-1 md:grid-cols-[50%] mx-auto mt-10 md:mb-12 mb-8 text-center justify-center ">
-            <h2 class="text-xl mb-5 md:mb-5 font-semibold md:text-3xl">Skills</h2>
-            <p class="text-sm text-slate-700 md:text-base">
-                A collection of professional skills developed through experience and learning, focusing on
-                delivering high-quality results and innovative solutions.
-            </p>
-        </div>
-        <div class="flex justify-center">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5 md:gap-24 max-w-[1000px]">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
                 @foreach ($skills as $skil)
-                    <div>
-                        <img class="object-cover h-20 aspect-square md:h-20 rounded-sm hover:brightness-50"
-                            src="{{ $skil->image() }}" alt="Skill {{ $skil->name }}">
+                    <div class="group">
+                        <div
+                            class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+                            <img class="w-full h-16 object-contain group-hover:scale-110 transition-transform duration-300"
+                                src="{{ $skil->image() }}" alt="Skill {{ $skil->name }}">
+                            <p class="text-center text-sm font-medium text-gray-700 mt-3">{{ $skil->name }}</p>
+                        </div>
                     </div>
                 @endforeach
             </div>
         </div>
     </div>
 
-    <div class="md:mb-20">
-        <div class="grid grid-cols-1 md:grid-cols-[50%] mx-auto mt-10 md:mb-12 mb-8 text-center justify-center">
-            <h2 class="text-xl mb-5 md:mb-5 font-semibold md:text-3xl">Tools</h2>
-            <p class="text-sm text-slate-700 md:text-base">
-                A selection of essential tools used to enhance productivity, streamline workflows, and achieve
-                efficient,
-                high-quality results in various projects.
-            </p>
-        </div>
-        <div class="flex justify-center">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5 md:gap-24 max-w-[1000px]">
+    <!-- Tools Section -->
+    <div class="py-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <div
+                    class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full mb-4">
+                    <span class="text-sm font-medium text-green-700">⚙️ Development Tools</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">Tools & Technologies</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    A selection of essential tools used to enhance productivity, streamline workflows, and achieve
+                    efficient, high-quality results in various projects.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
                 @foreach ($tools as $tool)
-                    <div>
-                        <img class="object-cover h-20 aspect-square md:h-20 rounded-sm hover:brightness-50"
-                            src="{{ $tool->image() }}" alt="{{ $tool->name }}">
+                    <div class="group">
+                        <div
+                            class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+                            <img class="w-full h-16 object-contain group-hover:scale-110 transition-transform duration-300"
+                                src="{{ $tool->image() }}" alt="{{ $tool->name }}">
+                            <p class="text-center text-sm font-medium text-gray-700 mt-3">{{ $tool->name }}</p>
+                        </div>
                     </div>
                 @endforeach
             </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h3 class="text-2xl lg:text-3xl font-bold text-white mb-4">
+                Ready to Start Your Next Project?
+            </h3>
+            <p class="text-blue-100 text-lg mb-8">
+                Let's work together to bring your ideas to life with cutting-edge technology and innovative solutions.
+            </p>
+            <a href="{{ route('contact.index') }}"
+                class="inline-flex items-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                <span>Get In Touch</span>
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
         </div>
     </div>
 @endsection

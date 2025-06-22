@@ -6,50 +6,146 @@ guides, and
 tutorials focused
 on technology and programming. Gain valuable insights and practical solutions to boost your coding
 skills and knowledge." />
-    <div class="grid grid-cols-1 gap-2">
-        <div class="px-4">
-            <div class="md:flex md:justify-end">
-                <form class="w-full  mb-4 md:w-[520px]" action="{{ route('projects.search') }}">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Search Section -->
+        <div class="mb-12">
+            <div class="flex justify-center">
+                <form class="w-full max-w-2xl" action="{{ route('projects.search') }}">
                     <div class="relative">
-                        <input type="text"
-                            class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Search keyword project..." name="q" value="{{ request('q') }}">
-                        <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3">
-                            <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5a7 7 0 100 14 7 7 0 000-14zM21 21l-4.35-4.35" />
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
+                        </div>
+                        <input type="text"
+                            class="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition-all duration-200"
+                            placeholder="Search projects by keyword..." name="q" value="{{ request('q') }}">
+                        <button type="submit"
+                            class="absolute inset-y-0 right-0 flex items-center pr-4 bg-blue-600 text-white rounded-r-xl px-6 hover:bg-blue-700 transition-colors duration-200">
+                            <span class="text-sm font-medium">Search</span>
                         </button>
                     </div>
                 </form>
             </div>
-            @if (request('q'))
-                <p class="text-slate-800 mb-3 text-center md:my-10">Search Results for "<span
-                        class="font-semibold">{{ request('q') }}</span>"
-                    Displaying
-                    {{ count($projects) }} projects</p>
-            @endif
-            @isset($category)
-                <p class="text-slate-800 mb-3 text-center md:my-10">Results for category "<span
-                        class="font-semibold">{{ $category->name }}</span>"
-                    Displaying
-                    {{ count($projects) }} projects</p>
-            @endisset
-            @isset($tag)
-                <p class="text-slate-800 mb-3 text-center md:my-10">Results for tag "<span
-                        class="font-semibold">{{ $tag->name }}</span>"
-                    Displaying
-                    {{ count($projects) }} projects</p>
-            @endisset
-            <div class="grid grid-cols-1 md:grid-cols-4 md:gap-6">
-                @foreach ($projects as $project)
-                    <x-Frontend.CardProject id="{{ $project->id }}" />
-                @endforeach
-            </div>
-            <div class="">
-                {{ $projects->links('pagination::tailwind') }}
-            </div>
         </div>
+
+        <!-- Search Results Header -->
+        @if (request('q'))
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-4">
+                    <span class="text-sm font-medium text-blue-700">🔍 Search Results</span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                    Results for "<span class="text-blue-600">{{ request('q') }}</span>"
+                </h2>
+                <p class="text-gray-600">{{ count($projects) }} projects found</p>
+            </div>
+        @endif
+
+        @isset($category)
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-green-50 rounded-full mb-4">
+                    <span class="text-sm font-medium text-green-700">📂 Category</span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                    Category: "<span class="text-green-600">{{ $category->name }}</span>"
+                </h2>
+                <p class="text-gray-600">{{ count($projects) }} projects found</p>
+            </div>
+        @endisset
+
+        @isset($tag)
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-purple-50 rounded-full mb-4">
+                    <span class="text-sm font-medium text-purple-700">🏷️ Tag</span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                    Tag: "<span class="text-purple-600">{{ $tag->name }}</span>"
+                </h2>
+                <p class="text-gray-600">{{ count($projects) }} projects found</p>
+            </div>
+        @endisset
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            @foreach ($projects as $project)
+                <div class="group">
+                    <a href="{{ route('projects.show', $project->slug) }}" class="block">
+                        <div
+                            class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden">
+                            <!-- Image Container -->
+                            <div class="relative overflow-hidden">
+                                <img src="{{ $project->image() }}" alt="{{ $project->name }}"
+                                    class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+
+                                <!-- Category Badge -->
+                                @if (isset($project->project_category_id))
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-600 text-white">
+                                            {{ $project->category->name }}
+                                        </span>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-6">
+                                <h3
+                                    class="text-lg font-semibold text-gray-800 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
+                                    {{ $project->name }}
+                                </h3>
+
+                                @if ($project->meta_description)
+                                    <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                                        {{ \Str::limit($project->meta_description, 120) }}
+                                    </p>
+                                @endif
+
+                                <!-- View Project -->
+                                <div class="flex items-center justify-end">
+                                    <span
+                                        class="inline-flex items-center text-sm font-medium text-blue-600 group-hover:text-blue-700 transition-colors duration-200">
+                                        View Project
+                                        <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-200"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Pagination -->
+        @if ($projects->hasPages())
+            {{ $projects->links('pagination::tailwind') }}
+        @endif
+
+        <!-- Empty State -->
+        @if (count($projects) === 0)
+            <div class="text-center py-16">
+                <div class="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">No projects found</h3>
+                <p class="text-gray-600 mb-6">Try adjusting your search terms or browse all projects</p>
+                <a href="{{ route('projects.index') }}"
+                    class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    Browse All Projects
+                </a>
+            </div>
+        @endif
     </div>
 @endsection
