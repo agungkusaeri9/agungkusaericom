@@ -5,13 +5,6 @@
             <!-- About Section -->
             <div class="lg:col-span-2">
                 <div class="flex items-center mb-6">
-                    <div
-                        class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mr-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                    </div>
                     <h3 class="text-2xl font-bold">{{ $setting->author }}</h3>
                 </div>
                 <p class="text-gray-300 mb-6 leading-relaxed">
@@ -113,14 +106,6 @@
                                 d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                         </svg>
                         Mobile Development
-                    </li>
-                    <li class="text-gray-300 flex items-center">
-                        <svg class="w-4 h-4 mr-2 text-pink-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
-                        </svg>
-                        UI/UX Design
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <svg class="w-4 h-4 mr-2 text-green-400" fill="none" stroke="currentColor"

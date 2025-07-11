@@ -162,7 +162,8 @@
     <script>
         $(function() {
             $('.select2').select2({
-                theme: 'bootstrap4'
+                theme: 'bootstrap4',
+                tags: true
             });
             var options = {
                 filebrowserImageBrowseUrl: '/filemanager',

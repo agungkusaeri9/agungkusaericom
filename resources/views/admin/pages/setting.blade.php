@@ -52,6 +52,14 @@
                                         <span>Pemilik</span>
                                         <span class="ml-4 text-right">{{ $setting->author }}</span>
                                     </li>
+                                    <li class="list-item-inline d-flex justify-content-between">
+                                        <span>Tahun Pengalaman</span>
+                                        <span class="ml-4 text-right">{{ $setting->year_experience }}</span>
+                                    </li>
+                                    <li class="list-item-inline d-flex justify-content-between">
+                                        <span>Project Selesai</span>
+                                        <span class="ml-4 text-right">{{ $setting->project_completed }}</span>
+                                    </li>
                                     <hr>
                                     <li class="list-item-inline d-flex justify-content-between">
                                         <span>Favicon</span>
@@ -80,7 +88,8 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="site_name">Nama Situs</label>
-                                            <input type="text" class="form-control @error('site_name') is-invalid @enderror"
+                                            <input type="text"
+                                                class="form-control @error('site_name') is-invalid @enderror"
                                                 value="{{ $setting->site_name }}" name="site_name">
                                             @error('site_name')
                                                 <div class="invalid-feedback">
@@ -141,7 +150,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="meta_keyword">Meta Kata Kunci</label>
-                                            <input type="text" class="form-control @error('meta_keyword') is-invalid @enderror"
+                                            <input type="text"
+                                                class="form-control @error('meta_keyword') is-invalid @enderror"
                                                 value="{{ $setting->meta_keyword }}" name="meta_keyword">
                                             @error('meta_keyword')
                                                 <div class="invalid-feedback">
@@ -161,7 +171,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="author">Pemilik</label>
-                                            <input type="text" class="form-control @error('author') is-invalid @enderror"
+                                            <input type="text"
+                                                class="form-control @error('author') is-invalid @enderror"
                                                 value="{{ $setting->author }}" name="author">
                                             @error('author')
                                                 <div class="invalid-feedback">
@@ -170,8 +181,31 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
+                                            <label for="year_experience">Tahun Pengalaman</label>
+                                            <input type="text"
+                                                class="form-control @error('year_experience') is-invalid @enderror"
+                                                value="{{ $setting->year_experience }}" name="year_experience">
+                                            @error('year_experience')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="project_completed">Project Selesai</label>
+                                            <input type="text"
+                                                class="form-control @error('project_completed') is-invalid @enderror"
+                                                value="{{ $setting->project_completed }}" name="project_completed">
+                                            @error('project_completed')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <label for="author_image">Foto Pemilik</label>
-                                            <input type="file" class="form-control @error('author_image') is-invalid @enderror"
+                                            <input type="file"
+                                                class="form-control @error('author_image') is-invalid @enderror"
                                                 value="{{ $setting->author_image }}" name="author_image">
                                             @error('author_image')
                                                 <div class="invalid-feedback">
@@ -181,7 +215,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="author_role">Role Pemilik</label>
-                                            <input type="text" class="form-control @error('author_role') is-invalid @enderror"
+                                            <input type="text"
+                                                class="form-control @error('author_role') is-invalid @enderror"
                                                 value="{{ $setting->author_role }}" name="author_role">
                                             @error('author_role')
                                                 <div class="invalid-feedback">
@@ -211,7 +246,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="favicon">Favicon</label>
-                                            <input type="file" class="form-control @error('favicon') is-invalid @enderror"
+                                            <input type="file"
+                                                class="form-control @error('favicon') is-invalid @enderror"
                                                 name="favicon">
                                             @error('favicon')
                                                 <div class="invalid-feedback">
@@ -221,8 +257,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="image">Gambar</label>
-                                            <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                                name="image">
+                                            <input type="file"
+                                                class="form-control @error('image') is-invalid @enderror" name="image">
                                             @error('image')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

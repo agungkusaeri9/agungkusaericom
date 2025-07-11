@@ -68,7 +68,7 @@ class ProjectController extends Controller
                 ->addColumn('created', function ($model) {
                     return $model->created_at->translatedFormat('d-m-Y H:i:s');
                 })
-                ->rawColumns(['action', 'is_publish', 'status', 'image','is_portfolio'])
+                ->rawColumns(['action', 'is_publish', 'status', 'image', 'is_portfolio'])
                 ->make(true);
         }
     }
@@ -86,7 +86,7 @@ class ProjectController extends Controller
     {
         request()->validate([
             'name' => ['required', 'max:255'],
-            'project_category_id' => ['required', 'numeric'],
+            'project_category_id' => ['required'],
             'description' => ['required'],
             'status' => ['required'],
             'is_publish' => ['required', 'in:0,1'],
@@ -95,14 +95,27 @@ class ProjectController extends Controller
 
         try {
             $data = request()->except('project_tag_id');
+            $request_project_tags = request('project_tag_id');
+            $project_tags = [];
+            if (count($request_project_tags) > 0) {
+                foreach ($request_project_tags as $key => $value) {
+                    if (is_numeric($value)) {
+                        $project_tags[]  = intval($value);
+                    } else {
+                        $newTag = ProjectTag::create(['name' => $value, 'slug' => Str::slug($value)]);
+                        $project_tags[] = $newTag->id;
+                    }
+                }
+            }
             $data['slug'] = Str::slug(request('name'));
             if (request()->file('image')) {
                 $data['image'] = request()->file('image')->store('project', 'public');
             }
             $project = Project::create($data);
-            $project->tags()->attach(request('project_tag_id'));
+            $project->tags()->attach($project_tags);
             return redirect()->route('admin.projects.index')->with('success', 'Proyek berhasil ditambahkan');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return redirect()->route('admin.projects.index')->with('error', 'Ada kesalahan sistem!');
         }
     }
@@ -140,7 +153,7 @@ class ProjectController extends Controller
     {
         request()->validate([
             'name' => ['required', 'max:255'],
-            'project_category_id' => ['required', 'numeric'],
+            'project_category_id' => ['required'],
             'description' => ['required'],
             'status' => ['required'],
             'is_publish' => ['required', 'in:0,1'],
@@ -148,6 +161,19 @@ class ProjectController extends Controller
         ]);
 
         try {
+            $request_project_tags = request('project_tag_id');
+            $project_tags = [];
+            if (count($request_project_tags) > 0) {
+                foreach ($request_project_tags as $key => $value) {
+                    if (is_numeric($value)) {
+                        $project_tags[]  = intval($value);
+                    } else {
+                        $newTag = ProjectTag::create(['name' => $value, 'slug' => Str::slug($value)]);
+                        $project_tags[] = $newTag->id;
+                    }
+                }
+            }
+
             $item = Project::with('tags')->findOrFail($id);
             $data = request()->except('project_tag_id');
             $data['slug'] = Str::slug(request('name'));
@@ -157,7 +183,7 @@ class ProjectController extends Controller
                 $data['image'] = $item->image;
             }
             $item->update($data);
-            $item->tags()->sync(request('project_tag_id'));
+            $item->tags()->sync($project_tags);
             return redirect()->route('admin.projects.index')->with('success', 'Proyek berhasil disimpan');
             return redirect()->route('admin.projects.index')->with('success', 'Proyek berhasil disimpan');
         } catch (\Throwable $th) {

@@ -37,8 +37,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-center mb-5">
-                                            <img src="{{ $item->image() }}" class="img-fluid w-100" style="max-height: 160px"
-                                                alt="">
+                                            <img src="{{ $item->image() }}" class="img-fluid w-100"
+                                                style="max-height: 160px" alt="">
                                         </div>
                                         <div class="form-group">
                                             <label for="image">Gambar</label>
@@ -117,7 +117,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                          <div class="form-group">
+                                        <div class="form-group">
                                             <label for="meta_description">Meta Deskripsi</label>
                                             <textarea name="meta_description" id="meta_description"
                                                 class="form-control @error('meta_description') is-invalid @enderror" cols="30" rows="5">{{ $item->meta_description ?? old('meta_description') }}</textarea>
@@ -168,7 +168,8 @@
     <script>
         $(function() {
             $('#post_tag_id').select2({
-                theme: 'bootstrap4'
+                theme: 'bootstrap4',
+                tags: true
             });
             var options = {
                 filebrowserImageBrowseUrl: '/filemanager',

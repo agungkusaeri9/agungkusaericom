@@ -100,7 +100,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         request()->validate([
             'title' => ['required', Rule::unique('posts')->ignore(request('id'))],
             'post_category_id' => ['required'],
@@ -108,6 +107,19 @@ class PostController extends Controller
             'description' => ['required'],
             'image' => ['image', 'mimes:jpg,png,jpeg', 'max:2048']
         ]);
+
+        $request_post_tags = request('post_tag_id');
+        $post_tags = [];
+        if (count($request_post_tags) > 0) {
+            foreach ($request_post_tags as $key => $value) {
+                if (is_numeric($value)) {
+                    $post_tags[]  = intval($value);
+                } else {
+                    $newTag = PostTag::create(['name' => $value, 'slug' => Str::slug($value)]);
+                    $post_tags[] = $newTag->id;
+                }
+            }
+        }
 
         $data = request()->all();
         if (request()->file('image')) {
@@ -119,7 +131,7 @@ class PostController extends Controller
         $data['user_id'] = auth()->id();
         $post = Post::create($data);
 
-        $post->tags()->attach(request('post_tag_id'));
+        $post->tags()->attach($post_tags);
         return redirect()->route('admin.posts.index')->with('success', 'Data Artikel berhasil ditambahkan.');
     }
 
@@ -143,6 +155,20 @@ class PostController extends Controller
             'image' => ['image', 'mimes:jpg,png,jpeg', 'max:2048']
         ]);
 
+        $request_post_tags = request('post_tag_id');
+        $post_tags = [];
+        if (count($request_post_tags) > 0) {
+            foreach ($request_post_tags as $key => $value) {
+                if (is_numeric($value)) {
+                    $post_tags[]  = intval($value);
+                } else {
+                    $newTag = PostTag::create(['name' => $value, 'slug' => Str::slug($value)]);
+                    $post_tags[] = $newTag->id;
+                }
+            }
+        }
+
+
         $data = request()->all();
         if (request()->file('image')) {
             if ($item->image) {
@@ -154,7 +180,7 @@ class PostController extends Controller
         }
         $data['slug'] = Str::slug(request('title'));
         $item->update($data);
-        $item->tags()->sync(request('post_tag_id'));
+        $item->tags()->sync($post_tags);
         return redirect()->route('admin.posts.index')->with('success', 'Data Artikel berhasil berhasil disimpan.');
     }
 

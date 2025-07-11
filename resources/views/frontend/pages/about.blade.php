@@ -34,18 +34,14 @@ solutions that drive success and innovation." />
                 </div>
 
                 <!-- Quick Stats -->
-                <div class="grid grid-cols-3 gap-4 pt-6">
+                <div class="grid grid-cols-2 gap-4 pt-6">
                     <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
-                        <div class="text-2xl font-bold text-blue-600">5+</div>
+                        <div class="text-2xl font-bold text-blue-600">{{ $setting->year_experience }}+</div>
                         <div class="text-sm text-gray-600">Years Experience</div>
                     </div>
                     <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
-                        <div class="text-2xl font-bold text-green-600">50+</div>
+                        <div class="text-2xl font-bold text-green-600">{{ $setting->project_completed }}+</div>
                         <div class="text-sm text-gray-600">Projects Completed</div>
-                    </div>
-                    <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
-                        <div class="text-2xl font-bold text-purple-600">100%</div>
-                        <div class="text-sm text-gray-600">Client Satisfaction</div>
                     </div>
                 </div>
             </div>

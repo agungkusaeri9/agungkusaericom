@@ -34,7 +34,7 @@ class PostController extends Controller
         if ($q) {
             $posts = Post::publish()->with(['category', 'tags'])->where('title', 'LIKE', '%' . $q . '%')->latest()->paginate(8);
         } else {
-            $posts = Post::publish()->with(['category', 'tags'])->latest()->paginate(8);
+            $posts = Post::publish()->with(['category', 'tags'])->latest()->paginate(9);
         }
         $post_categories = PostCategory::withCount('posts')->orderBy('name', 'ASC')->get();
         $post_tags = PostTag::orderBy('name', 'ASC')->get();
@@ -63,6 +63,7 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::publish()->with(['tags', 'comments.child'])->withCount('comments')->where('slug', $slug)->firstOrFail();
+        $post->increment('visitor');
         $tags = [];
         if ($post->tags) {
             foreach ($post->tags as $tg) {

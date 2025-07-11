@@ -95,11 +95,11 @@
 
                     <div class="grid grid-cols-2 gap-6">
                         <div class="text-center p-4 bg-gray-50 rounded-xl">
-                            <div class="text-2xl font-bold text-blue-600 mb-1">5+</div>
+                            <div class="text-2xl font-bold text-blue-600 mb-1">{{ $setting->year_experience }}</div>
                             <div class="text-sm text-gray-600">Years Experience</div>
                         </div>
                         <div class="text-center p-4 bg-gray-50 rounded-xl">
-                            <div class="text-2xl font-bold text-purple-600 mb-1">50+</div>
+                            <div class="text-2xl font-bold text-purple-600 mb-1">{{ $setting->project_completed }}+</div>
                             <div class="text-sm text-gray-600">Projects Completed</div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                 <!-- Web Development -->
                 <div class="group">
                     <div
-                        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 min-h-[400px] flex flex-col">
                         <div
                             class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,7 +173,7 @@
                 <!-- Mobile Development -->
                 <div class="group">
                     <div
-                        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 min-h-[400px] flex flex-col">
                         <div
                             class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,9 +216,10 @@
                 </div>
 
                 <!-- UI/UX Design -->
+                <!-- Card: Performance Optimization -->
                 <div class="group">
                     <div
-                        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 min-h-[400px] flex flex-col">
                         <div
                             class="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,10 +227,9 @@
                                     d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">UI/UX Design</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Performance Optimization</h3>
                         <p class="text-gray-600 mb-6">
-                            User-centered design solutions that create engaging, intuitive, and visually appealing digital
-                            experiences.
+                            Enhance system responsiveness and speed through strategic backend and frontend improvements.
                         </p>
                         <ul class="space-y-2 text-sm text-gray-600">
                             <li class="flex items-center">
@@ -238,7 +238,7 @@
                                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                User Research
+                                Code Refactoring
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -246,7 +246,7 @@
                                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                Wireframing
+                                Lazy Loading & Caching
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -254,11 +254,56 @@
                                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                Prototyping
+                                Performance Audits
                             </li>
                         </ul>
                     </div>
                 </div>
+
+                <!-- Card: Maintenance & Support -->
+                <div class="group">
+                    <div
+                        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 min-h-[400px] flex flex-col">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Maintenance & Support</h3>
+                        <p class="text-gray-600 mb-6">
+                            Keep your system stable and secure with ongoing technical maintenance and user support services.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center">
+                                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Bug Fixing & Patching
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Security Updates
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                24/7 Technical Support
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -406,10 +451,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @php
-                    $latestProjects = \App\Models\Project::latest()->limit(6)->get();
-                @endphp
-
                 @foreach ($latestProjects as $project)
                     <div class="group">
                         <a href="{{ route('projects.show', $project->slug) }}" class="block">

@@ -28,7 +28,7 @@ class SitemapController extends Controller
         // post atau artikel
         $posts = Post::publish()->latest()->get();
         foreach ($posts as $post) {
-            $sitemap->add(Url::create("/{$post->slug}")->setPriority(0.9)
+            $sitemap->add(Url::create("/blogs/{$post->slug}")->setPriority(0.9)
                 ->setLastModificationDate($post->updated_at));
         }
 

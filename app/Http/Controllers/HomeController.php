@@ -41,14 +41,16 @@ class HomeController extends Controller
             modified_time: $seo ? $seo->modified_time : null,
             robots: $seo ? $seo->robots : ''
         );
-        $latest_posts = Post::publish()->latest()->limit(4)->get();
+        $latest_posts = Post::publish()->latest()->limit(3)->get();
+        $latestProjects = Project::latest()->limit(3)->get();
         return view('frontend.pages.home', [
             'setting' => $setting,
             'skills' => $skills,
             'tools' => $tools,
             'project_categories' => $project_categories,
             'SEOData' => $seoData,
-            'latest_posts' => $latest_posts
+            'latest_posts' => $latest_posts,
+            'latestProjects' => $latestProjects,
         ]);
     }
 }

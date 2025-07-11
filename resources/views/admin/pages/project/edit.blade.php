@@ -14,7 +14,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('admin.projects.update',$item->id) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.projects.update', $item->id) }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('patch')
                                 <div class="row">
@@ -88,7 +89,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                         <div class="form-group">
+                                        <div class="form-group">
                                             <label for="meta_description">Meta Deskripsi</label>
                                             <textarea name="meta_description" id="meta_description"
                                                 class="form-control @error('meta_description') is-invalid @enderror" cols="30" rows="5"
@@ -205,7 +206,8 @@
     <script>
         $(function() {
             $('.select2').select2({
-                theme: 'bootstrap4'
+                theme: 'bootstrap4',
+                tags: true
             });
             var options = {
                 filebrowserImageBrowseUrl: '/filemanager',

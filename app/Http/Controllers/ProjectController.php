@@ -31,7 +31,7 @@ class ProjectController extends Controller
             $projects = Project::publish()->with(['category', 'tags'])->where('name', 'LIKE', '%' . $q . '%')->latest()->paginate(8);
         } else {
 
-            $projects = Project::publish()->with(['category', 'tags'])->latest()->paginate(8);
+            $projects = Project::publish()->with(['category', 'tags'])->latest()->paginate(9);
         }
         $project_categories = ProjectCategory::withCount('projects')->orderBy('name', 'ASC')->get();
         $project_tags = ProjectTag::orderBy('name', 'ASC')->get();
