@@ -90,7 +90,10 @@
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                         <h2 class="text-xl font-semibold text-gray-800 mb-4">Project Description</h2>
                         <div class="prose prose-gray max-w-none">
-                            <p class="text-gray-700 leading-relaxed">{!! $project->description !!}</p>
+                            <div class="prose">
+                                {!! $project->description !!}
+                            </div>
+                            {{-- <p class="text-gray-700 leading-relaxed">{!! $project->description !!}</p> --}}
                         </div>
                     </div>
                 </div>
@@ -215,6 +218,37 @@
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                         <h3 class="text-lg font-semibold text-gray-800 mb-4">Project Information</h3>
                         <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <!-- Ikon link utama -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 010 5.656l-3.536 3.536a4 4 0
+                             01-5.656-5.656l1.415-1.415m11.314-1.414l1.415-1.415a4
+                             4 0 00-5.656-5.656l-3.536 3.536a4 4 0
+                             005.656 5.656z" />
+                                </svg>
+
+                                <span class="text-sm text-gray-700">
+                                    Link Demo :
+                                    @if ($project->link)
+                                        <a href="{{ $project->link }}" target="_blank"
+                                            class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline transition">
+                                            Visit
+                                            <!-- Ikon external link -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h4m0 0v4m0-4L10 14m-4
+                                         6h12a2 2 0 002-2V8a2 2 0
+                                         00-2-2H6a2 2 0 00-2 2v12a2
+                                         2 0 002 2z" />
+                                            </svg>
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">Unavailable</span>
+                                    @endif
+                                </span>
+                            </div>
+
                             <div class="flex items-center gap-3">
                                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">

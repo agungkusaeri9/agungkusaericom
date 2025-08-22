@@ -161,25 +161,37 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/plugin/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 @endpush
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+
     <script src="{{ asset('assets/plugin/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/plugin/select2/js/select2.min.js') }}"></script>
     <script>
         $(function() {
-            $('#post_tag_id').select2({
+            $('.select2').select2({
                 theme: 'bootstrap4',
                 tags: true
             });
-            var options = {
-                filebrowserImageBrowseUrl: '/filemanager',
-                filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
-                filebrowserBrowseUrl: '/filemanager?type=Files',
-                filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
-            };
-            CKEDITOR.replace('description', options);
-            CKEDITOR.addCss(".cke_editable{cursor:text; font-size: 16px; font-family: Arial, sans-serif;}");
-            CKEDITOR.config.height = 500;
+            $('#description').summernote({
+                height: 500,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript',
+                        'subscript', 'clear'
+                    ]],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'hr']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
         })
     </script>
 @endpush
