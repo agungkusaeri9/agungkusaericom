@@ -9,6 +9,8 @@ use App\Models\Payment;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -85,49 +87,82 @@ class InvoiceController extends Controller
             'item_price' => ['array']
         ]);
 
-        DB::beginTransaction();
-        try {
-            $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id']);
-            $kode_lama = Invoice::latest();
-            if ($kode_lama->count() > 0) {
-                $nomor_kode = \Str::substr($kode_lama->first()->code, 3);
-                $kode_baru = 'INV' . str_pad($nomor_kode + 1, 3, '0', STR_PAD_LEFT);
-            } else {
-                $kode_baru = 'INV001';
-            }
-            // hitung sub total dan total
-            $sub_total = 0;
-            foreach (request('item_price') as $key => $item_price) {
-                $item_qty = request('item_qty')[$key];
-                $sub_total = $sub_total + ($item_price * $item_qty);
-            }
-            $data['sub_total'] = $sub_total;
-            $data['code'] = $kode_baru;
-            $data['total'] = $data['sub_total'] - $data['discount'];
-            $invoice = Invoice::create($data);
-
-            // insert detail invoice
-            foreach (request('item_price') as $key => $item_price) {
-                $item_qty = request('item_qty')[$key];
-                $item_description = request('item_description')[$key];
-                $total = $item_price * $item_qty;
-
-                $invoice->details()->create([
-                    'description' => $item_description,
-                    'price' => $item_price,
-                    'qty' => $item_qty,
-                    'total' => $total
-                ]);
-            }
-
-            DB::commit();
-
-            return redirect()->route('admin.invoices.index')->with('success', 'Invoice berhasil dibuat.');
-        } catch (\Throwable $th) {
-            //throw $th;
-            DB::rollBack();
-            return redirect()->route('admin.invoices.index')->with('error', 'Ada kesalahan sistem.');
+        // hitung sub total dulu (cek input valid)
+        $sub_total = 0;
+        foreach (request('item_price') as $key => $item_price) {
+            $item_qty = request('item_qty')[$key] ?? 0;
+            $sub_total += ($item_price * $item_qty);
         }
+
+        $data = request()->only(['name', 'phone_number', 'address', 'discount', 'status', 'payment_id']);
+        $data['sub_total'] = $sub_total;
+        $data['total'] = $data['sub_total'] - ($data['discount'] ?? 0);
+
+        $maxAttempts = 5;
+        for ($attempt = 1; $attempt <= $maxAttempts; $attempt++) {
+            DB::beginTransaction();
+            try {
+                // generate kode INV-YYYYMM-0001 based on last invoice in same period
+                $period = Carbon::now()->format('Ym'); // YYYYMM, pakai Carbon::now('Asia/Jakarta') kalo mau WIB
+                $prefix = "INV-{$period}-";
+
+                $last = Invoice::where('code', 'like', $prefix . '%')
+                    ->orderBy('code', 'desc')
+                    ->lockForUpdate() // attempt to lock matching rows (may help)
+                    ->first();
+
+                if ($last) {
+                    $nomor_kode = (int) substr($last->code, -4);
+                    $next = $nomor_kode + 1;
+                } else {
+                    $next = 1;
+                }
+
+                $seq = str_pad($next, 4, '0', STR_PAD_LEFT); // 0001
+                $kode_baru = $prefix . $seq;
+
+                $data['code'] = $kode_baru;
+
+                // create invoice
+                $invoice = Invoice::create($data);
+
+                // insert detail invoice
+                foreach (request('item_price') as $key => $item_price) {
+                    $item_qty = request('item_qty')[$key] ?? 0;
+                    $item_description = request('item_description')[$key] ?? '';
+                    $total = $item_price * $item_qty;
+
+                    $invoice->details()->create([
+                        'description' => $item_description,
+                        'price' => $item_price,
+                        'qty' => $item_qty,
+                        'total' => $total
+                    ]);
+                }
+
+                DB::commit();
+                return redirect()->route('admin.invoices.index')->with('success', 'Invoice berhasil dibuat. (No: ' . $kode_baru . ')');
+            } catch (QueryException $qe) {
+                DB::rollBack();
+                // duplicate key error (MySQL SQLSTATE 23000), coba lagi
+                // pastikan invoice.code memiliki UNIQUE constraint supaya ini nendang
+                $isDuplicate = strpos($qe->getMessage(), '1062') !== false || $qe->getCode() === '23000';
+                if ($isDuplicate && $attempt < $maxAttempts) {
+                    // small backoff to reduce collision chance
+                    usleep(100000 * $attempt); // 0.1s, 0.2s, ...
+                    continue;
+                }
+                // kalau bukan duplicate atau udah nyoba berkali-kali, rollback & exit
+                return redirect()->route('admin.invoices.index')->with('error', 'Ada kesalahan sistem (DB).');
+            } catch (\Throwable $th) {
+                dd($th->getMessage());
+                DB::rollBack();
+                return redirect()->route('admin.invoices.index')->with('error', 'Ada kesalahan sistem.');
+            }
+        }
+
+        // kalau loop habis tanpa sukses
+        return redirect()->route('admin.invoices.index')->with('error', 'Gagal membuat invoice setelah beberapa percobaan. Silakan coba lagi.');
     }
 
 

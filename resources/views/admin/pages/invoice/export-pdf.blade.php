@@ -56,7 +56,7 @@
                             <div class="col-md-6 text-md-right">
                                 <address>
                                     <strong>Tanggal Pemesanan:</strong><br>
-                                    {{$item->created_at->translatedFormat('H:i:s d F Y') }}<br><br>
+                                    {{ $item->created_at->translatedFormat('H:i:s d F Y') }}<br><br>
                                 </address>
                             </div>
                         </div>
@@ -105,7 +105,11 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <strong>Status</strong><br>
-                                        {!! $item->status() !!}
+                                        @if ($item->status == 1)
+                                            Paid
+                                        @else
+                                            Unpaid
+                                        @endif
                                     </div>
                                 </div>
                             </div>
