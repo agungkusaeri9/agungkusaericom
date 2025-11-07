@@ -22,7 +22,7 @@ class ProjectController extends Controller
         $tag = request('tag');
         $page = request('page');
         try {
-            $items = Project::with(['category', 'tags']);
+            $items = Project::portfolio()->with(['category', 'tags']);
             if ($category) {
                 $items->whereHas('category', function ($cat) use ($category) {
                     $cat->where('slug', $category);
@@ -56,7 +56,7 @@ class ProjectController extends Controller
     public function show($slug)
     {
         try {
-            $project = Project::with(['category', 'tags'])->where('slug', $slug)->first();
+            $project = Project::portfolio()->with(['category', 'tags'])->where('slug', $slug)->first();
             return ResponseFormatter::success(new ProjectResource($project), "Project Found.", 200);
         } catch (\Throwable $th) {
             //throw $th;
